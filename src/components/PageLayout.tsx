@@ -4,8 +4,8 @@ import type { Lang } from '@/lib/i18n'
 
 const FLAGS: { lang: Lang; flag: string }[] = [
   { lang: 'fr', flag: '🇫🇷' },
-  { lang: 'en', flag: '🇬🇧' },
   { lang: 'it', flag: '🇮🇹' },
+  { lang: 'en', flag: '🇬🇧' },
 ]
 
 const UI = {

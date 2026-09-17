@@ -8,17 +8,17 @@ import type { Lang } from '@/lib/i18n'
 
 const flags: { lang: Lang; flag: string; label: string }[] = [
   { lang: 'fr', flag: '🇫🇷', label: 'Français' },
-  { lang: 'en', flag: '🇬🇧', label: 'English' },
   { lang: 'it', flag: '🇮🇹', label: 'Italiano' },
+  { lang: 'en', flag: '🇬🇧', label: 'English' },
 ]
 
 export default function Navigation() {
-  const { t, lang } = useLanguage()
+  const { t, lang, setLang } = useLanguage()
   const router = useRouter()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const switchLang = (l: Lang) => router.push(`/${l}`)
+  const switchLang = (l: Lang) => { setLang(l); router.push(`/${l}`) }
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
