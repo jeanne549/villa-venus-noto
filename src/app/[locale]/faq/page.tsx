@@ -60,7 +60,7 @@ const FAQS: Record<Lang, Category[]> = {
       items: [
         { q: 'À quelle heure est le check-in ?', a: "L'arrivée se fait à partir de 16h00. Un départ tardif ou une arrivée anticipée peut être envisagé selon les séjours adjacents — contactez-nous." },
         { q: 'À quelle heure est le check-out ?', a: "Le départ est avant 10h00." },
-        { q: 'Y a-t-il quelqu'un sur place en cas de besoin ?', a: "[À confirmer] — Les propriétaires ou un gestionnaire local restent joignables pendant tout le séjour." },
+        { q: "Y a-t-il quelqu'un sur place en cas de besoin ?", a: "[À confirmer] — Les propriétaires ou un gestionnaire local restent joignables pendant tout le séjour." },
         { q: 'Les animaux sont-ils acceptés ?', a: "[À confirmer avec les propriétaires]" },
         { q: 'Peut-on fumer dans la villa ?', a: "[À confirmer] — La villa est vraisemblablement non-fumeurs à l'intérieur." },
         { q: 'Y a-t-il un ménage de fin de séjour ?', a: "Le ménage de fin de séjour est inclus. Pour un ménage en cours de séjour, voir la page Services." },
@@ -72,7 +72,7 @@ const FAQS: Record<Lang, Category[]> = {
         { q: 'Y a-t-il un supermarché ou une épicerie à proximité ?', a: "[À confirmer] — Noto (5 km) dispose de plusieurs supermarchés et d'un marché hebdomadaire. Des commerces de proximité pourraient être plus proches — à préciser." },
         { q: 'Peut-on se faire livrer des courses à la villa ?', a: "[À confirmer] — Des services de livraison sont disponibles depuis Noto selon les prestataires locaux." },
         { q: 'Quels restaurants recommandez-vous à Noto ?', a: "[À compléter par les propriétaires avec leurs adresses préférées à Noto et dans les environs]" },
-        { q: 'A-t-on besoin d'une voiture absolument ?', a: "Oui, la voiture est indispensable. Il n'y a pas de transport en commun jusqu'à la villa, et les villages, plages et sites du Val di Noto ne sont accessibles qu'en voiture. Voir la page Comment venir." },
+        { q: "A-t-on besoin d'une voiture absolument ?", a: "Oui, la voiture est indispensable. Il n'y a pas de transport en commun jusqu'à la villa, et les villages, plages et sites du Val di Noto ne sont accessibles qu'en voiture. Voir la page Comment venir." },
       ],
     },
   ],

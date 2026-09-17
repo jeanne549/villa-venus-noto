@@ -44,7 +44,7 @@ const C = {
     ideal_h2: 'Idéal pour',
     ideal: ['Mariage intime (cérémonie laïque ou religieuse à Noto)', 'Enterrement de vie de jeune fille / garçon', 'Anniversaire important (40, 50, 60 ans…)', 'Retrouvailles de famille ou de lycée', 'Séminaire résidentiel en petit comité', 'Voyage de noces prolongé'],
     capacity_h2: 'Capacité et logistique',
-    capacity_note: 'La villa héberge jusqu'à 9 personnes en 4 suites. Pour des événements avec des invités extérieurs (en journée uniquement), contactez-nous pour discuter de la faisabilité — [À confirmer selon le cadre de la propriété].',
+    capacity_note: "La villa héberge jusqu'à 9 personnes en 4 suites. Pour des événements avec des invités extérieurs (en journée uniquement), contactez-nous pour discuter de la faisabilité — [À confirmer selon le cadre de la propriété].",
     cta_h2: 'Parlez-nous de votre projet',
     cta_text: "Chaque événement est différent. Envoyez-nous un message avec vos dates, le nombre de personnes et ce que vous imaginez : nous vous répondons dans les 24h avec une proposition.",
   },
