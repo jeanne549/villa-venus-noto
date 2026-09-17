@@ -128,7 +128,7 @@ export default function Calendrier() {
   // Résumé du prix : "7 nuits × 780 €" ou tarifs variables
   const uniquePrices = nightlyPrices.filter((v, i, a) => a.indexOf(v) === i)
   const priceLabel = uniquePrices.length === 1
-    ? `${nights} ${nights > 1 ? tc.nights : tc.night} × ${uniquePrices[0].toLocaleString('fr-FR')} €`
+    ? `${nights} ${nights > 1 ? tc.nights : tc.night} × ${(uniquePrices[0] ?? 0).toLocaleString('fr-FR')} €`
     : `${nights} ${nights > 1 ? tc.nights : tc.night} · ${tc.price_variable}`
 
   // ─── Rendu jours ─────────────────────────────────────────────────────────
@@ -316,7 +316,7 @@ export default function Calendrier() {
                         }
                       </div>
                       {allPriced && (
-                        <p className="font-serif text-2xl text-charcoal">{totalPrice.toLocaleString('fr-FR')} €</p>
+                        <p className="font-serif text-2xl text-charcoal">{(totalPrice ?? 0).toLocaleString('fr-FR')} €</p>
                       )}
                     </div>
 
@@ -331,7 +331,7 @@ export default function Calendrier() {
                             <p className="font-sans text-sm text-muted">{tc.tourist_tax_detail(guests, taxNights)}</p>
                             <p className="font-sans text-xs text-muted/70 mt-1 italic">{tc.tourist_tax_note}</p>
                           </div>
-                          <p className="font-serif text-2xl text-charcoal">{taxAmount.toLocaleString('fr-FR')} €</p>
+                          <p className="font-serif text-2xl text-charcoal">{(taxAmount ?? 0).toLocaleString('fr-FR')} €</p>
                         </div>
                       )
                     })()}
@@ -341,7 +341,7 @@ export default function Calendrier() {
                       <div className="flex items-center justify-between border-t-2 border-gold pt-3">
                         <p className="font-sans text-xs tracking-widests uppercase text-charcoal font-semibold">{tc.grand_total}</p>
                         <p className="font-serif text-3xl text-charcoal">
-                          {(totalPrice + 3 * guests * Math.min(nights, 6)).toLocaleString('fr-FR')} €
+                          {((totalPrice ?? 0) + 3 * guests * Math.min(nights, 6)).toLocaleString('fr-FR')} €
                         </p>
                       </div>
                     )}

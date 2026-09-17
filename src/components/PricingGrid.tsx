@@ -224,13 +224,13 @@ export default async function PricingGrid({ locale }: { locale: Lang }) {
                     <p className="font-sans text-xs text-white/40 mt-0.5">{formatDateRange(p.startDate, p.endDate, locale)}</p>
                   </td>
                   <td className="py-4 px-4 text-right">
-                    <span className="font-serif text-xl text-gold">{p.price.toLocaleString('fr-FR')} €</span>
+                    <span className="font-serif text-xl text-gold">{(p.price ?? 0).toLocaleString('fr-FR')} €</span>
                   </td>
                   <td className="py-4 px-4 text-right">
-                    <span className="font-sans text-sm text-white/70">{(p.price * 6).toLocaleString('fr-FR')} €</span>
+                    <span className="font-sans text-sm text-white/70">{((p.price ?? 0) * 6).toLocaleString('fr-FR')} €</span>
                   </td>
                   <td className="py-4 pl-4 text-right">
-                    <span className="font-sans text-sm text-white/70">{(p.price * 7).toLocaleString('fr-FR')} €</span>
+                    <span className="font-sans text-sm text-white/70">{((p.price ?? 0) * 7).toLocaleString('fr-FR')} €</span>
                   </td>
                 </tr>
               ))}
