@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const WEBHOOK_SECRET   = process.env.GITHUB_WEBHOOK_SECRET!
 const VERCEL_TOKEN     = process.env.VERCEL_DEPLOY_TOKEN!
-const VERCEL_PROJECT   = 'prj_Xcg58GWoakD5SP9TAts8CtmcdBmQ'
 const GITHUB_REPO_ID   = '1374707466'
 
 async function verifySignature(req: NextRequest, body: string): Promise<boolean> {
@@ -41,11 +40,10 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify({
       name: 'villa-sicile',
       gitSource: { type: 'github', repoId: GITHUB_REPO_ID, ref: 'main', sha },
-      projectId: VERCEL_PROJECT,
       target: 'production',
     }),
   })
 
   const data = await res.json()
-  return NextResponse.json({ ok: res.ok, deployId: data.id, url: data.url })
+  return NextResponse.json({ ok: res.ok, status: res.status, deployId: data.id, url: data.url, error: data.error })
 }
