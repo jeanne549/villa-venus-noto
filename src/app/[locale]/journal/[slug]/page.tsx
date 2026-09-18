@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
+import JsonLd from '@/components/JsonLd'
+import { getBreadcrumbSchema, getBlogPostingSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -22,6 +24,7 @@ export function generateStaticParams() {
 type ArticleContent = {
   title: string
   date: string
+  publishedAt: string
   tag: string
   readTime: string
   intro: string
@@ -36,6 +39,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'infiorata-noto-mai': {
       title: "L'Infiorata de Noto : le spectacle de mai que peu de voyageurs voient",
       date: 'Mai · Chaque troisième week-end',
+      publishedAt: '2025-04-01',
       tag: 'Événement',
       readTime: '4 min',
       intro: "Chaque troisième week-end de mai depuis 1980, les habitants de Noto couvrent la Via Nicolaci et les ruelles du centre baroque d'immenses tapis de fleurs. Des centaines de milliers de pétales disposés à la main, nuit après nuit, pour représenter des scènes de la vie sicilienne, des symboles religieux, des portraits. L'Infiorata de Noto est inscrite au patrimoine immatériel de l'UNESCO. Et elle se passe à 5 kilomètres de la villa.",
@@ -52,6 +56,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'plages-sud-est-sicile': {
       title: "Les plus belles plages du sud-est sicilien depuis Villa Vénus Noto",
       date: 'Juillet · Août · Septembre',
+      publishedAt: '2025-06-01',
       tag: 'Plages',
       readTime: '6 min',
       intro: "Le littoral du Val di Noto est l'un des plus préservés de la Méditerranée. Pas de constructions balnéaires massives, pas de pédalos en rangée, pas de musique amplifiée. Des réserves naturelles, des calanques de sable blond, des eaux turquoise dans les tons Pantone 3125C. La villa est idéalement placée pour atteindre les meilleures plages en moins de 30 minutes.",
@@ -69,6 +74,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'sicile-septembre': {
       title: "Pourquoi septembre est le meilleur mois pour la Sicile",
       date: 'Septembre · Début octobre',
+      publishedAt: '2025-08-01',
       tag: 'Saison',
       readTime: '5 min',
       intro: "Juin, juillet, août : la Sicile est magnifique, mais elle est aussi bondée, sèche, et les prix sont à leur maximum. Septembre change tout. La mer atteint 26-27°C — son pic thermique de l'année, en fait. Les touristes sont rentrés. Les vendanges commencent dans le Val di Noto. Et les prix baissent. C'est un mois à part.",
@@ -85,6 +91,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'ou-diner-noto': {
       title: "Où dîner à Noto — nos adresses pour bien manger",
       date: 'Toute saison',
+      publishedAt: '2025-04-01',
       tag: 'Gastronomie',
       readTime: '5 min',
       intro: "Noto est l'une des villes les plus photogéniques de Sicile — et aussi l'une des mieux pourvues en restaurants sérieux pour sa taille. Du granita du matin au dîner sous les voûtes baroques, voici ce que les propriétaires de la villa recommandent à leurs hôtes. [À compléter : ces adresses seront confirmées avec des recommandations réelles avant publication].",
@@ -104,6 +111,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'infiorata-noto-may': {
       title: "Noto's Infiorata: the May spectacle few travellers see",
       date: 'May · Every third weekend',
+      publishedAt: '2025-04-01',
       tag: 'Event',
       readTime: '4 min',
       intro: "Every third weekend of May since 1980, the people of Noto cover Via Nicolaci and the lanes of the Baroque centre with vast carpets of flowers. Hundreds of thousands of petals arranged by hand, night after night, depicting scenes of Sicilian life, religious symbols, portraits. Noto's Infiorata is inscribed on UNESCO's intangible cultural heritage list. And it takes place 5 kilometres from the villa.",
@@ -120,6 +128,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'beaches-southeast-sicily': {
       title: "The best beaches of southeast Sicily from Villa Vénus Noto",
       date: 'July · August · September',
+      publishedAt: '2025-06-01',
       tag: 'Beaches',
       readTime: '6 min',
       intro: "The Val di Noto coastline is one of the most preserved in the Mediterranean. No mass beach developments, no rows of pedal boats, no amplified music. Nature reserves, golden sand coves, turquoise waters. The villa is ideally positioned to reach the best beaches in under 30 minutes.",
@@ -137,6 +146,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'sicily-in-september': {
       title: "Why September is the best month for Sicily",
       date: 'September · Early October',
+      publishedAt: '2025-08-01',
       tag: 'Season',
       readTime: '5 min',
       intro: "June, July, August: Sicily is magnificent, but it's also packed, dry, and prices are at their peak. September changes everything. The sea reaches 26-27°C — actually its thermal peak of the year. Tourists have gone home. The harvest begins in the Val di Noto. And prices drop. It's a month apart.",
@@ -153,6 +163,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'where-to-eat-noto': {
       title: "Where to eat in Noto — our recommended addresses",
       date: 'All season',
+      publishedAt: '2025-04-01',
       tag: 'Food',
       readTime: '5 min',
       intro: "Noto is one of Sicily's most photogenic cities — and also one of the best-stocked with serious restaurants for its size. From the morning granita to dinner under Baroque vaults, here is what the villa's owners recommend to their guests. [To complete: these addresses will be confirmed with real recommendations before publication].",
@@ -172,6 +183,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'infiorata-noto-maggio': {
       title: "L'Infiorata di Noto: lo spettacolo di maggio che pochi viaggiatori vedono",
       date: 'Maggio · Ogni terzo weekend',
+      publishedAt: '2025-04-01',
       tag: 'Evento',
       readTime: '4 min',
       intro: "Ogni terzo weekend di maggio dal 1980, gli abitanti di Noto ricoprono Via Nicolaci e i vicoli del centro barocco di immense tappeti di fiori. Centinaia di migliaia di petali disposti a mano, notte dopo notte, per raffigurare scene di vita siciliana, simboli religiosi, ritratti. L'Infiorata di Noto è iscritta al patrimonio immateriale dell'UNESCO. E si svolge a 5 chilometri dalla villa.",
@@ -188,6 +200,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'spiagge-sud-est-sicilia': {
       title: "Le più belle spiagge del sud-est siciliano da Villa Vénus Noto",
       date: 'Luglio · Agosto · Settembre',
+      publishedAt: '2025-06-01',
       tag: 'Spiagge',
       readTime: '6 min',
       intro: "Il litorale del Val di Noto è uno dei più preservati del Mediterraneo. Niente grandi costruzioni balneari, niente file di pedalò, niente musica amplificata. Riserve naturali, calette di sabbia dorata, acque turchesi. La villa è idealmente posizionata per raggiungere le migliori spiagge in meno di 30 minuti.",
@@ -205,6 +218,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'sicilia-settembre': {
       title: "Perché settembre è il mese migliore per la Sicilia",
       date: 'Settembre · Inizio ottobre',
+      publishedAt: '2025-08-01',
       tag: 'Stagione',
       readTime: '5 min',
       intro: "Giugno, luglio, agosto: la Sicilia è magnifica, ma è anche piena di turisti, secca, e i prezzi sono al massimo. Settembre cambia tutto. Il mare raggiunge i 26-27°C — in realtà il suo picco termico dell'anno. I turisti sono tornati a casa. La vendemmia inizia nel Val di Noto. E i prezzi scendono. È un mese a parte.",
@@ -221,6 +235,7 @@ const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
     'dove-mangiare-noto': {
       title: "Dove mangiare a Noto — i nostri indirizzi consigliati",
       date: 'Tutta la stagione',
+      publishedAt: '2025-04-01',
       tag: 'Gastronomia',
       readTime: '5 min',
       intro: "Noto è una delle città più fotogeniche della Sicilia — e anche una delle meglio fornite di ristoranti seri per le sue dimensioni. Dalla granita mattutina alla cena sotto le volte barocche, ecco cosa i proprietari della villa consigliano ai loro ospiti. [Da completare: questi indirizzi saranno confermati con raccomandazioni reali prima della pubblicazione].",
@@ -271,8 +286,26 @@ export default function ArticlePage({ params }: { params: { locale: string; slug
     )
   }
 
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const journalLabel = locale === 'it' ? 'Diario' : 'Journal'
+  const langCode = locale === 'fr' ? 'fr-FR' : locale === 'en' ? 'en-GB' : 'it-IT'
   return (
-    <PageLayout lang={locale} page="journal" breadcrumb={`Journal · ${article.tag}`}>
+    <>
+      <JsonLd data={[
+        getBreadcrumbSchema([
+          { name: homeLabel, item: `${BASE}/${locale}` },
+          { name: journalLabel, item: `${BASE}/${locale}/journal` },
+          { name: article.tag, item: `${BASE}/${locale}/journal/${params.slug}` },
+        ]),
+        getBlogPostingSchema({
+          headline: article.title,
+          description: article.intro.slice(0, 200),
+          datePublished: article.publishedAt,
+          url: `${BASE}/${locale}/journal/${params.slug}`,
+          inLanguage: langCode,
+        }),
+      ]} />
+      <PageLayout lang={locale} page="journal" breadcrumb={`Journal · ${article.tag}`}>
 
       <div className="max-w-2xl">
 
@@ -310,5 +343,6 @@ export default function ArticlePage({ params }: { params: { locale: string; slug
       </div>
 
     </PageLayout>
+    </>
   )
 }

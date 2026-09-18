@@ -5,23 +5,24 @@ import { getFaqPageSchema, getBreadcrumbSchema, getOrganizationSchema } from '@/
 
 const BASE = 'https://www.villavenusnoto.com'
 
+// Legacy page — superseded by /en/faq. Noindex to prevent duplicate content.
 export const metadata: Metadata = {
   title: 'FAQ — Frequently Asked Questions — Villa Vénus Noto',
   description: 'All the answers to your questions about renting Villa Vénus Noto: rates, payment, pets, pool, airport, distances.',
+  robots: { index: false, follow: true },
   alternates: {
-    canonical: `${BASE}/faq-en`,
-    languages: { fr: `${BASE}/faq`, en: `${BASE}/faq-en`, it: `${BASE}/faq-it` },
+    canonical: `${BASE}/en/faq`,
   },
 }
 
 const SCHEMA_FAQS = [
   {
     question: 'What is included in the rental rate?',
-    answer: 'The rental rate includes exclusive use of the villa (private pool 14 × 7 m, panoramic rooftop, terraces, gardens, wood-fired oven), bed linen and towels, high-speed Wi-Fi, private parking and end-of-stay cleaning. Tourist tax (€3 per person per night, max 6 nights) is charged separately.',
+    answer: 'The rental rate includes exclusive use of the villa (private pool 14 × 7 m, panoramic rooftop, terraces, gardens, wood-fired oven), bed linen and towels, high-speed Wi-Fi, private parking and end-of-stay cleaning. A local tourist tax is charged separately (amount confirmed at booking).',
   },
   {
     question: 'What is the tourist tax and how is it calculated?',
-    answer: 'The tourist tax is set by the municipality of Noto at €3 per person per night, up to a maximum of 6 consecutive nights. Children under 14 and persons over 75 are exempt. It is paid directly at the villa on arrival.',
+    answer: 'The tourist tax is due to the municipality of Noto for each stay, up to a maximum of 6 consecutive nights. Children under 14 and persons over 75 are exempt. It is paid directly at the villa on arrival. The exact amount will be confirmed at booking.',
   },
   {
     question: 'What are the booking and payment conditions?',
@@ -95,14 +96,14 @@ export default function FaqEn() {
             <FaqItem
               question="What is included in the rental rate?"
               answer={
-                <p>The rate includes exclusive use of the villa — private pool 14 × 7 m, panoramic rooftop, terraces, gardens, wood-fired oven — as well as bed linen and towels, high-speed Wi-Fi, private parking and <strong>end-of-stay cleaning</strong>. Tourist tax (€3 / person / night) is charged separately.</p>
+                <p>The rate includes exclusive use of the villa — private pool 14 × 7 m, panoramic rooftop, terraces, gardens, wood-fired oven — as well as bed linen and towels, high-speed Wi-Fi, private parking and <strong>end-of-stay cleaning</strong>. A local tourist tax is charged separately (amount confirmed at booking).</p>
               }
             />
 
             <FaqItem
               question="What is the tourist tax and how is it calculated?"
               answer={
-                <p>The tourist tax is set by the municipality of Noto at <strong>€3 per person per night</strong>, up to a maximum of 6 consecutive nights. Children under 14 and persons over 75 are exempt. It is paid directly at the villa on arrival.</p>
+                <p>The tourist tax is due to the municipality of Noto for each stay, up to a maximum of <strong>6 consecutive nights</strong>. Children under 14 and persons over 75 are exempt. It is paid directly at the villa on arrival. The exact amount will be confirmed at booking.</p>
               }
             />
 

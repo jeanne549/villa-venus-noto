@@ -3,6 +3,9 @@ import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
 import { hasPlaceholders } from '@/lib/placeholder'
+import JsonLd from '@/components/JsonLd'
+import { getBreadcrumbSchema } from '@/lib/structured-data'
+import { buildAlternates, pageUrl } from '@/lib/routes'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -25,8 +28,8 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   return {
     title, description,
     robots,
-    alternates: { canonical: `${BASE}/${locale}/acces`, languages: { fr: `${BASE}/fr/acces`, en: `${BASE}/en/acces`, it: `${BASE}/it/acces`, 'x-default': `${BASE}/fr/acces` } },
-    openGraph: { title, description, url: `${BASE}/${locale}/acces`, siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
+    alternates: buildAlternates('acces', locale),
+    openGraph: { title, description, url: pageUrl('acces', locale), siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
   }
 }
 
@@ -46,8 +49,8 @@ const C = {
     gps_h2: 'Adresse et GPS',
     gps_text: "Entrez l'adresse suivante dans Google Maps ou Waze avant de partir — la connectivité peut être variable en campagne sicilienne.",
     address: 'Contrada Spaccazza, 96017 Noto (SR), Sicilia',
-    gps_coords: 'GPS approximatives : 36.891° N · 15.068° E — [Coordonnées exactes à confirmer]',
-    gps_note: 'À votre confirmation de réservation, vous recevrez un lien Maps précis et les instructions d\'arrivée.',
+    gps_coords: '36.887249° N · 15.026392° E',
+    gps_note: 'À votre confirmation de réservation, vous recevrez un lien Maps et les instructions d\'arrivée détaillées.',
     distances_h2: 'Distances depuis la villa',
     distances: [
       { place: 'Centre de Noto', dist: '5 km · 10 min' },
@@ -79,8 +82,8 @@ const C = {
     gps_h2: 'Address and GPS',
     gps_text: "Enter the following address in Google Maps or Waze before setting off — connectivity can be patchy in the Sicilian countryside.",
     address: 'Contrada Spaccazza, 96017 Noto (SR), Sicilia',
-    gps_coords: 'Approximate GPS: 36.891° N · 15.068° E — [Exact coordinates to confirm]',
-    gps_note: 'Upon booking confirmation, you will receive a precise Maps link and arrival instructions.',
+    gps_coords: '36.887249° N · 15.026392° E',
+    gps_note: 'Upon booking confirmation, you will receive a Maps link and detailed arrival instructions.',
     distances_h2: 'Distances from the villa',
     distances: [
       { place: 'Noto town centre', dist: '5 km · 10 min' },
@@ -112,7 +115,7 @@ const C = {
     gps_h2: 'Indirizzo e GPS',
     gps_text: "Inserite il seguente indirizzo in Google Maps o Waze prima di partire — la connettività può essere variabile nella campagna siciliana.",
     address: 'Contrada Spaccazza, 96017 Noto (SR), Sicilia',
-    gps_coords: 'GPS approssimativo: 36.891° N · 15.068° E — [Coordinate esatte da confermare]',
+    gps_coords: '36.887249° N · 15.026392° E',
     gps_note: 'Alla conferma della prenotazione riceverete un link Maps preciso e le istruzioni per l\'arrivo.',
     distances_h2: 'Distanze dalla villa',
     distances: [
@@ -136,8 +139,14 @@ export default function AccesPage({ params }: { params: { locale: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const c = C[locale]
 
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
   return (
-    <PageLayout lang={locale} page="acces" breadcrumb={c.breadcrumb}>
+    <>
+      <JsonLd data={[getBreadcrumbSchema([
+        { name: homeLabel, item: `${BASE}/${locale}` },
+        { name: c.breadcrumb, item: pageUrl('acces', locale) },
+      ])]} />
+      <PageLayout lang={locale} page="acces" breadcrumb={c.breadcrumb}>
 
       <div className="mb-14">
         <p className="section-subtitle">{c.sub}</p>
@@ -223,5 +232,6 @@ export default function AccesPage({ params }: { params: { locale: string } }) {
       </Link>
 
     </PageLayout>
+    </>
   )
 }

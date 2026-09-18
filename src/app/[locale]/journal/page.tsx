@@ -3,6 +3,8 @@ import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
 import { hasPlaceholders } from '@/lib/placeholder'
+import JsonLd from '@/components/JsonLd'
+import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -59,8 +61,14 @@ export default function JournalPage({ params }: { params: { locale: string } }) 
   const h = H[locale]
   const articles = ARTICLES[locale]
 
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
   return (
-    <PageLayout lang={locale} page="journal" breadcrumb={h.breadcrumb}>
+    <>
+      <JsonLd data={[getBreadcrumbSchema([
+        { name: homeLabel, item: `${BASE}/${locale}` },
+        { name: h.breadcrumb, item: `${BASE}/${locale}/journal` },
+      ])]} />
+      <PageLayout lang={locale} page="journal" breadcrumb={h.breadcrumb}>
 
       <div className="mb-14">
         <p className="section-subtitle">{h.sub}</p>
@@ -95,5 +103,6 @@ export default function JournalPage({ params }: { params: { locale: string } }) 
       </Link>
 
     </PageLayout>
+    </>
   )
 }

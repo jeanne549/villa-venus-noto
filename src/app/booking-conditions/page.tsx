@@ -1,6 +1,7 @@
 import LegalLayout from '@/components/LegalLayout'
 import { Metadata } from 'next'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
+import { SITE_CONFIG } from '@/lib/siteConfig'
 
 export const metadata: Metadata = {
   title: 'Booking Conditions — Villa Vénus Noto',
@@ -60,9 +61,9 @@ export default function BookingConditions() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">11. Tourist tax</h2>
       <p>
-        In accordance with the municipality of Noto, a <strong>tourist tax of €3 per person per night</strong> applies.
-        It is due for stays up to 6 consecutive nights. Exemptions: children under 14 and persons over 75.
-        This tax is collected on site, in addition to the rental rate.
+        In accordance with the municipality of Noto, a <strong>local tourist tax</strong> applies for each stay.
+        It is due for up to 6 consecutive nights. Exemptions: children under 14 and persons over 75.
+        This tax is collected on site, in addition to the rental rate. <strong>The exact amount will be confirmed at booking.</strong>
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">12. Italian legal obligations</h2>
@@ -71,8 +72,8 @@ export default function BookingConditions() {
         Guests undertake to provide identity information for all occupants.
       </p>
       <p>
-        <strong>CIN (National Identification Code)</strong>: <span className="bg-amber-100 text-amber-800 px-2 py-0.5 font-mono text-xs">[TO BE COMPLETED]</span><br />
-        <strong>CIR (Regional Identification Code)</strong>: <span className="bg-amber-100 text-amber-800 px-2 py-0.5 font-mono text-xs">[TO BE COMPLETED]</span>
+        {SITE_CONFIG.cin && <><strong>CIN (National Identification Code)</strong>: <span className="font-mono">{SITE_CONFIG.cin}</span><br /></>}
+        {SITE_CONFIG.cir && <><strong>CIR (Regional Identification Code)</strong>: <span className="font-mono">{SITE_CONFIG.cir}</span></>}
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">13. Liability</h2>

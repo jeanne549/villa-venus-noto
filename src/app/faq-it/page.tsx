@@ -5,23 +5,24 @@ import { getFaqPageSchema, getBreadcrumbSchema, getOrganizationSchema } from '@/
 
 const BASE = 'https://www.villavenusnoto.com'
 
+// Pagina legacy — sostituita da /it/faq. Noindex per evitare contenuti duplicati.
 export const metadata: Metadata = {
   title: 'FAQ — Domande frequenti — Villa Vénus Noto',
   description: 'Tutte le risposte alle vostre domande sul noleggio di Villa Vénus Noto: tariffe, pagamento, animali, piscina, aeroporto, distanze.',
+  robots: { index: false, follow: true },
   alternates: {
-    canonical: `${BASE}/faq-it`,
-    languages: { fr: `${BASE}/faq`, en: `${BASE}/faq-en`, it: `${BASE}/faq-it` },
+    canonical: `${BASE}/it/faq`,
   },
 }
 
 const SCHEMA_FAQS = [
   {
     question: 'Cosa comprende la tariffa di noleggio?',
-    answer: 'La tariffa comprende l\'uso esclusivo della villa (piscina privata 14 × 7 m, rooftop panoramico, terrazze, giardini, forno a legna), biancheria da letto e asciugamani, Wi-Fi ad alta velocità, parcheggio privato e pulizie di fine soggiorno. La tassa di soggiorno (3 € a persona per notte, max 6 notti) è a parte.',
+    answer: 'La tariffa comprende l\'uso esclusivo della villa (piscina privata 14 × 7 m, rooftop panoramico, terrazze, giardini, forno a legna), biancheria da letto e asciugamani, Wi-Fi ad alta velocità, parcheggio privato e pulizie di fine soggiorno. La tassa di soggiorno comunale è a parte (importo comunicato alla prenotazione).',
   },
   {
     question: "Cos'è la tassa di soggiorno e come si calcola?",
-    answer: 'La tassa di soggiorno è fissata dal comune di Noto a 3 € a persona per notte, fino a un massimo di 6 notti consecutive. Sono esenti i bambini sotto i 14 anni e le persone sopra i 75 anni. Viene pagata direttamente alla villa all\'arrivo.',
+    answer: 'La tassa di soggiorno è dovuta al comune di Noto per ogni soggiorno, fino a un massimo di 6 notti consecutive. Sono esenti i bambini sotto i 14 anni e le persone sopra i 75 anni. Viene pagata direttamente alla villa all\'arrivo. L\'importo esatto verrà comunicato alla conferma della prenotazione.',
   },
   {
     question: 'Quali sono le modalità di prenotazione e pagamento?',
@@ -95,14 +96,14 @@ export default function FaqIt() {
             <FaqItem
               question="Cosa comprende la tariffa di noleggio?"
               answer={
-                <p>La tariffa comprende l&apos;uso esclusivo della villa — piscina privata 14 × 7 m, rooftop panoramico, terrazze, giardini, forno a legna — nonché biancheria da letto e asciugamani, Wi-Fi ad alta velocità, parcheggio privato e <strong>pulizie di fine soggiorno</strong>. La tassa di soggiorno (3 € / persona / notte) è a parte.</p>
+                <p>La tariffa comprende l&apos;uso esclusivo della villa — piscina privata 14 × 7 m, rooftop panoramico, terrazze, giardini, forno a legna — nonché biancheria da letto e asciugamani, Wi-Fi ad alta velocità, parcheggio privato e <strong>pulizie di fine soggiorno</strong>. La tassa di soggiorno comunale è a parte (importo comunicato alla prenotazione).</p>
               }
             />
 
             <FaqItem
               question="Cos'è la tassa di soggiorno e come si calcola?"
               answer={
-                <p>La tassa di soggiorno è fissata dal comune di Noto a <strong>3 € a persona per notte</strong>, fino a un massimo di 6 notti consecutive per soggiorno. Sono esenti i bambini sotto i 14 anni e le persone sopra i 75 anni. Viene pagata direttamente alla villa all&apos;arrivo, in aggiunta al canone.</p>
+                <p>La tassa di soggiorno è dovuta al comune di Noto per ogni soggiorno, fino a un massimo di <strong>6 notti consecutive</strong>. Sono esenti i bambini sotto i 14 anni e le persone sopra i 75 anni. Viene pagata direttamente alla villa all&apos;arrivo, in aggiunta al canone. L&apos;importo esatto verrà comunicato alla conferma della prenotazione.</p>
               }
             />
 

@@ -209,7 +209,7 @@ export default function Contact() {
                 {status === 'error' && (
                   <div className="bg-red-50 border border-red-200 px-4 py-4">
                     <p className="font-sans text-red-700 text-sm mb-3">{t.contact.error}</p>
-                    <p className="font-sans text-sm text-charcoal font-medium mb-1">Contactez-nous directement :</p>
+                    <p className="font-sans text-sm text-charcoal font-medium mb-1">{t.contact.error_fallback}</p>
                     <a href={`mailto:${EMAIL}`} className="font-sans text-sm text-gold hover:underline block">📧 {EMAIL}</a>
                     <a href="https://wa.me/33624542995" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-gold hover:underline block">📱 WhatsApp {WHATSAPP}</a>
                   </div>

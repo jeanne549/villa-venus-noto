@@ -5,12 +5,13 @@ import { getFaqPageSchema, getBreadcrumbSchema, getOrganizationSchema } from '@/
 
 const BASE = 'https://www.villavenusnoto.com'
 
+// Page legacy — supersédée par /fr/faq. Noindex pour éviter le doublon.
 export const metadata: Metadata = {
   title: 'FAQ — Questions fréquentes — Villa Vénus Noto',
   description: 'Toutes les réponses à vos questions sur la location de Villa Vénus Noto : tarifs, paiement, animaux, piscine, aéroport, distances.',
+  robots: { index: false, follow: true },
   alternates: {
-    canonical: `${BASE}/faq`,
-    languages: { fr: `${BASE}/faq`, en: `${BASE}/faq-en`, it: `${BASE}/faq-it` },
+    canonical: `${BASE}/fr/faq`,
   },
 }
 
@@ -18,11 +19,11 @@ export const metadata: Metadata = {
 const SCHEMA_FAQS = [
   {
     question: 'Que comprend le tarif de location ?',
-    answer: "Le tarif comprend l'usage exclusif de la villa (piscine privée 14 × 7 m, rooftop panoramique, terrasses, jardins, four à bois), le linge de lit et les serviettes, le Wi-Fi haut débit, le parking privé et le ménage de fin de séjour. La taxe de séjour (3 € par personne par nuit, max 6 nuits) est en supplément.",
+    answer: "Le tarif comprend l'usage exclusif de la villa (piscine privée 14 × 7 m, rooftop panoramique, terrasses, jardins, four à bois), le linge de lit et les serviettes, le Wi-Fi haut débit, le parking privé et le ménage de fin de séjour. La taxe de séjour communale est en supplément (montant communiqué à la réservation).",
   },
   {
     question: 'Qu\'est-ce que la taxe de séjour et comment est-elle calculée ?',
-    answer: "La taxe de séjour est fixée par la commune de Noto à 3 € par personne et par nuit, dans la limite de 6 nuits consécutives. Sont exonérés : les enfants de moins de 14 ans et les personnes de plus de 75 ans. Elle est réglée directement à la villa à l'arrivée.",
+    answer: "La taxe de séjour est due à la commune de Noto pour chaque séjour, dans la limite de 6 nuits consécutives. Sont exonérés : les enfants de moins de 14 ans et les personnes de plus de 75 ans. Elle est réglée directement à la villa à l'arrivée. Le montant exact vous sera communiqué lors de la confirmation de réservation.",
   },
   {
     question: 'Quelles sont les modalités de réservation et de paiement ?',
@@ -96,14 +97,14 @@ export default function FaqFr() {
             <FaqItem
               question="Que comprend le tarif de location ?"
               answer={
-                <p>Le tarif comprend l'usage exclusif de la villa — piscine privée 14 × 7 m, rooftop panoramique, terrasses, jardins, four à bois — ainsi que le linge de lit et les serviettes, le Wi-Fi haut débit, le parking privé et le <strong>ménage de fin de séjour</strong>. La taxe de séjour (3 € / personne / nuit) est en supplément.</p>
+                <p>Le tarif comprend l'usage exclusif de la villa — piscine privée 14 × 7 m, rooftop panoramique, terrasses, jardins, four à bois — ainsi que le linge de lit et les serviettes, le Wi-Fi haut débit, le parking privé et le <strong>ménage de fin de séjour</strong>. La taxe de séjour communale est en supplément (montant communiqué à la réservation).</p>
               }
             />
 
             <FaqItem
               question="Qu'est-ce que la taxe de séjour et comment est-elle calculée ?"
               answer={
-                <p>La taxe de séjour est fixée par la commune de Noto à <strong>3 € par personne et par nuit</strong>, dans la limite de 6 nuits consécutives par séjour. Sont exonérés : les enfants de moins de 14 ans et les personnes de plus de 75 ans. Elle est réglée directement à la villa à l'arrivée, en supplément du loyer.</p>
+                <p>La taxe de séjour est due à la commune de Noto pour chaque séjour, dans la limite de <strong>6 nuits consécutives</strong>. Sont exonérés : les enfants de moins de 14 ans et les personnes de plus de 75 ans. Elle est réglée directement à la villa à l'arrivée, en supplément du loyer. Le montant exact vous sera communiqué lors de la confirmation de réservation.</p>
               }
             />
 

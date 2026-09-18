@@ -1,10 +1,5 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter, Cinzel } from 'next/font/google'
-import { headers } from 'next/headers'
-import { LanguageProvider } from '@/contexts/LanguageContext'
-import CookieBanner from '@/components/CookieBanner'
-import AnalyticsLoader from '@/components/AnalyticsLoader'
-import type { Lang } from '@/lib/i18n'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -80,16 +75,13 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const locale = (headers().get('x-locale') ?? 'fr') as Lang
   return (
-    <html lang={locale} className={`${cormorant.variable} ${inter.variable} ${cinzel.variable}`}>
-      <body>
-        <LanguageProvider initialLang={locale}>
-          {children}
-          <CookieBanner />
-          <AnalyticsLoader />
-        </LanguageProvider>
-      </body>
+    <html lang="fr" className={`${cormorant.variable} ${inter.variable} ${cinzel.variable}`}>
+      <head>
+        {/* Set html.lang from URL before hydration — avoids dynamic headers() in root layout */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var p=location.pathname;document.documentElement.lang=p.startsWith('/en')?'en':p.startsWith('/it')?'it':'fr';})()` }} />
+      </head>
+      <body>{children}</body>
     </html>
   )
 }

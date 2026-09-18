@@ -4,6 +4,9 @@ import Image from 'next/image'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
 import { hasPlaceholders } from '@/lib/placeholder'
+import { buildAlternates, pageUrl } from '@/lib/routes'
+import JsonLd from '@/components/JsonLd'
+import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -26,8 +29,8 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   return {
     title, description,
     robots,
-    alternates: { canonical: `${BASE}/${locale}/evenements`, languages: { fr: `${BASE}/fr/evenements`, en: `${BASE}/en/evenements`, it: `${BASE}/it/evenements`, 'x-default': `${BASE}/fr/evenements` } },
-    openGraph: { title, description, url: `${BASE}/${locale}/evenements`, siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
+    alternates: buildAlternates('evenements', locale),
+    openGraph: { title, description, url: pageUrl('evenements', locale), siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
   }
 }
 
@@ -47,7 +50,7 @@ const C = {
     ideal_h2: 'Idéal pour',
     ideal: ['Mariage intime (cérémonie laïque ou religieuse à Noto)', 'Enterrement de vie de jeune fille / garçon', 'Anniversaire important (40, 50, 60 ans…)', 'Retrouvailles de famille ou de lycée', 'Séminaire résidentiel en petit comité', 'Voyage de noces prolongé'],
     capacity_h2: 'Capacité et logistique',
-    capacity_note: "La villa héberge jusqu'à 9 personnes en 4 suites. Pour des événements avec des invités extérieurs (en journée uniquement), contactez-nous pour discuter de la faisabilité — [À confirmer selon le cadre de la propriété].",
+    capacity_note: "La villa héberge jusqu'à 9 personnes en 4 suites. Pour des événements avec des invités extérieurs (en journée uniquement), contactez-nous directement pour discuter de la faisabilité selon le cadre de la propriété.",
     cta_h2: 'Parlez-nous de votre projet',
     cta_text: "Chaque événement est différent. Envoyez-nous un message avec vos dates, le nombre de personnes et ce que vous imaginez : nous vous répondons dans les 24h avec une proposition.",
   },
@@ -66,7 +69,7 @@ const C = {
     ideal_h2: 'Perfect for',
     ideal: ['Intimate wedding (civil or religious ceremony in Noto)', 'Hen party or stag do', 'Milestone birthday (40, 50, 60…)', 'Family or school reunion', 'Small corporate retreat', 'Extended honeymoon'],
     capacity_h2: 'Capacity and logistics',
-    capacity_note: 'The villa sleeps up to 9 people in 4 suites. For events with outside guests (daytime only), contact us to discuss feasibility — [To confirm based on property framework].',
+    capacity_note: 'The villa sleeps up to 9 people in 4 suites. For events with outside guests (daytime only), please contact us to discuss feasibility according to the property rules.',
     cta_h2: 'Tell us about your project',
     cta_text: "Every event is different. Send us a message with your dates, number of people and what you have in mind: we'll reply within 24 hours with a proposal.",
   },
@@ -85,7 +88,7 @@ const C = {
     ideal_h2: 'Ideale per',
     ideal: ['Matrimonio intimo (cerimonia civile o religiosa a Noto)', 'Addio al nubilato / celibato', 'Compleanno importante (40, 50, 60 anni…)', 'Riunione di famiglia o ex compagni', 'Piccolo seminario residenziale', 'Luna di miele prolungata'],
     capacity_h2: 'Capacità e logistica',
-    capacity_note: 'La villa ospita fino a 9 persone in 4 suite. Per eventi con ospiti esterni (solo in giornata), contattateci per discutere la fattibilità — [Da confermare in base al regolamento della proprietà].',
+    capacity_note: 'La villa ospita fino a 9 persone in 4 suite. Per eventi con ospiti esterni (solo in giornata), contattateci direttamente per discutere la fattibilità secondo il regolamento della proprietà.',
     cta_h2: 'Parlateci del vostro progetto',
     cta_text: "Ogni evento è diverso. Inviateci un messaggio con le date, il numero di persone e cosa avete in mente: risponderemo entro 24 ore con una proposta.",
   },
@@ -95,8 +98,14 @@ export default function EvenementsPage({ params }: { params: { locale: string } 
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const c = C[locale]
 
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
   return (
-    <PageLayout lang={locale} page="evenements" breadcrumb={c.breadcrumb} heroImg="/photos/esp-rooftop-table.jpg" heroAlt="Rooftop de Villa Vénus Noto au coucher du soleil">
+    <>
+      <JsonLd data={[getBreadcrumbSchema([
+        { name: homeLabel, item: `${BASE}/${locale}` },
+        { name: c.breadcrumb, item: pageUrl('evenements', locale) },
+      ])]} />
+      <PageLayout lang={locale} page="evenements" breadcrumb={c.breadcrumb} heroImg="/photos/esp-rooftop-table.jpg" heroAlt="Rooftop de Villa Vénus Noto au coucher du soleil">
 
       <div className="mb-14">
         <p className="section-subtitle">{c.sub}</p>
@@ -148,5 +157,6 @@ export default function EvenementsPage({ params }: { params: { locale: string } 
       </section>
 
     </PageLayout>
+    </>
   )
 }

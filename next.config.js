@@ -1,18 +1,42 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // AVIF first (40-50% smaller than WebP), fallback WebP
     formats: ['image/avif', 'image/webp'],
-    // Device breakpoints matching the site's responsive design
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    // Sizes for fixed-layout images (thumbnails, icons)
     imageSizes: [16, 32, 64, 96, 128, 256, 384],
-    // Cache optimized images for 1 year (photos don't change often)
     minimumCacheTTL: 31536000,
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'plus.unsplash.com' },
     ],
+  },
+
+  // ─── 301 : anciennes URLs indexées → nouvelles URLs traduites ────────────
+  // Ces redirections sont permanentes (permanent: true).
+  // Elles couvrent les URLs déjà soumises au sitemap Google.
+  async redirects() {
+    return [
+      { source: '/en/tarifs',     destination: '/en/rates',          permanent: true },
+      { source: '/en/acces',      destination: '/en/getting-here',   permanent: true },
+      { source: '/en/evenements', destination: '/en/events',         permanent: true },
+      { source: '/it/tarifs',     destination: '/it/tariffe',        permanent: true },
+      { source: '/it/acces',      destination: '/it/come-arrivare',  permanent: true },
+      { source: '/it/evenements', destination: '/it/eventi',         permanent: true },
+    ]
+  },
+
+  // ─── Rewrites internes : slugs traduits → dossiers App Router (FR) ──────
+  // L'URL visible reste traduite (/en/rates) mais Next.js sert
+  // src/app/[locale]/tarifs/page.tsx avec locale='en'.
+  async rewrites() {
+    return [
+      { source: '/en/rates',         destination: '/en/tarifs' },
+      { source: '/en/getting-here',  destination: '/en/acces' },
+      { source: '/en/events',        destination: '/en/evenements' },
+      { source: '/it/tariffe',       destination: '/it/tarifs' },
+      { source: '/it/come-arrivare', destination: '/it/acces' },
+      { source: '/it/eventi',        destination: '/it/evenements' },
+    ]
   },
 }
 

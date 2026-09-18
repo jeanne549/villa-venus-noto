@@ -8,9 +8,9 @@ import { useLanguage } from '@/contexts/LanguageContext'
 const espacesPhotos = [
   { src: '/photos/esp-piscine-rooftop.jpg', alt: 'Vue sur la piscine et les jardins depuis le rooftop au coucher du soleil', pos: 'object-center' },
   { src: '/photos/piscine.jpg',             alt: 'Piscine et pergola avec transats balinais', pos: 'object-top' },
-  { src: '/photos/esp-jasmin.jpg',          alt: 'Véranda suite Gelsomino — fauteuil à bascule et vue sur le jardin', pos: 'object-center' },
-  { src: '/photos/esp-bougainvillier.jpg',  alt: 'Véranda suite Bougainvillea avec vue sur le jardin', pos: 'object-center' },
-  { src: '/photos/esp-bougainvillier2.jpg', alt: 'Véranda suite Bougainvillea — hamac et terrasse privée', pos: 'object-center' },
+  { src: '/photos/esp-gelsomino.jpg',        alt: 'Véranda suite Gelsomino — fauteuil à bascule et vue sur le jardin', pos: 'object-center' },
+  { src: '/photos/esp-bougainvillea.jpg',   alt: 'Véranda suite Bougainvillea avec vue sur le jardin', pos: 'object-center' },
+  { src: '/photos/esp-bougainvillea-2.jpg', alt: 'Véranda suite Bougainvillea — hamac et terrasse privée', pos: 'object-center' },
   { src: '/photos/esp-patio.jpg',           alt: 'Véranda patio en pierre avec lanternes en rotin', pos: 'object-center' },
   { src: '/photos/esp-patio-jardin.jpg',    alt: 'Patio couvert de vigne avec table et vue sur les jardins', pos: 'object-center' },
   { src: '/photos/esp-lit-rooftop.jpg',     alt: 'Lit rooftop avec coussins colorés et vue coucher de soleil', pos: 'object-center' },

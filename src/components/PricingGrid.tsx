@@ -26,7 +26,7 @@ const T = {
     ],
     extra_title: 'En supplément',
     extra: [
-      'Taxe de séjour : 3 € / personne / nuit (max 6 nuits)',
+      'Taxe de séjour communale · montant communiqué à la réservation',
       'Enfants de moins de 14 ans et personnes de plus de 75 ans : exonérés',
     ],
     deposit: 'Caution : aucune (saison 2026)',
@@ -58,7 +58,7 @@ const T = {
     ],
     extra_title: 'Not included',
     extra: [
-      'Tourist tax: €3 / person / night (max 6 nights)',
+      'Local tourist tax · amount confirmed at booking',
       'Children under 14 and persons over 75: exempt',
     ],
     deposit: 'Security deposit: none (2026 season)',
@@ -90,7 +90,7 @@ const T = {
     ],
     extra_title: 'Non incluso',
     extra: [
-      'Tassa di soggiorno: 3 € / persona / notte (max 6 notti)',
+      'Tassa di soggiorno comunale · importo comunicato alla prenotazione',
       'Bambini sotto i 14 anni e persone sopra i 75 anni: esenti',
     ],
     deposit: 'Caparra: nessuna (stagione 2026)',

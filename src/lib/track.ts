@@ -13,6 +13,7 @@ const GA4_MAP: Record<string, string> = {
   gallery_browsed:      'view_item_list',
   dates_selected:       'select_content',
   language_changed:     'select_content',
+  review_submitted:     'generate_lead',
 }
 
 // Map custom event → Meta Pixel event (only the ones worth tracking in Ads)

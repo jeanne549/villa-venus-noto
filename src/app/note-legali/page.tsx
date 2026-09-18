@@ -1,6 +1,7 @@
 import LegalLayout from '@/components/LegalLayout'
 import { Metadata } from 'next'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
+import { SITE_CONFIG } from '@/lib/siteConfig'
 
 export const metadata: Metadata = {
   title: 'Note legali — Villa Vénus Noto',
@@ -22,14 +23,22 @@ export default function NoteLegali() {
         WhatsApp: +33 6 24 54 29 95
       </p>
 
-      <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">Numeri di registrazione obbligatori</h2>
-      <p>
-        <strong>CIN (Codice Identificativo Nazionale)</strong>: <span className="bg-amber-100 text-amber-800 px-2 py-0.5 font-mono text-xs">[DA COMPLETARE]</span><br />
-        <em>Obbligatorio su tutti gli annunci dal 02/01/2025 — D.Lgs. 145/2023.</em>
-      </p>
-      <p>
-        <strong>CIR (Codice Identificativo Regionale)</strong>: <span className="bg-amber-100 text-amber-800 px-2 py-0.5 font-mono text-xs">[DA COMPLETARE]</span>
-      </p>
+      {(SITE_CONFIG.cin || SITE_CONFIG.cir) && (
+        <>
+          <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">Numeri di registrazione obbligatori</h2>
+          {SITE_CONFIG.cin && (
+            <p>
+              <strong>CIN (Codice Identificativo Nazionale)</strong>: <span className="font-mono">{SITE_CONFIG.cin}</span><br />
+              <em>Obbligatorio su tutti gli annunci dal 02/01/2025 — D.Lgs. 145/2023.</em>
+            </p>
+          )}
+          {SITE_CONFIG.cir && (
+            <p>
+              <strong>CIR (Codice Identificativo Regionale)</strong>: <span className="font-mono">{SITE_CONFIG.cir}</span>
+            </p>
+          )}
+        </>
+      )}
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">Hosting</h2>
       <p>

@@ -237,6 +237,39 @@ export async function POST(req: NextRequest) {
     emailError = 'RESEND_API_KEY not configured'
   }
 
+  // Alerte propriétaire si la DB a échoué (demande potentiellement perdue)
+  if (!dbOk) {
+    const resendKey = process.env.RESEND_API_KEY
+    if (resendKey && resendKey !== 're_COLLER_ICI_VOTRE_CLE_RESEND') {
+      try {
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from: 'Villa Vénus Noto <contact@villavenusnoto.com>',
+            to: ['jd.deschaux@gmail.com'],
+            subject: '⚠️ ALERTE — Demande de réservation non enregistrée',
+            html: `<div style="font-family:sans-serif;padding:24px;max-width:600px">
+              <p style="color:#b91c1c;font-size:18px;font-weight:bold">⚠️ Demande perdue en base de données</p>
+              <p>Une demande de réservation n'a PAS été enregistrée dans Supabase.</p>
+              <table style="border-collapse:collapse;width:100%;font-size:14px">
+                <tr><td style="padding:4px 8px;color:#888">Nom</td><td style="padding:4px 8px">${name}</td></tr>
+                <tr><td style="padding:4px 8px;color:#888">Email</td><td style="padding:4px 8px">${email}</td></tr>
+                ${phone ? `<tr><td style="padding:4px 8px;color:#888">Tél.</td><td style="padding:4px 8px">${phone}</td></tr>` : ''}
+                <tr><td style="padding:4px 8px;color:#888">Arrivée</td><td style="padding:4px 8px">${arrival_date}</td></tr>
+                <tr><td style="padding:4px 8px;color:#888">Départ</td><td style="padding:4px 8px">${departure_date}</td></tr>
+                <tr><td style="padding:4px 8px;color:#888">Personnes</td><td style="padding:4px 8px">${guests}</td></tr>
+                ${message ? `<tr><td style="padding:4px 8px;color:#888">Message</td><td style="padding:4px 8px">${message}</td></tr>` : ''}
+                <tr><td style="padding:4px 8px;color:#888">Erreur DB</td><td style="padding:4px 8px;color:#b91c1c">${dbError}</td></tr>
+              </table>
+              <p style="margin-top:16px;color:#888;font-size:12px">Contactez ce client manuellement — sa demande n'est pas dans votre tableau de bord.</p>
+            </div>`,
+          }),
+        })
+      } catch { /* alerte non bloquante */ }
+    }
+  }
+
   // Réponse : succès si au moins la DB est OK
   if (dbOk) {
     return NextResponse.json({

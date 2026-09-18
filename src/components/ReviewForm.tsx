@@ -2,10 +2,11 @@
 
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { trackEvent } from '@/lib/track'
 
 export default function ReviewForm() {
   const { t } = useLanguage()
-  const [form, setForm] = useState({ name: '', origin: '', rating: 5, text: '' })
+  const [form, setForm] = useState({ name: '', origin: '', rating: 5, text: '', website: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -19,12 +20,14 @@ export default function ReviewForm() {
       const res = await fetch('/api/avis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.name, origin: form.origin || null, rating: form.rating, text: form.text }),
+        body: JSON.stringify({ name: form.name, origin: form.origin || null, rating: form.rating, text: form.text, website: form.website }),
       })
       if (!res.ok) throw new Error('server error')
       const data = await res.json()
-      if (data.success) setStatus('success')
-      else throw new Error('failed')
+      if (data.success) {
+        setStatus('success')
+        trackEvent('review_submitted', { rating: form.rating })
+      } else throw new Error('failed')
     } catch {
       setStatus('error')
     }
@@ -49,6 +52,10 @@ export default function ReviewForm() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 space-y-6">
+              {/* Honeypot anti-bot — doit rester vide, caché aux humains */}
+              <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }} aria-hidden="true">
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={handleChange} />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.reviewform.name}</label>

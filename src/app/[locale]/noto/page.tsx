@@ -3,6 +3,8 @@ import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
 import { hasPlaceholders } from '@/lib/placeholder'
+import JsonLd from '@/components/JsonLd'
+import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -218,8 +220,14 @@ export default function NotoPage({ params }: { params: { locale: string } }) {
   const c = HEADINGS[locale]
   const places = PLACES[locale]
 
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
   return (
-    <PageLayout lang={locale} page="noto" breadcrumb={c.breadcrumb}>
+    <>
+      <JsonLd data={[getBreadcrumbSchema([
+        { name: homeLabel, item: `${BASE}/${locale}` },
+        { name: c.breadcrumb, item: `${BASE}/${locale}/noto` },
+      ])]} />
+      <PageLayout lang={locale} page="noto" breadcrumb={c.breadcrumb}>
 
       <div className="mb-14">
         <p className="section-subtitle">{c.sub}</p>
@@ -274,5 +282,6 @@ export default function NotoPage({ params }: { params: { locale: string } }) {
       </div>
 
     </PageLayout>
+    </>
   )
 }

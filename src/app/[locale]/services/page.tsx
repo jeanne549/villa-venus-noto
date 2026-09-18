@@ -3,6 +3,9 @@ import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
 import { hasPlaceholders } from '@/lib/placeholder'
+import { pageUrl } from '@/lib/routes'
+import JsonLd from '@/components/JsonLd'
+import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -12,9 +15,9 @@ export function generateStaticParams() {
 }
 
 const META = {
-  fr: { title: 'Services et conciergerie — Villa Vénus Noto, Sicile', description: 'Chef privé, transferts aéroport, ménage, cours de cuisine sicilienne, excursions en bateau, location de voiture. Séjour sur mesure à Noto, Sicile.' },
-  en: { title: 'Services & Concierge — Villa Vénus Noto, Sicily', description: 'Private chef, airport transfers, housekeeping, Sicilian cooking classes, boat trips, car hire. Tailored stays at Villa Vénus Noto, Sicily.' },
-  it: { title: 'Servizi e concierge — Villa Vénus Noto, Sicilia', description: 'Chef privato, trasferimenti aeroporto, pulizie, corsi di cucina siciliana, escursioni in barca, noleggio auto. Soggiorno su misura a Noto, Sicilia.' },
+  fr: { title: 'Informations pratiques — Villa Vénus Noto, Sicile', description: 'Ce qui est inclus dans la location, parking, ménage intermédiaire, gestionnaire local, location de voiture. Tout ce qu\'il faut savoir avant d\'arriver à Villa Vénus Noto.' },
+  en: { title: 'Practical information — Villa Vénus Noto, Sicily', description: 'What\'s included in the rental, parking, mid-stay cleaning, local manager, car hire. Everything to know before arriving at Villa Vénus Noto.' },
+  it: { title: 'Informazioni pratiche — Villa Vénus Noto, Sicilia', description: 'Cosa è incluso nell\'affitto, parcheggio, pulizie a metà soggiorno, gestore locale, noleggio auto. Tutto quello che c\'è da sapere prima di arrivare a Villa Vénus Noto.' },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
@@ -32,38 +35,32 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 
 const SERVICES = {
   fr: [
-    { icon: '🍽', name: 'Chef privé à domicile', desc: "Un cuisinier sicilien vient préparer un dîner ou un repas complet dans la cuisine de la villa. Menu élaboré selon vos goûts et les produits locaux du marché de Noto — poisson du jour, légumes de saison, pâtes fraîches, cassate et cannoli maison. Idéal pour une soirée sans avoir à conduire.", note: "Tarif : sur devis · À réserver au moins 48h à l'avance" },
-    { icon: '🚗', name: 'Transfert depuis Catane (CTA)', desc: "Prise en charge à la sortie des arrivées de l'aéroport de Catane Fontanarossa, trajet direct jusqu'à la villa (1h15 environ). Véhicule climatisé, chauffeur francophone disponible.", note: 'Tarif : [À confirmer] · À réserver avant votre arrivée' },
-    { icon: '🚗', name: 'Transfert depuis Comiso (CIY)', desc: "L'aéroport de Comiso est le plus proche de la villa. Trajet d'environ 45-50 minutes. Idéal si vous voyagez depuis Paris (Beauvais), Londres ou d'autres destinations low-cost.", note: 'Tarif : [À confirmer] · À réserver avant votre arrivée' },
-    { icon: '🧹', name: 'Ménage en cours de séjour', desc: "Pour les longs séjours, un passage de ménage intermédiaire peut être organisé : nettoyage des suites, changement du linge de maison, remise en état des espaces communs. La fréquence et le périmètre sont à définir selon vos préférences.", note: 'Tarif : [À confirmer] · Inclus ou option selon le séjour — [À confirmer]' },
-    { icon: '👩‍🍳', name: 'Cours de cuisine sicilienne', desc: "Apprenez à préparer les grands classiques de la cuisine sicilienne avec un chef local : arancini, pasta alla Norma, caponata, granita, cassata. Le cours se déroule dans la cuisine de la villa ou en extérieur, suivi du repas préparé ensemble.", note: 'Tarif : [À confirmer] · Prestataire partenaire — [À confirmer]' },
-    { icon: '⛵', name: 'Excursion en bateau', desc: "Depuis le port de Marzamemi ou de Portopalo, une demi-journée ou journée en mer le long de la côte du Val di Noto. Baignade en crique, snorkeling, pique-nique à bord, coucher de soleil depuis la mer.", note: 'Tarif : [À confirmer] · Prestataire partenaire — [À confirmer] · Selon météo et disponibilité' },
-    { icon: '🚙', name: 'Location de voiture', desc: "Une voiture est indispensable pour explorer la région. Nous pouvons vous orienter vers des loueurs locaux fiables à Noto ou à l'aéroport. La villa dispose d'un parking privatif pour 2 à 3 véhicules — [À confirmer la capacité].", note: 'Tarif : selon le prestataire · [À confirmer]' },
+    { icon: '✓', name: 'Ménage de fin de séjour — inclus', desc: "Le nettoyage complet de la villa est inclus dans le tarif de location : suites, espaces de vie, cuisine, salle de bains, piscine, extérieurs. Le linge de maison (draps, serviettes de bain et de piscine) est fourni et changé à l'arrivée.", note: 'Inclus dans le tarif · Sans supplément' },
+    { icon: '🧹', name: 'Ménage intermédiaire — sur demande', desc: "Pour les longs séjours, un passage de ménage supplémentaire peut être organisé : nettoyage des suites, changement du linge, remise en état des espaces communs. À demander au moment de la réservation.", note: 'À la charge du voyageur · Tarif à convenir avec les propriétaires' },
+    { icon: '🚗', name: 'Parking privatif — 4 voitures', desc: "Le domaine dispose d'un parking privatif sécurisé pouvant accueillir jusqu'à 4 véhicules. Une voiture est indispensable pour explorer la région. Les aéroports les plus proches sont Comiso (CIY, 45 min) et Catane (CTA, 1h15).", note: 'Accès libre · Inclus dans la location' },
+    { icon: '📞', name: 'Gestionnaire local sur place', desc: "Emmanuel Di Pietro, notre gestionnaire local, est joignable pendant toute la durée de votre séjour. Il peut répondre à vos questions pratiques, vous orienter vers les bonnes adresses et intervenir en cas de besoin.", note: 'Disponible pendant tout le séjour · Coordonnées transmises à la réservation' },
+    { icon: '🗺', name: 'Activités et découverte en autonomie', desc: "La villa se loue en location directe. Les restaurants, excursions, activités nautiques et visites sont à organiser librement. Noto, ses marchés, ses plages et ses environs offrent une multitude de possibilités — nous vous conseillons nos adresses favorites à la demande.", note: 'En autonomie · Contactez-nous pour nos recommandations personnelles' },
   ],
   en: [
-    { icon: '🍽', name: 'Private chef at home', desc: "A Sicilian cook comes to prepare dinner or a full meal in the villa's kitchen. Menu crafted to your tastes and local market produce from Noto — catch of the day, seasonal vegetables, fresh pasta, homemade cassata and cannoli. Perfect for an evening without having to drive.", note: 'Rate: on request · Book at least 48h in advance' },
-    { icon: '🚗', name: 'Transfer from Catania (CTA)', desc: "Pick-up at the arrivals exit of Catania Fontanarossa airport, direct transfer to the villa (approx. 1h15). Air-conditioned vehicle, English-speaking driver available.", note: 'Rate: [To confirm] · Book before your arrival' },
-    { icon: '🚗', name: 'Transfer from Comiso (CIY)', desc: "Comiso airport is the closest to the villa. Journey of approximately 45-50 minutes. Ideal if you fly from Paris Beauvais, London or other low-cost destinations.", note: 'Rate: [To confirm] · Book before your arrival' },
-    { icon: '🧹', name: 'Mid-stay housekeeping', desc: "For longer stays, an interim cleaning can be arranged: suite cleaning, linen change, common area refresh. Frequency and scope are agreed to your preferences.", note: 'Rate: [To confirm] · Included or optional depending on stay — [To confirm]' },
-    { icon: '👩‍🍳', name: 'Sicilian cooking class', desc: "Learn to make the great classics of Sicilian cuisine with a local chef: arancini, pasta alla Norma, caponata, granita, cassata. The class takes place in the villa's kitchen or outdoors, followed by the meal you prepared together.", note: 'Rate: [To confirm] · Partner provider — [To confirm]' },
-    { icon: '⛵', name: 'Boat excursion', desc: "From the port of Marzamemi or Portopalo, a half-day or full day at sea along the Val di Noto coastline. Swimming in coves, snorkelling, on-board picnic, sunset from the sea.", note: 'Rate: [To confirm] · Partner provider — [To confirm] · Subject to weather and availability' },
-    { icon: '🚙', name: 'Car hire', desc: "A car is essential for exploring the region. We can direct you to reliable local rental companies in Noto or at the airport. The villa has private parking for 2 to 3 vehicles — [To confirm capacity].", note: 'Rate: according to provider · [To confirm]' },
+    { icon: '✓', name: 'End-of-stay cleaning — included', desc: "Full villa cleaning is included in the rental rate: suites, living areas, kitchen, bathrooms, pool and outdoor spaces. Bed linen, bath towels and pool towels are provided and changed at arrival.", note: 'Included in the rate · No extra charge' },
+    { icon: '🧹', name: 'Mid-stay cleaning — on request', desc: "For longer stays, an additional cleaning can be arranged: suite cleaning, linen change, common area refresh. Please request at the time of booking.", note: "At the guest's expense · Rate to be agreed with the owners" },
+    { icon: '🚗', name: 'Private parking — 4 cars', desc: "The property has a secure private car park with space for up to 4 vehicles. A car is essential for exploring the region. The nearest airports are Comiso (CIY, 45 min) and Catania (CTA, 1h15).", note: 'Free access · Included in the rental' },
+    { icon: '📞', name: 'Local manager on site', desc: "Emmanuel Di Pietro, our local manager, is reachable throughout your stay. He can answer practical questions, point you to the right local addresses, and help if anything is needed.", note: 'Available throughout your stay · Contact details provided at booking' },
+    { icon: '🗺', name: 'Activities & exploration — independently', desc: "The villa is rented on a self-catering basis. Restaurants, excursions, water sports and visits are yours to organise freely. Noto, its markets, beaches and surroundings offer countless options — we are happy to share our personal recommendations on request.", note: 'Independently organised · Contact us for our personal recommendations' },
   ],
   it: [
-    { icon: '🍽', name: 'Chef privato a domicilio', desc: "Un cuoco siciliano viene a preparare una cena o un pasto completo nella cucina della villa. Menu elaborato secondo i vostri gusti e i prodotti locali del mercato di Noto — pesce del giorno, verdure di stagione, pasta fresca, cassata e cannoli fatti in casa. Ideale per una serata senza dover guidare.", note: 'Tariffa: su richiesta · Da prenotare almeno 48h prima' },
-    { icon: '🚗', name: 'Trasferimento da Catania (CTA)', desc: "Prelievo all'uscita degli arrivi dell'aeroporto di Catania Fontanarossa, trasferimento diretto alla villa (circa 1h15). Veicolo climatizzato, autista italofono disponibile.", note: "Tariffa: [Da confermare] · Da prenotare prima dell'arrivo" },
-    { icon: '🚗', name: 'Trasferimento da Comiso (CIY)', desc: "L'aeroporto di Comiso è il più vicino alla villa. Percorso di circa 45-50 minuti. Ideale se si vola da Parigi Beauvais, Londra o altre destinazioni low-cost.", note: "Tariffa: [Da confermare] · Da prenotare prima dell'arrivo" },
-    { icon: '🧹', name: 'Pulizie a metà soggiorno', desc: "Per soggiorni lunghi, è possibile organizzare una pulizia intermedia: pulizia delle suite, cambio biancheria, riordino degli spazi comuni. Frequenza e portata vengono concordate secondo le vostre preferenze.", note: 'Tariffa: [Da confermare] · Incluso o opzione secondo il soggiorno — [Da confermare]' },
-    { icon: '👩‍🍳', name: 'Corso di cucina siciliana', desc: "Imparate a preparare i grandi classici della cucina siciliana con uno chef locale: arancini, pasta alla Norma, caponata, granita, cassata. Il corso si svolge nella cucina della villa o all'aperto, seguito dal pasto preparato insieme.", note: 'Tariffa: [Da confermare] · Fornitore partner — [Da confermare]' },
-    { icon: '⛵', name: 'Escursione in barca', desc: "Dal porto di Marzamemi o Portopalo, una mezza giornata o giornata in mare lungo la costa del Val di Noto. Nuotata in caletta, snorkeling, pic-nic a bordo, tramonto dal mare.", note: 'Tariffa: [Da confermare] · Fornitore partner — [Da confermare] · In base a meteo e disponibilità' },
-    { icon: '🚙', name: 'Noleggio auto', desc: "Un'auto è indispensabile per esplorare la regione. Possiamo indirizzarvi verso noleggiatori locali affidabili a Noto o in aeroporto. La villa dispone di un parcheggio privato per 2-3 veicoli — [Da confermare la capacità].", note: 'Tariffa: secondo il fornitore · [Da confermare]' },
+    { icon: '✓', name: 'Pulizie di fine soggiorno — incluse', desc: "La pulizia completa della villa è inclusa nella tariffa di noleggio: suite, aree comuni, cucina, bagni, piscina e spazi esterni. Biancheria da letto, asciugamani da bagno e da piscina sono forniti e cambiati all'arrivo.", note: 'Incluso nella tariffa · Senza supplemento' },
+    { icon: '🧹', name: 'Pulizie a metà soggiorno — su richiesta', desc: "Per soggiorni lunghi, è possibile organizzare una pulizia aggiuntiva: pulizia delle suite, cambio biancheria, riordino degli spazi comuni. Si prega di richiedere al momento della prenotazione.", note: "A carico dell'ospite · Tariffa da concordare con i proprietari" },
+    { icon: '🚗', name: 'Parcheggio privato — 4 auto', desc: "La proprietà dispone di un parcheggio privato sicuro che può ospitare fino a 4 veicoli. Un'auto è indispensabile per esplorare la regione. Gli aeroporti più vicini sono Comiso (CIY, 45 min) e Catania (CTA, 1h15).", note: 'Accesso libero · Incluso nel noleggio' },
+    { icon: '📞', name: 'Gestore locale disponibile', desc: "Emmanuel Di Pietro, il nostro gestore locale, è raggiungibile per tutta la durata del soggiorno. Può rispondere a domande pratiche, indicare i posti giusti e intervenire in caso di necessità.", note: 'Disponibile durante tutto il soggiorno · Contatti comunicati alla prenotazione' },
+    { icon: '🗺', name: 'Attività ed escursioni — in autonomia', desc: "La villa si affitta in formula di autogestione. Ristoranti, escursioni, attività nautiche e visite sono da organizzare liberamente. Noto, i suoi mercati, le spiagge e i dintorni offrono infinite possibilità — siamo lieti di condividere i nostri indirizzi preferiti su richiesta.", note: 'In autonomia · Contattateci per i nostri consigli personali' },
   ],
 }
 
 const H = {
-  fr: { breadcrumb: 'Services', h1: 'Services et conciergerie', intro: "La villa se loue telle quelle, avec tout le confort inclus. Pour ceux qui souhaitent aller plus loin, nous organisons des services à la carte — toujours avec des prestataires locaux de confiance. Dites-nous ce dont vous avez besoin, nous nous occupons du reste.", included_note: "Ces services sont tous optionnels et viennent en supplément de la location de la villa. Ils se réservent en avance, idéalement au moment de la demande de réservation.", link_villa: '← La villa', link_acces: 'Comment venir →' },
-  en: { breadcrumb: 'Services', h1: 'Services & concierge', intro: "The villa rents as-is, with all comfort included. For those who want to go further, we arrange à la carte services — always with trusted local providers. Tell us what you need, we'll take care of the rest.", included_note: "These services are all optional and come in addition to the villa rental. They must be booked in advance, ideally at the time of the booking request.", link_villa: '← The villa', link_acces: 'Getting here →' },
-  it: { breadcrumb: 'Servizi', h1: 'Servizi e concierge', intro: "La villa si affitta così com'è, con tutto il comfort incluso. Per chi vuole andare oltre, organizziamo servizi à la carte — sempre con fornitori locali di fiducia. Diteci di cosa avete bisogno, pensiamo noi al resto.", included_note: "Questi servizi sono tutti opzionali e si aggiungono al noleggio della villa. Devono essere prenotati in anticipo, idealmente al momento della richiesta di prenotazione.", link_villa: '← La villa', link_acces: 'Come arrivare →' },
+  fr: { breadcrumb: 'Infos pratiques', h1: 'Informations pratiques', intro: "La villa Vénus se loue en location directe, sans intermédiaire. Un ménage de fin de séjour, le linge de maison et le parking pour 4 voitures sont inclus. Pour le reste, vous êtes en autonomie — et notre gestionnaire local est disponible si besoin.", included_note: "La réservation se fait directement avec les propriétaires, par email ou téléphone. Les coordonnées du gestionnaire local et les instructions d'arrivée sont transmises à la confirmation.", link_villa: '← La villa', link_acces: 'Comment venir →' },
+  en: { breadcrumb: 'Practical info', h1: 'Practical information', intro: "Villa Vénus is a direct rental with no intermediary. End-of-stay cleaning, bed and pool linen, and parking for 4 cars are all included. For the rest, guests are independent — and our local manager is available if needed.", included_note: "Bookings are made directly with the owners by email or phone. The local manager's contact details and arrival instructions are provided at confirmation.", link_villa: '← The villa', link_acces: 'Getting here →' },
+  it: { breadcrumb: 'Info pratiche', h1: 'Informazioni pratiche', intro: "Villa Vénus si affitta direttamente, senza intermediari. Pulizie di fine soggiorno, biancheria da letto e da piscina e parcheggio per 4 auto sono inclusi. Per il resto, gli ospiti sono in piena autonomia — e il nostro gestore locale è disponibile se necessario.", included_note: "Le prenotazioni avvengono direttamente con i proprietari via email o telefono. I contatti del gestore locale e le istruzioni di arrivo vengono comunicati alla conferma.", link_villa: '← La villa', link_acces: 'Come arrivare →' },
 }
 
 export default function ServicesPage({ params }: { params: { locale: string } }) {
@@ -71,8 +68,14 @@ export default function ServicesPage({ params }: { params: { locale: string } })
   const h = H[locale]
   const services = SERVICES[locale]
 
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
   return (
-    <PageLayout lang={locale} page="services" breadcrumb={h.breadcrumb}>
+    <>
+      <JsonLd data={[getBreadcrumbSchema([
+        { name: homeLabel, item: `${BASE}/${locale}` },
+        { name: h.breadcrumb, item: `${BASE}/${locale}/services` },
+      ])]} />
+      <PageLayout lang={locale} page="services" breadcrumb={h.breadcrumb}>
 
       <div className="mb-14">
         <p className="section-subtitle">{locale === 'fr' ? 'Sur mesure' : locale === 'en' ? 'Bespoke' : 'Su misura'}</p>
@@ -100,9 +103,10 @@ export default function ServicesPage({ params }: { params: { locale: string } })
 
       <div className="flex flex-wrap gap-4">
         <Link href={`/${locale}/villa`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-navy text-navy hover:bg-navy hover:text-white transition-all duration-300">{h.link_villa}</Link>
-        <Link href={`/${locale}/acces`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">{h.link_acces}</Link>
+        <Link href={pageUrl('acces', locale)} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">{h.link_acces}</Link>
       </div>
 
     </PageLayout>
+    </>
   )
 }

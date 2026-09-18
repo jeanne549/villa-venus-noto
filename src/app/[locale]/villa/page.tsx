@@ -4,6 +4,8 @@ import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
 import { hasPlaceholders } from '@/lib/placeholder'
+import JsonLd from '@/components/JsonLd'
+import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -51,10 +53,10 @@ const CONTENT = {
     suites_h2: 'Les 4 suites parentales',
     suites_intro: "Chaque suite est autonome, avec sa propre salle de bain et sa terrasse ou véranda privée donnant sur les jardins ou la piscine. Personne ne partage rien — c'est le principe de la villa.",
     suites: [
-      { name: 'Suite Agave', vue: 'Vue piscine', desc: "Ouverte sur la piscine, la suite Agave bénéficie de la meilleure exposition. Le matin, la lumière entre directement depuis la terrasse. Superficie : [À confirmer] m².", img: '/photos/esp-piscine-rooftop.jpg', alt: 'Suite Agave — véranda face à la piscine' },
-      { name: 'Suite Bougainvillea', vue: 'Vue jardin', desc: "Côté jardins, la suite Bougainvillea s'ouvre sur une véranda ombragée. Calme absolu et parfum de bougainvilliers. Superficie : [À confirmer] m².", img: '/photos/esp-bougainvillier.jpg', alt: 'Suite Bougainvillea — véranda sur le jardin' },
-      { name: 'Suite Gelsomino', vue: 'Vue jardin', desc: "Exposition jardins également, la suite Gelsomino (jasmin) est baignée du parfum des fleurs le soir. Véranda privée. Superficie : [À confirmer] m².", img: '/photos/esp-jasmin.jpg', alt: 'Suite Gelsomino — véranda et jardin' },
-      { name: 'Suite Limone', vue: 'Chambre intérieure', desc: "Plus intime, la suite Limone est la chambre la plus fraîche en été. Idéale pour les nuits de forte chaleur. Superficie : [À confirmer] m².", img: '/photos/esp-patio.jpg', alt: 'Suite Limone — chambre intérieure' },
+      { name: 'Suite Agave', vue: 'Vue piscine', desc: "Ouverte sur la piscine, la suite Agave bénéficie de la meilleure exposition. Le matin, la lumière entre directement depuis la terrasse.", img: '/photos/esp-piscine-rooftop.jpg', alt: 'Suite Agave — véranda face à la piscine' },
+      { name: 'Suite Bougainvillea', vue: 'Vue jardin', desc: "Côté jardins, la suite Bougainvillea s'ouvre sur une véranda ombragée. Calme absolu et parfum de bougainvilliers.", img: '/photos/esp-bougainvillea.jpg', alt: 'Suite Bougainvillea — véranda sur le jardin' },
+      { name: 'Suite Gelsomino', vue: 'Vue jardin', desc: "Exposition jardins également, la suite Gelsomino est baignée du parfum des fleurs le soir. Véranda privée.", img: '/photos/esp-gelsomino.jpg', alt: 'Suite Gelsomino — véranda et jardin' },
+      { name: 'Suite Limone', vue: 'Chambre intérieure', desc: "Plus intime, la suite Limone est la chambre la plus fraîche en été. Idéale pour les nuits de forte chaleur.", img: '/photos/esp-patio.jpg', alt: 'Suite Limone — chambre intérieure' },
     ],
     included_h3: 'Dans chaque suite',
     included: ['Salle de bain privée', 'Véranda ou terrasse', 'Climatisation', 'Linge de maison fourni', 'Rangements spacieux'],
@@ -81,10 +83,10 @@ const CONTENT = {
     suites_h2: 'The 4 master suites',
     suites_intro: "Each suite is self-contained, with its own bathroom and private terrace or veranda overlooking the gardens or pool. No one shares anything — that's the villa's principle.",
     suites: [
-      { name: 'Suite Agave', vue: 'Pool view', desc: "Opening onto the pool, Suite Agave has the best exposure. In the morning, light comes directly from the terrace. Size: [To confirm] m².", img: '/photos/esp-piscine-rooftop.jpg', alt: 'Suite Agave — veranda facing the pool' },
-      { name: 'Suite Bougainvillea', vue: 'Garden view', desc: "On the garden side, Suite Bougainvillea opens onto a shaded veranda. Absolute calm and the scent of bougainvilleas. Size: [To confirm] m².", img: '/photos/esp-bougainvillier.jpg', alt: 'Suite Bougainvillea — garden veranda' },
-      { name: 'Suite Gelsomino', vue: 'Garden view', desc: "Also facing the gardens, Suite Gelsomino (jasmine) is filled with the scent of flowers in the evening. Private veranda. Size: [To confirm] m².", img: '/photos/esp-jasmin.jpg', alt: 'Suite Gelsomino — veranda and garden' },
-      { name: 'Suite Limone', vue: 'Interior room', desc: "More intimate, Suite Limone is the coolest room in summer. Ideal for hot nights. Size: [To confirm] m².", img: '/photos/esp-patio.jpg', alt: 'Suite Limone — interior room' },
+      { name: 'Suite Agave', vue: 'Pool view', desc: "Opening onto the pool, Suite Agave has the best exposure. In the morning, light comes directly from the terrace.", img: '/photos/esp-piscine-rooftop.jpg', alt: 'Suite Agave — veranda facing the pool' },
+      { name: 'Suite Bougainvillea', vue: 'Garden view', desc: "On the garden side, Suite Bougainvillea opens onto a shaded veranda. Absolute calm and the scent of bougainvilleas.", img: '/photos/esp-bougainvillea.jpg', alt: 'Suite Bougainvillea — garden veranda' },
+      { name: 'Suite Gelsomino', vue: 'Garden view', desc: "Also facing the gardens, Suite Gelsomino is filled with the scent of flowers in the evening. Private veranda.", img: '/photos/esp-gelsomino.jpg', alt: 'Suite Gelsomino — veranda and garden' },
+      { name: 'Suite Limone', vue: 'Interior room', desc: "More intimate, Suite Limone is the coolest room in summer. Ideal for hot nights.", img: '/photos/esp-patio.jpg', alt: 'Suite Limone — interior room' },
     ],
     included_h3: 'In every suite',
     included: ['Private bathroom', 'Veranda or private terrace', 'Air conditioning', 'Bed linen and towels provided', 'Spacious storage'],
@@ -98,9 +100,9 @@ const CONTENT = {
     villa_included: ['Private pool (unlimited access)', 'Bed linen and pool towels', 'High-speed Wi-Fi', 'Air conditioning in all suites', 'Private parking', 'Wood-fired oven · BBQ · Plancha', 'Outdoor kitchen on the rooftop'],
     nav_h2: 'Explore the villa',
     nav_links: [
-      { href: '/en/tarifs', label: 'Rates & availability →' },
+      { href: '/en/rates', label: 'Rates & availability →' },
       { href: '/en/services', label: 'Services & concierge →' },
-      { href: '/en/acces', label: 'Getting here →' },
+      { href: '/en/getting-here', label: 'Getting here →' },
       { href: '/en/noto', label: 'Noto & surroundings →' },
     ],
   },
@@ -111,10 +113,10 @@ const CONTENT = {
     suites_h2: 'Le 4 suite parentali',
     suites_intro: "Ogni suite è autonoma, con il proprio bagno e la propria terrazza o veranda privata che si affaccia sui giardini o sulla piscina. Nessuno condivide nulla — è il principio della villa.",
     suites: [
-      { name: 'Suite Agave', vue: 'Vista piscina', desc: "Aperta sulla piscina, la suite Agave ha la migliore esposizione. Al mattino, la luce entra direttamente dalla terrazza. Superficie: [Da confermare] m².", img: '/photos/esp-piscine-rooftop.jpg', alt: 'Suite Agave — veranda fronte piscina' },
-      { name: 'Suite Bougainvillea', vue: 'Vista giardino', desc: "Sul lato dei giardini, la suite Bougainvillea si apre su una veranda ombrosa. Silenzio assoluto e profumo di bouganville. Superficie: [Da confermare] m².", img: '/photos/esp-bougainvillier.jpg', alt: 'Suite Bougainvillea — veranda sul giardino' },
-      { name: 'Suite Gelsomino', vue: 'Vista giardino', desc: "Anche affacciata sui giardini, la suite Gelsomino è profumata di fiori la sera. Veranda privata. Superficie: [Da confermare] m².", img: '/photos/esp-jasmin.jpg', alt: 'Suite Gelsomino — veranda e giardino' },
-      { name: 'Suite Limone', vue: 'Camera interna', desc: "Più intima, la suite Limone è la camera più fresca d'estate. Ideale per le notti di grande caldo. Superficie: [Da confermare] m².", img: '/photos/esp-patio.jpg', alt: 'Suite Limone — camera interna' },
+      { name: 'Suite Agave', vue: 'Vista piscina', desc: "Aperta sulla piscina, la suite Agave ha la migliore esposizione. Al mattino, la luce entra direttamente dalla terrazza.", img: '/photos/esp-piscine-rooftop.jpg', alt: 'Suite Agave — veranda fronte piscina' },
+      { name: 'Suite Bougainvillea', vue: 'Vista giardino', desc: "Sul lato dei giardini, la suite Bougainvillea si apre su una veranda ombrosa. Silenzio assoluto e profumo di bouganville.", img: '/photos/esp-bougainvillea.jpg', alt: 'Suite Bougainvillea — veranda sul giardino' },
+      { name: 'Suite Gelsomino', vue: 'Vista giardino', desc: "Anche affacciata sui giardini, la suite Gelsomino è profumata di fiori la sera. Veranda privata.", img: '/photos/esp-gelsomino.jpg', alt: 'Suite Gelsomino — veranda e giardino' },
+      { name: 'Suite Limone', vue: 'Camera interna', desc: "Più intima, la suite Limone è la camera più fresca d'estate. Ideale per le notti di grande caldo.", img: '/photos/esp-patio.jpg', alt: 'Suite Limone — camera interna' },
     ],
     included_h3: 'In ogni suite',
     included: ['Bagno privato', 'Veranda o terrazza privata', 'Aria condizionata', 'Biancheria da letto e asciugamani inclusi', 'Spazio armadio ampio'],
@@ -128,9 +130,9 @@ const CONTENT = {
     villa_included: ['Piscina privata (accesso illimitato)', 'Biancheria da letto e asciugamani da piscina', 'Wi-Fi ad alta velocità', 'Aria condizionata in tutte le suite', 'Parcheggio privato', 'Forno a legna · Barbecue · Plancha', 'Cucina esterna sul rooftop'],
     nav_h2: 'Scopri la villa',
     nav_links: [
-      { href: '/it/tarifs', label: 'Tariffe e disponibilità →' },
+      { href: '/it/tariffe', label: 'Tariffe e disponibilità →' },
       { href: '/it/services', label: 'Servizi e concierge →' },
-      { href: '/it/acces', label: 'Come arrivare →' },
+      { href: '/it/come-arrivare', label: 'Come arrivare →' },
       { href: '/it/noto', label: 'Noto e dintorni →' },
     ],
   },
@@ -140,8 +142,14 @@ export default function VillaPage({ params }: { params: { locale: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const c = CONTENT[locale]
 
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
   return (
-    <PageLayout lang={locale} page="villa" breadcrumb={c.breadcrumb}>
+    <>
+      <JsonLd data={[getBreadcrumbSchema([
+        { name: homeLabel, item: `${BASE}/${locale}` },
+        { name: c.breadcrumb, item: `${BASE}/${locale}/villa` },
+      ])]} />
+      <PageLayout lang={locale} page="villa" breadcrumb={c.breadcrumb}>
 
       {/* Hero heading */}
       <div className="mb-14">
@@ -234,5 +242,6 @@ export default function VillaPage({ params }: { params: { locale: string } }) {
       </section>
 
     </PageLayout>
+    </>
   )
 }

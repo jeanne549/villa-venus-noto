@@ -1,6 +1,5 @@
 const BASE = 'https://www.villavenusnoto.com'
 
-// Coordonnées approx. Contrada Spaccazza, Noto — à confirmer avec le propriétaire
 const GEO_LAT = 36.891
 const GEO_LNG = 15.068
 
@@ -9,11 +8,10 @@ const PHOTOS = [
   `${BASE}/photos/facade.jpg`,
   `${BASE}/photos/esp-piscine-rooftop.jpg`,
   `${BASE}/photos/esp-rooftop-table.jpg`,
-  `${BASE}/photos/chambre-bougainvillier.jpg`,
-  `${BASE}/photos/chambre-jasmin.jpg`,
+  `${BASE}/photos/suite-bougainvillea.jpg`,
+  `${BASE}/photos/suite-gelsomino.jpg`,
   `${BASE}/photos/esp-vue-rooftop.jpg`,
   `${BASE}/photos/jardins.jpg`,
-  `${BASE}/photos/esp-rooftop-table.jpg`,
 ]
 
 const AMENITIES = {
@@ -67,6 +65,13 @@ const DESCRIPTIONS = {
   it: 'Villa di lusso in affitto a Noto, Sicilia. 4 suite matrimoniali con bagno privato, piscina privata 14 × 7 m, rooftop panoramico 360°, giardini mediterranei. A 5 km da Noto patrimonio UNESCO. Fino a 9 ospiti. Stagione aprile–ottobre, minimo 6 notti.',
 }
 
+// Returns the next bookable season year.
+// From July onward, the relevant season is next year (advance bookings are open).
+function nextSeasonYear(): number {
+  const now = new Date()
+  return now.getMonth() >= 6 ? now.getFullYear() + 1 : now.getFullYear()
+}
+
 export function getOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
@@ -75,6 +80,7 @@ export function getOrganizationSchema() {
     name: 'Villa Vénus Noto',
     url: BASE,
     email: 'contact@villavenusnoto.com',
+    telephone: '+33 6 24 54 29 95',
     logo: {
       '@type': 'ImageObject',
       url: `${BASE}/og-image.jpg`,
@@ -97,7 +103,7 @@ export function getWebSiteSchema() {
 }
 
 export function getLodgingBusinessSchema(locale: 'fr' | 'en' | 'it') {
-  const year = new Date().getFullYear()
+  const seasonYear = nextSeasonYear()
   return {
     '@context': 'https://schema.org',
     '@type': 'LodgingBusiness',
@@ -107,6 +113,10 @@ export function getLodgingBusinessSchema(locale: 'fr' | 'en' | 'it') {
     description: DESCRIPTIONS[locale],
     url: `${BASE}/${locale}`,
     email: 'contact@villavenusnoto.com',
+    telephone: '+33 6 24 54 29 95',
+    sameAs: [
+      'https://www.airbnb.com/rooms/10029361',
+    ],
     image: PHOTOS,
     address: {
       '@type': 'PostalAddress',
@@ -136,16 +146,16 @@ export function getLodgingBusinessSchema(locale: 'fr' | 'en' | 'it') {
     ],
     priceRange: '€€€',
     currenciesAccepted: 'EUR',
-    checkinTime: 'T16:00',
-    checkoutTime: 'T10:00',
+    checkinTime: '16:00',
+    checkoutTime: '10:00',
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         opens: '00:00',
         closes: '23:59',
-        validFrom: `${year}-04-01`,
-        validThrough: `${year}-10-31`,
+        validFrom: `${seasonYear}-04-01`,
+        validThrough: `${seasonYear}-10-31`,
       },
     ],
     offers: {
@@ -160,14 +170,6 @@ export function getLodgingBusinessSchema(locale: 'fr' | 'en' | 'it') {
       availability: 'https://schema.org/LimitedAvailability',
       url: `${BASE}/${locale}#reserver`,
     },
-    // AggregateRating : décommenter et alimenter depuis la base de données quand des avis réels existent
-    // aggregateRating: {
-    //   '@type': 'AggregateRating',
-    //   ratingValue: 5,
-    //   reviewCount: 1,
-    //   bestRating: 5,
-    //   worstRating: 1,
-    // },
   }
 }
 
@@ -195,5 +197,80 @@ export function getBreadcrumbSchema(items: Array<{ name: string; item: string }>
       name: el.name,
       item: el.item,
     })),
+  }
+}
+
+export type BlogPostingInput = {
+  headline: string
+  description: string
+  datePublished: string
+  url: string
+  inLanguage: string
+  image?: string
+}
+
+export function getBlogPostingSchema(post: BlogPostingInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.headline,
+    description: post.description,
+    datePublished: post.datePublished,
+    url: post.url,
+    inLanguage: post.inLanguage,
+    author: {
+      '@type': 'Organization',
+      name: 'Villa Vénus Noto',
+      url: BASE,
+    },
+    publisher: { '@id': `${BASE}/#organization` },
+    isPartOf: { '@id': `${BASE}/#website` },
+    ...(post.image ? { image: { '@type': 'ImageObject', url: post.image } } : {}),
+  }
+}
+
+export function getOfferSchema(locale: 'fr' | 'en' | 'it') {
+  const seasonYear = nextSeasonYear()
+  const label = {
+    low:  { fr: 'Basse saison · Avr – Mai – Oct', en: 'Low season · Apr – May – Oct', it: 'Bassa stagione · Apr – Mag – Ott' },
+    mid:  { fr: 'Moyenne saison · Juin – Sep',    en: 'Mid season · Jun – Sep',       it: 'Media stagione · Giu – Set' },
+    high: { fr: 'Haute saison · Juil – Août',     en: 'High season · Jul – Aug',      it: 'Alta stagione · Lug – Ago' },
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Offer',
+    name: locale === 'fr' ? 'Location villa de luxe · Noto, Sicile'
+      : locale === 'en' ? 'Luxury villa rental · Noto, Sicily'
+      : 'Affitto villa di lusso · Noto, Sicilia',
+    url: `${BASE}/${locale}/tarifs`,
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/LimitedAvailability',
+    validFrom: `${seasonYear}-04-01`,
+    validThrough: `${seasonYear}-10-31`,
+    itemOffered: { '@id': `${BASE}/#villa` },
+    priceSpecification: [
+      {
+        '@type': 'UnitPriceSpecification',
+        name: label.low[locale],
+        price: 580,
+        priceCurrency: 'EUR',
+        unitCode: 'DAY',
+      },
+      {
+        '@type': 'UnitPriceSpecification',
+        name: label.mid[locale],
+        price: 680,
+        priceCurrency: 'EUR',
+        unitCode: 'DAY',
+      },
+      {
+        '@type': 'UnitPriceSpecification',
+        name: label.high[locale],
+        minPrice: 780,
+        maxPrice: 880,
+        priceCurrency: 'EUR',
+        unitCode: 'DAY',
+      },
+    ],
   }
 }

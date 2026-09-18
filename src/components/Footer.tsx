@@ -1,6 +1,7 @@
 'use client'
 
 import { useLanguage } from '@/contexts/LanguageContext'
+import { SITE_CONFIG } from '@/lib/siteConfig'
 
 const hrefLinks = ['#villa', '#galerie', '#equipements', '#disponibilites', '#contact']
 
@@ -40,8 +41,8 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-6 mb-4">
           <div className="flex flex-wrap gap-x-6 gap-y-1 font-sans text-white/40 text-xs">
             <span>Deschaux Jeanne · Codice fiscale DSCJNN71L64F943Q</span>
-            <span>CIN : <span className="font-mono">[À compléter]</span></span>
-            <span>CIR : <span className="font-mono">[À compléter]</span></span>
+            {SITE_CONFIG.cin && <span>CIN : <span className="font-mono">{SITE_CONFIG.cin}</span></span>}
+            {SITE_CONFIG.cir && <span>CIR : <span className="font-mono">{SITE_CONFIG.cir}</span></span>}
             <span>Contact local : Emanuele Di Pietro · +39 348 006 46 72</span>
           </div>
         </div>

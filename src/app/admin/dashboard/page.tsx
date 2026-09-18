@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
+type AnalyticsData =
+  | { configured: false }
+  | { configured: true; error: string }
+  | { configured: true; visitors: number; sessions: number; pageviews: number; topPages: { path: string; views: number }[] }
+
 type DashboardData = {
   requests_this_month: number
   total_requests: number
@@ -70,17 +75,20 @@ function GuideCard({ n, title, description, color }: { n: string; title: string;
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const [data, setData]     = useState<DashboardData | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError]   = useState(false)
+  const [data, setData]         = useState<DashboardData | null>(null)
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
+  const [loading, setLoading]   = useState(true)
+  const [error, setError]       = useState(false)
 
   useEffect(() => {
-    fetch('/api/admin/dashboard')
-      .then(res => {
+    Promise.all([
+      fetch('/api/admin/dashboard').then(res => {
         if (res.status === 401) { router.push('/admin/login'); return null }
         return res.json()
-      })
-      .then(d => { if (d) setData(d) })
+      }),
+      fetch('/api/admin/analytics').then(r => r.ok ? r.json() : null).catch(() => null),
+    ])
+      .then(([d, a]) => { if (d) setData(d); if (a) setAnalytics(a) })
       .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [router])
@@ -123,6 +131,64 @@ export default function AdminDashboard() {
           <StatCard title="Taux de réponse" value={`${data.response_rate} %`} subtitle="demandes traitées" color={data.response_rate >= 80 ? 'green' : 'orange'} />
           <StatCard title="Remplissage saison" value={`${data.season_fill} %`} subtitle={`${data.season_booked} / ${data.season_total} nuits`} color={data.season_fill >= 60 ? 'green' : data.season_fill >= 30 ? 'amber' : 'gray'} />
         </div>
+
+        {/* Traffic GA4 */}
+        {analytics && 'visitors' in analytics ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h2 className="text-sm font-semibold text-gray-900 mb-4">Trafic — mois en cours</h2>
+              <div className="grid grid-cols-3 gap-4">
+                {[
+                  { label: 'Visiteurs', value: analytics.visitors },
+                  { label: 'Sessions', value: analytics.sessions },
+                  { label: 'Pages vues', value: analytics.pageviews },
+                ].map(({ label, value }) => (
+                  <div key={label} className="text-center">
+                    <p className="text-2xl font-bold text-gray-900 tabular-nums">{value.toLocaleString('fr-FR')}</p>
+                    <p className="text-xs text-gray-400 mt-1">{label}</p>
+                  </div>
+                ))}
+              </div>
+              {analytics.visitors > 0 && (
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  <p className="text-xs text-gray-500">
+                    Taux de transformation :{' '}
+                    <strong className="text-gray-900">
+                      {analytics.sessions > 0
+                        ? ((data.requests_this_month / analytics.sessions) * 100).toFixed(1)
+                        : '—'} %
+                    </strong>
+                    <span className="text-gray-400"> (demandes / sessions)</span>
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h2 className="text-sm font-semibold text-gray-900 mb-4">Pages les plus vues ce mois</h2>
+              <ol className="space-y-2">
+                {analytics.topPages.map((p, i) => (
+                  <li key={p.path} className="flex items-center gap-3 text-sm">
+                    <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold shrink-0">{i + 1}</span>
+                    <span className="flex-1 text-gray-600 truncate font-mono text-xs">{p.path}</span>
+                    <span className="text-gray-900 font-semibold tabular-nums shrink-0">{p.views.toLocaleString('fr-FR')}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        ) : analytics && !('visitors' in analytics) ? (
+          <div className="bg-blue-50 rounded-xl border border-blue-200 p-6">
+            <h2 className="text-sm font-semibold text-blue-900 mb-2">Données de trafic non disponibles</h2>
+            <p className="text-xs text-blue-700 mb-3">
+              Pour afficher les visiteurs et les pages vues ici, ajoutez deux variables dans Vercel :<br />
+              <strong>GA4_PROPERTY_ID</strong> (numérique, ex. 123456789) et <strong>GA4_SERVICE_ACCOUNT_JSON</strong> (le JSON complet du compte de service Google Analytics).<br />
+              Puis dans Google Analytics → Admin → Gestion des accès à la propriété, ajoutez l&apos;email du compte de service avec le rôle Lecteur.
+            </p>
+            {'error' in analytics && analytics.error === 'token_failed' && (
+              <p className="text-xs text-red-600">⚠️ Le compte de service est configuré mais le token est invalide — vérifiez le JSON.</p>
+            )}
+          </div>
+        ) : null}
 
         {/* Season fill gauge */}
         <div className="bg-white rounded-xl border border-gray-200 p-6">
@@ -239,7 +305,8 @@ export default function AdminDashboard() {
             </div>
           </div>
           <p className="text-xs text-blue-600 mt-3">
-            Événements suivis (après consentement) : demande envoyée, clic WhatsApp, clic email, clic CTA, grille tarifaire vue, galerie parcourue.
+            Événements GA4 suivis (après consentement) : <strong>reservation_sent</strong> · <strong>whatsapp_click</strong> · <strong>email_click</strong> · <strong>dates_selected</strong> · <strong>pricing_viewed</strong> · <strong>language_changed</strong> · <strong>review_submitted</strong>.
+            Événement Meta Pixel : <strong>Lead</strong> sur reservation_sent.
           </p>
         </div>
 

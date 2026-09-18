@@ -3,6 +3,10 @@ import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
 import { hasPlaceholders } from '@/lib/placeholder'
+import { buildAlternates, pageUrl } from '@/lib/routes'
+import JsonLd from '@/components/JsonLd'
+import { getBreadcrumbSchema, getOfferSchema } from '@/lib/structured-data'
+import PricingViewTracker from '@/components/PricingViewTracker'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -34,11 +38,8 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   return {
     title, description,
     robots,
-    alternates: {
-      canonical: `${BASE}/${locale}/tarifs`,
-      languages: { fr: `${BASE}/fr/tarifs`, en: `${BASE}/en/tarifs`, it: `${BASE}/it/tarifs`, 'x-default': `${BASE}/fr/tarifs` },
-    },
-    openGraph: { title, description, url: `${BASE}/${locale}/tarifs`, siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
+    alternates: buildAlternates('tarifs', locale),
+    openGraph: { title, description, url: pageUrl('tarifs', locale), siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
   }
 }
 
@@ -59,16 +60,16 @@ const CONTENT = {
     pricing_note: "Les tarifs varient selon la période et la durée du séjour. Contactez-nous pour un devis personnalisé — nous indiquons ci-dessous les fourchettes indicatives pour chaque saison.",
     seasons: [
       { label: 'Basse saison', period: 'Avril · Mai · Octobre', price: 'Dès 580 € / nuit', note: "Idéal pour l'Infiorata (mai) ou la douceur d'octobre" },
-      { label: 'Moyenne saison', period: 'Juin · Septembre', price: '[À confirmer] € / nuit', note: 'Mer à bonne température, fréquentation raisonnable' },
-      { label: 'Haute saison', period: 'Juillet · Août', price: '[À confirmer] € / nuit', note: "Plein été sicilien — réserver 6 à 12 mois à l'avance" },
+      { label: 'Moyenne saison', period: 'Juin · Septembre', price: 'Dès 680 € / nuit', note: 'Mer à bonne température, fréquentation raisonnable' },
+      { label: 'Haute saison', period: 'Juillet · Août', price: '780 – 880 € / nuit', note: "Plein été sicilien — réserver 6 à 12 mois à l'avance" },
     ],
     included_h2: 'Ce qui est inclus',
     included: ['Accès piscine privée (14 m × 7 m)', 'Linge de maison (draps, serviettes de bain)', 'Serviettes de piscine', 'Wi-Fi haut débit', 'Climatisation dans toutes les suites', 'Parking privé sur le domaine', 'Four à bois, barbecue, plancha', 'Cuisine extérieure sur le rooftop'],
     not_included_h2: 'Options et suppléments',
-    not_included: ['Chef privé à domicile — sur devis', 'Transferts aéroport — sur devis', 'Ménage en cours de séjour — sur devis', 'Courses livrées à la villa — [À confirmer]', 'Cours de cuisine sicilienne — sur devis', 'Excursions et location de voiture — sur devis'],
+    not_included: ['Ménage en cours de séjour — sur demande, aux frais du voyageur', 'Taxe de séjour — voir conditions ci-dessous'],
     conditions_h2: 'Conditions de réservation',
-    conditions_note: 'Les conditions complètes (acompte, solde, annulation) sont confirmées au moment du devis. Consultez également notre page conditions de réservation.',
-    conditions: ['Acompte : [À confirmer] % à la réservation', "Solde : [À confirmer] jours avant l'arrivée", 'Annulation : [À confirmer] — politique à confirmer avec les propriétaires', 'Taxe de séjour : 3 € / nuit / personne (max. 6 nuits par personne)'],
+    conditions_note: 'La réservation se fait en direct avec les propriétaires. Les conditions complètes sont transmises par email au moment de la confirmation.',
+    conditions: ['Acompte : 30 % à la réservation', 'Solde : intégralité due le jour de l\'arrivée', 'Annulation : remboursement de l\'acompte (frais de dossier déduits) si annulation avant 60 jours · acompte non remboursable en deçà de 60 jours', 'Taxe de séjour communale · réglée sur place · montant communiqué à la réservation'],
     cta_cal: 'Voir les disponibilités en direct →',
     cta_contact: 'Demander un devis →',
     link_villa: '← La villa',
@@ -90,16 +91,16 @@ const CONTENT = {
     pricing_note: "Rates vary by period and length of stay. Contact us for a personalised quote — below are indicative ranges for each season.",
     seasons: [
       { label: 'Low season', period: 'April · May · October', price: 'From €580 / night', note: 'Perfect for the Infiorata (May) or mild October weather' },
-      { label: 'Mid season', period: 'June · September', price: '[To confirm] € / night', note: 'Sea at a good temperature, reasonable crowds' },
-      { label: 'High season', period: 'July · August', price: '[To confirm] € / night', note: 'Full Sicilian summer — book 6 to 12 months ahead' },
+      { label: 'Mid season', period: 'June · September', price: 'From €680 / night', note: 'Sea at a good temperature, reasonable crowds' },
+      { label: 'High season', period: 'July · August', price: '€780 – €880 / night', note: 'Full Sicilian summer — book 6 to 12 months ahead' },
     ],
     included_h2: "What's included",
     included: ['Private pool access (14 m × 7 m)', 'Bed linen (sheets and bath towels)', 'Pool towels', 'High-speed Wi-Fi', 'Air conditioning in all suites', 'Private parking', 'Wood-fired oven, BBQ, plancha', 'Outdoor kitchen on the rooftop'],
     not_included_h2: 'Options & extras',
-    not_included: ['Private chef — on request', 'Airport transfers — on request', 'Mid-stay cleaning — on request', 'Groceries delivered to the villa — [To confirm]', 'Sicilian cooking classes — on request', 'Excursions and car hire — on request'],
+    not_included: ['Mid-stay cleaning — on request, at the guest\'s expense', 'Tourist tax — see booking conditions below'],
     conditions_h2: 'Booking conditions',
-    conditions_note: 'Full conditions (deposit, balance, cancellation) are confirmed at the time of the quote. See also our booking conditions page.',
-    conditions: ['Deposit: [To confirm] % at booking', 'Balance: [To confirm] days before arrival', 'Cancellation: [To confirm] — policy to confirm with owners', 'Tourist tax: €3 / night / person (max. 6 nights per person)'],
+    conditions_note: 'Bookings are made directly with the owners. Full conditions are sent by email at the time of confirmation.',
+    conditions: ['Deposit: 30% at booking', 'Balance: full amount due on arrival', 'Cancellation: deposit refunded (admin fees deducted) if cancelled more than 60 days ahead · deposit non-refundable within 60 days', 'Local tourist tax · payable on site · amount confirmed at booking'],
     cta_cal: 'View live availability →',
     cta_contact: 'Request a quote →',
     link_villa: '← The villa',
@@ -121,16 +122,16 @@ const CONTENT = {
     pricing_note: "Le tariffe variano in base al periodo e alla durata del soggiorno. Contattateci per un preventivo personalizzato — di seguito le indicazioni approssimative per ogni stagione.",
     seasons: [
       { label: 'Bassa stagione', period: 'Aprile · Maggio · Ottobre', price: 'Da 580 € / notte', note: "Ideale per l'Infiorata (maggio) o la mite ottobre" },
-      { label: 'Media stagione', period: 'Giugno · Settembre', price: '[Da confermare] € / notte', note: 'Mare a buona temperatura, affluenza ragionevole' },
-      { label: 'Alta stagione', period: 'Luglio · Agosto', price: '[Da confermare] € / notte', note: 'Piena estate siciliana — prenotare con 6-12 mesi di anticipo' },
+      { label: 'Media stagione', period: 'Giugno · Settembre', price: 'Da 680 € / notte', note: 'Mare a buona temperatura, affluenza ragionevole' },
+      { label: 'Alta stagione', period: 'Luglio · Agosto', price: '780 – 880 € / notte', note: 'Piena estate siciliana — prenotare con 6-12 mesi di anticipo' },
     ],
     included_h2: 'Incluso nel noleggio',
     included: ['Accesso piscina privata (14 m × 7 m)', 'Biancheria da letto (lenzuola e asciugamani da bagno)', 'Asciugamani da piscina', 'Wi-Fi ad alta velocità', 'Aria condizionata in tutte le suite', 'Parcheggio privato', 'Forno a legna, barbecue, plancha', 'Cucina esterna sul rooftop'],
     not_included_h2: 'Opzioni e supplementi',
-    not_included: ['Chef privato — su richiesta', 'Trasferimenti aeroporto — su richiesta', 'Pulizie a metà soggiorno — su richiesta', 'Spesa consegnata alla villa — [Da confermare]', 'Corsi di cucina siciliana — su richiesta', 'Escursioni e noleggio auto — su richiesta'],
+    not_included: ['Pulizie a metà soggiorno — su richiesta, a carico dell\'ospite', 'Tassa di soggiorno — vedi condizioni di prenotazione'],
     conditions_h2: 'Condizioni di prenotazione',
-    conditions_note: 'Le condizioni complete (caparra, saldo, cancellazione) sono confermate al momento del preventivo. Consultate anche la nostra pagina condizioni di prenotazione.',
-    conditions: ['Caparra: [Da confermare] % alla prenotazione', "Saldo: [Da confermare] giorni prima dell'arrivo", 'Cancellazione: [Da confermare] — politica da confermare con i proprietari', 'Tassa di soggiorno: 3 € / notte / persona (max. 6 notti per persona)'],
+    conditions_note: 'Le prenotazioni avvengono direttamente con i proprietari. Le condizioni complete vengono inviate via email al momento della conferma.',
+    conditions: ['Caparra: 30% alla prenotazione', 'Saldo: importo totale dovuto il giorno dell\'arrivo', 'Cancellazione: caparra rimborsata (meno le spese di gestione) per cancellazioni oltre 60 giorni prima · non rimborsabile entro 60 giorni', 'Tassa di soggiorno comunale · pagata in loco · importo comunicato alla prenotazione'],
     cta_cal: 'Vedi disponibilità in tempo reale →',
     cta_contact: 'Richiedi un preventivo →',
     link_villa: '← La villa',
@@ -142,8 +143,18 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const c = CONTENT[locale]
 
+  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
   return (
-    <PageLayout lang={locale} page="tarifs" breadcrumb={c.breadcrumb}>
+    <>
+      <PricingViewTracker locale={locale} />
+      <JsonLd data={[
+        getBreadcrumbSchema([
+          { name: homeLabel, item: `${BASE}/${locale}` },
+          { name: c.breadcrumb, item: pageUrl('tarifs', locale) },
+        ]),
+        getOfferSchema(locale),
+      ]} />
+      <PageLayout lang={locale} page="tarifs" breadcrumb={c.breadcrumb}>
 
       <div className="mb-14">
         <p className="section-subtitle">{locale === 'fr' ? 'Réservation directe' : locale === 'en' ? 'Direct booking' : 'Prenotazione diretta'}</p>
@@ -249,5 +260,6 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
       </div>
 
     </PageLayout>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 import LegalLayout from '@/components/LegalLayout'
 import { Metadata } from 'next'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
+import { SITE_CONFIG } from '@/lib/siteConfig'
 
 export const metadata: Metadata = {
   title: 'Condizioni di prenotazione — Villa Vénus Noto',
@@ -60,9 +61,9 @@ export default function CondizioniDiPrenotazione() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">11. Tassa di soggiorno</h2>
       <p>
-        In conformità con la normativa del Comune di Noto, è dovuta una <strong>tassa di soggiorno di €3 per persona per notte</strong>.
-        Si applica ai soggiorni fino a 6 notti consecutive. Sono esenti i minori di 14 anni e le persone di età superiore a 75 anni.
-        Questa tassa viene riscossa in loco, in aggiunta al canone di locazione.
+        In conformità con la normativa del Comune di Noto, è dovuta una <strong>tassa di soggiorno comunale</strong> per ogni soggiorno.
+        Si applica per un massimo di 6 notti consecutive. Sono esenti i minori di 14 anni e le persone di età superiore a 75 anni.
+        Questa tassa viene riscossa in loco, in aggiunta al canone di locazione. <strong>L'importo esatto verrà comunicato alla conferma della prenotazione.</strong>
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">12. Obblighi di legge italiani</h2>
@@ -71,8 +72,8 @@ export default function CondizioniDiPrenotazione() {
         Gli ospiti si impegnano a fornire i dati identificativi di tutti gli occupanti.
       </p>
       <p>
-        <strong>CIN (Codice Identificativo Nazionale)</strong>: <span className="bg-amber-100 text-amber-800 px-2 py-0.5 font-mono text-xs">[DA COMPLETARE]</span><br />
-        <strong>CIR (Codice Identificativo Regionale)</strong>: <span className="bg-amber-100 text-amber-800 px-2 py-0.5 font-mono text-xs">[DA COMPLETARE]</span>
+        {SITE_CONFIG.cin && <><strong>CIN (Codice Identificativo Nazionale)</strong>: <span className="font-mono">{SITE_CONFIG.cin}</span><br /></>}
+        {SITE_CONFIG.cir && <><strong>CIR (Codice Identificativo Regionale)</strong>: <span className="font-mono">{SITE_CONFIG.cir}</span></>}
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">13. Responsabilità</h2>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Lang } from '@/lib/i18n'
+import { pageUrl } from '@/lib/routes'
 
 const FLAGS: { lang: Lang; flag: string }[] = [
   { lang: 'fr', flag: '🇫🇷' },
@@ -98,7 +99,7 @@ export default function PageLayout({ lang, page, breadcrumb, heroImg, heroAlt, c
           <div className="flex flex-wrap justify-center gap-5">
             <Link href={`/${lang}`} className="hover:text-white/80 transition-colors">{ui.home}</Link>
             <Link href={`/${lang}/villa`} className="hover:text-white/80 transition-colors">Villa</Link>
-            <Link href={`/${lang}/tarifs`} className="hover:text-white/80 transition-colors">{lang === 'fr' ? 'Tarifs' : lang === 'en' ? 'Rates' : 'Tariffe'}</Link>
+            <Link href={pageUrl('tarifs', lang)} className="hover:text-white/80 transition-colors">{lang === 'fr' ? 'Tarifs' : lang === 'en' ? 'Rates' : 'Tariffe'}</Link>
             <Link href={`/${lang}#contact`} className="hover:text-white/80 transition-colors">{ui.book}</Link>
             <Link href={ui.legalHref} className="hover:text-white/80 transition-colors">{ui.legal}</Link>
           </div>

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Lang } from '@/lib/i18n'
+import { trackEvent } from '@/lib/track'
 
 const flags: { lang: Lang; flag: string; label: string }[] = [
   { lang: 'fr', flag: '🇫🇷', label: 'Français' },
@@ -18,7 +19,11 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const switchLang = (l: Lang) => { setLang(l); router.push(`/${l}`) }
+  const switchLang = (l: Lang) => {
+    trackEvent('language_changed', { from: lang, to: l })
+    setLang(l)
+    router.push(`/${l}`)
+  }
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)

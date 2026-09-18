@@ -32,3 +32,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Originaux photos & sauvegardes locales (hors déploiement)
+_originals/
+backups/
+scripts/

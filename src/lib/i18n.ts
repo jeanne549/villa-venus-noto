@@ -1,3 +1,5 @@
+import { SITE_CONFIG } from './siteConfig'
+
 export type Lang = 'fr' | 'en' | 'it'
 
 export const translations = {
@@ -84,8 +86,13 @@ export const translations = {
       night: 'nuit',
       rental: 'Location',
       tourist_tax: 'Taxe de séjour',
-      tourist_tax_detail: (guests: number, taxNights: number) => `${guests} pers. × ${taxNights} nuit${taxNights > 1 ? 's' : ''} × 3 €`,
-      tourist_tax_note: 'Max 6 nuits. Enfants de moins de 14 ans et personnes de plus de 75 ans exonérés.',
+      tourist_tax_detail: (guests: number, taxNights: number) =>
+        SITE_CONFIG.touristTaxRate !== null
+          ? `${guests} pers. × ${taxNights} nuit${taxNights > 1 ? 's' : ''} × ${SITE_CONFIG.touristTaxRate} €`
+          : `${guests} pers. × ${taxNights} nuit${taxNights > 1 ? 's' : ''}`,
+      tourist_tax_note: SITE_CONFIG.touristTaxRate !== null
+        ? 'Max 6 nuits. Enfants de moins de 14 ans et personnes de plus de 75 ans exonérés.'
+        : 'Montant communiqué à la réservation · max 6 nuits · enfants < 14 ans et personnes > 75 ans exonérés.',
       grand_total: 'Total général estimé',
       guests_label: 'Nombre de voyageurs',
       warning_min: 'Séjour minimum 6 nuits — veuillez allonger votre sélection.',
@@ -99,6 +106,13 @@ export const translations = {
       duration: 'Durée',
       price_variable: 'Tarifs variables selon la période',
       contact_us: 'Nous contacter pour réserver',
+      your_stay: 'Votre séjour',
+      price_to_confirm: 'Tarif à confirmer',
+      saturday_preferred: 'Arrivée conseillée le samedi',
+      season_low: 'Basse saison',
+      season_mid: 'Moyenne saison',
+      season_high: 'Haute saison',
+      warning_min_suggest: (dep: string) => `Minimum 6 nuits. Départ au plus tôt : ${dep}`,
       months: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
       days: ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],
     },
@@ -151,6 +165,7 @@ export const translations = {
       success_title: 'Merci !',
       success_text: 'Votre demande a bien été reçue. Nous vous contactons dans les 24h pour confirmer les disponibilités et vous envoyer un devis.',
       error: 'Une erreur s\'est produite. Veuillez réessayer.',
+      error_fallback: 'Contactez-nous directement :',
       persons: (n: number) => `${n} personne${n > 1 ? 's' : ''}`,
     },
     footer: {
@@ -248,8 +263,13 @@ export const translations = {
       night: 'night',
       rental: 'Rental',
       tourist_tax: 'Tourist tax',
-      tourist_tax_detail: (guests: number, taxNights: number) => `${guests} guest${guests > 1 ? 's' : ''} × ${taxNights} night${taxNights > 1 ? 's' : ''} × €3`,
-      tourist_tax_note: 'Max 6 nights. Children under 14 and persons over 75 are exempt.',
+      tourist_tax_detail: (guests: number, taxNights: number) =>
+        SITE_CONFIG.touristTaxRate !== null
+          ? `${guests} guest${guests > 1 ? 's' : ''} × ${taxNights} night${taxNights > 1 ? 's' : ''} × €${SITE_CONFIG.touristTaxRate}`
+          : `${guests} guest${guests > 1 ? 's' : ''} × ${taxNights} night${taxNights > 1 ? 's' : ''}`,
+      tourist_tax_note: SITE_CONFIG.touristTaxRate !== null
+        ? 'Max 6 nights. Children under 14 and persons over 75 are exempt.'
+        : 'Amount confirmed at booking · max 6 nights · children under 14 and persons over 75 are exempt.',
       grand_total: 'Estimated grand total',
       guests_label: 'Number of guests',
       warning_min: 'Minimum stay is 6 nights — please extend your selection.',
@@ -263,6 +283,13 @@ export const translations = {
       duration: 'Duration',
       price_variable: 'Rates vary by period',
       contact_us: 'Contact us to book',
+      your_stay: 'Your stay',
+      price_to_confirm: 'Rate to confirm',
+      saturday_preferred: 'Saturday arrival recommended',
+      season_low: 'Low season',
+      season_mid: 'Mid season',
+      season_high: 'High season',
+      warning_min_suggest: (dep: string) => `Minimum 6 nights. Earliest departure: ${dep}`,
       months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
       days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
     },
@@ -315,6 +342,7 @@ export const translations = {
       success_title: 'Thank you!',
       success_text: 'Your request has been received. We will contact you within 24 hours to confirm availability and send you a quote.',
       error: 'An error occurred. Please try again.',
+      error_fallback: 'Contact us directly:',
       persons: (n: number) => `${n} guest${n > 1 ? 's' : ''}`,
     },
     footer: {
@@ -412,8 +440,13 @@ export const translations = {
       night: 'notte',
       rental: 'Locazione',
       tourist_tax: 'Tassa di soggiorno',
-      tourist_tax_detail: (guests: number, taxNights: number) => `${guests} ospite${guests > 1 ? 'i' : ''} × ${taxNights} notte${taxNights > 1 ? 'i' : ''} × 3 €`,
-      tourist_tax_note: 'Max 6 notti. Bambini sotto i 14 anni e persone sopra i 75 anni esenti.',
+      tourist_tax_detail: (guests: number, taxNights: number) =>
+        SITE_CONFIG.touristTaxRate !== null
+          ? `${guests} ospite${guests > 1 ? 'i' : ''} × ${taxNights} notte${taxNights > 1 ? 'i' : ''} × ${SITE_CONFIG.touristTaxRate} €`
+          : `${guests} ospite${guests > 1 ? 'i' : ''} × ${taxNights} notte${taxNights > 1 ? 'i' : ''}`,
+      tourist_tax_note: SITE_CONFIG.touristTaxRate !== null
+        ? 'Max 6 notti. Bambini sotto i 14 anni e persone sopra i 75 anni esenti.'
+        : 'Importo comunicato alla prenotazione · max 6 notti · bambini sotto i 14 anni e persone sopra i 75 anni esenti.',
       grand_total: 'Totale generale stimato',
       guests_label: 'Numero di ospiti',
       warning_min: 'Soggiorno minimo 6 notti — allungare la selezione.',
@@ -427,6 +460,13 @@ export const translations = {
       duration: 'Durata',
       price_variable: 'Tariffe variabili secondo il periodo',
       contact_us: 'Contattaci per prenotare',
+      your_stay: 'Il tuo soggiorno',
+      price_to_confirm: 'Tariffa da confermare',
+      saturday_preferred: 'Arrivo consigliato il sabato',
+      season_low: 'Bassa stagione',
+      season_mid: 'Mezza stagione',
+      season_high: 'Alta stagione',
+      warning_min_suggest: (dep: string) => `Minimo 6 notti. Partenza più vicina: ${dep}`,
       months: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
       days: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
     },
@@ -479,6 +519,7 @@ export const translations = {
       success_title: 'Grazie!',
       success_text: 'La tua richiesta è stata ricevuta. Ti contatteremo entro 24 ore per confermare la disponibilità e inviarti un preventivo.',
       error: 'Si è verificato un errore. Per favore riprova.',
+      error_fallback: 'Contattateci direttamente:',
       persons: (n: number) => `${n} ospite${n > 1 ? 'i' : ''}`,
     },
     footer: {
