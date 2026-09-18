@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
+import { hasPlaceholders } from '@/lib/placeholder'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -20,8 +21,10 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
+  const robots = hasPlaceholders(FAQS[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
+    robots,
     alternates: { canonical: `${BASE}/${locale}/faq`, languages: { fr: `${BASE}/fr/faq`, en: `${BASE}/en/faq`, it: `${BASE}/it/faq`, 'x-default': `${BASE}/fr/faq` } },
     openGraph: { title, description, url: `${BASE}/${locale}/faq`, siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
   }

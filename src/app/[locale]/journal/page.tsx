@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import PageLayout from '@/components/PageLayout'
 import type { Lang } from '@/lib/i18n'
+import { hasPlaceholders } from '@/lib/placeholder'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
@@ -11,17 +12,19 @@ export function generateStaticParams() {
 }
 
 const META = {
-  fr: { title: 'Journal — Séjours, saisons et idées autour de Villa Vénus Noto', description: 'L\'Infiorata de Noto en mai, les plages du sud-est sicilien en été, où dîner à Noto, la Sicile en septembre. Inspirations de séjour depuis Villa Vénus Noto.' },
-  en: { title: 'Journal — Stays, Seasons & Ideas around Villa Vénus Noto', description: 'Noto\'s Infiorata in May, southeast Sicily\'s beaches in summer, where to eat in Noto, Sicily in September. Travel inspiration from Villa Vénus Noto.' },
-  it: { title: 'Diario — Soggiorni, stagioni e idee intorno a Villa Vénus Noto', description: 'L\'Infiorata di Noto a maggio, le spiagge del sud-est siciliano in estate, dove cenare a Noto, la Sicilia a settembre. Ispirazione di viaggio da Villa Vénus Noto.' },
+  fr: { title: 'Journal — Séjours, saisons et idées autour de Villa Vénus Noto', description: "L'Infiorata de Noto en mai, les plages du sud-est sicilien en été, la Sicile en septembre. Inspirations de séjour depuis Villa Vénus Noto." },
+  en: { title: 'Journal — Stays, Seasons & Ideas around Villa Vénus Noto', description: "Noto's Infiorata in May, southeast Sicily's beaches in summer, Sicily in September. Travel inspiration from Villa Vénus Noto." },
+  it: { title: 'Diario — Soggiorni, stagioni e idee intorno a Villa Vénus Noto', description: "L'Infiorata di Noto a maggio, le spiagge del sud-est siciliano in estate, la Sicilia a settembre. Ispirazione di viaggio da Villa Vénus Noto." },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
+  const robots = hasPlaceholders(ARTICLES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
+    robots,
     alternates: { canonical: `${BASE}/${locale}/journal`, languages: { fr: `${BASE}/fr/journal`, en: `${BASE}/en/journal`, it: `${BASE}/it/journal`, 'x-default': `${BASE}/fr/journal` } },
     openGraph: { title, description, url: `${BASE}/${locale}/journal`, siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
   }
@@ -32,19 +35,16 @@ const ARTICLES = {
     { slug: 'infiorata-noto-mai', date: 'Mai', tag: 'Événement', title: "L'Infiorata de Noto : le spectacle de mai que peu de voyageurs voient", excerpt: "Chaque troisième week-end de mai, les rues du centre de Noto se couvrent de tapis de fleurs représentant des scènes de la vie sicilienne. Un événement unique au monde, à deux pas de la villa.", readTime: '4 min' },
     { slug: 'plages-sud-est-sicile', date: 'Juillet · Août', tag: 'Plages', title: "Les plus belles plages du sud-est sicilien depuis Villa Vénus Noto", excerpt: "Vendicari, San Lorenzo, Lido di Noto, Calamosche, Marzamemi : une sélection des plages les plus accessibles et les plus belles depuis la villa, avec les distances et ce qu'on y trouve.", readTime: '6 min' },
     { slug: 'sicile-septembre', date: 'Septembre', tag: 'Saison', title: "Pourquoi septembre est le meilleur mois pour la Sicile", excerpt: "La mer est chaude, les foules ont disparu, la campagne reprend ses couleurs après l'été, les raisins mûrissent dans les vignes du Val di Noto. Un mois à part.", readTime: '5 min' },
-    { slug: 'ou-diner-noto', date: 'Toute saison', tag: 'Gastronomie', title: "Où dîner à Noto — nos adresses pour bien manger", excerpt: "Du restaurant étoilé au trattoria de quartier, du granita glacé au meilleur cannolo de Sicile : ce que les propriétaires de la villa recommandent à leurs hôtes. [À compléter avec les adresses réelles]", readTime: '5 min' },
   ],
   en: [
     { slug: 'infiorata-noto-may', date: 'May', tag: 'Event', title: "Noto's Infiorata: the May spectacle few travellers see", excerpt: "Every third weekend of May, the streets of Noto's centre are covered with carpets of flowers depicting scenes of Sicilian life. A unique event in the world, just a few kilometres from the villa.", readTime: '4 min' },
     { slug: 'beaches-southeast-sicily', date: 'July · August', tag: 'Beaches', title: "The best beaches of southeast Sicily from Villa Vénus Noto", excerpt: "Vendicari, San Lorenzo, Lido di Noto, Calamosche, Marzamemi: a selection of the most accessible and beautiful beaches from the villa, with distances and what you'll find there.", readTime: '6 min' },
     { slug: 'sicily-in-september', date: 'September', tag: 'Season', title: "Why September is the best month for Sicily", excerpt: "The sea is warm, the crowds have gone, the countryside comes back to life after summer, the grapes ripen in the Val di Noto vineyards. A month apart.", readTime: '5 min' },
-    { slug: 'where-to-eat-noto', date: 'All season', tag: 'Food', title: "Where to eat in Noto — our recommended addresses", excerpt: "From the starred restaurant to the neighbourhood trattoria, from the best granita to the finest cannolo in Sicily: what the villa's owners recommend to their guests. [To complete with real addresses]", readTime: '5 min' },
   ],
   it: [
     { slug: 'infiorata-noto-maggio', date: 'Maggio', tag: 'Evento', title: "L'Infiorata di Noto: lo spettacolo di maggio che pochi viaggiatori vedono", excerpt: "Ogni terzo weekend di maggio, le strade del centro di Noto si ricoprono di tappeti di fiori raffiguranti scene di vita siciliana. Un evento unico al mondo, a pochi chilometri dalla villa.", readTime: '4 min' },
     { slug: 'spiagge-sud-est-sicilia', date: 'Luglio · Agosto', tag: 'Spiagge', title: "Le più belle spiagge del sud-est siciliano da Villa Vénus Noto", excerpt: "Vendicari, San Lorenzo, Lido di Noto, Calamosche, Marzamemi: una selezione delle spiagge più accessibili e più belle dalla villa, con le distanze e cosa si trova.", readTime: '6 min' },
     { slug: 'sicilia-settembre', date: 'Settembre', tag: 'Stagione', title: "Perché settembre è il mese migliore per la Sicilia", excerpt: "Il mare è caldo, le folle sono sparite, la campagna riprende i suoi colori dopo l'estate, i grappoli maturano nei vigneti del Val di Noto. Un mese a parte.", readTime: '5 min' },
-    { slug: 'dove-mangiare-noto', date: 'Tutta la stagione', tag: 'Gastronomia', title: "Dove mangiare a Noto — i nostri indirizzi consigliati", excerpt: "Dal ristorante stellato alla trattoria di quartiere, dalla migliore granita al miglior cannolo di Sicilia: cosa i proprietari della villa consigliano ai loro ospiti. [Da completare con gli indirizzi reali]", readTime: '5 min' },
   ],
 }
 

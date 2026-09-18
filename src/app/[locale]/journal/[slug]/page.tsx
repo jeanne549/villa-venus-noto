@@ -6,11 +6,11 @@ import type { Lang } from '@/lib/i18n'
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it']
 
-// Slug → locale mapping for generateStaticParams
+// Slugs publiés — "où dîner" retiré (brouillon, contenu incomplet)
 const SLUGS_BY_LOCALE: Record<Lang, string[]> = {
-  fr: ['infiorata-noto-mai', 'plages-sud-est-sicile', 'sicile-septembre', 'ou-diner-noto'],
-  en: ['infiorata-noto-may', 'beaches-southeast-sicily', 'sicily-in-september', 'where-to-eat-noto'],
-  it: ['infiorata-noto-maggio', 'spiagge-sud-est-sicilia', 'sicilia-settembre', 'dove-mangiare-noto'],
+  fr: ['infiorata-noto-mai', 'plages-sud-est-sicile', 'sicile-septembre'],
+  en: ['infiorata-noto-may', 'beaches-southeast-sicily', 'sicily-in-september'],
+  it: ['infiorata-noto-maggio', 'spiagge-sud-est-sicilia', 'sicilia-settembre'],
 }
 
 export function generateStaticParams() {
