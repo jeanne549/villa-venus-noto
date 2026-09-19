@@ -77,7 +77,7 @@ const FAQS: Record<Lang, Category[]> = {
     {
       cat: 'Les environs',
       items: [
-        { q: 'Y a-t-il un supermarché à proximité ?', a: "Noto (5 km) dispose de plusieurs supermarchés et d'un marché hebdomadaire, le lundi matin. Des courses peuvent également être commandées depuis Noto." },
+        { q: 'Y a-t-il un supermarché à proximité ?', a: "Noto (5 km) dispose de plusieurs supermarchés et d'un marché, le lundi matin. Un second marché se tient à Avola le jeudi. À Syracuse (30 km), le marché aux poissons d'Ortigia est une expérience à part entière. Des courses peuvent également être commandées depuis Noto." },
         { q: 'Quels restaurants recommandez-vous à Noto ?', a: "Contactez-nous directement — nous partageons volontiers nos adresses favorites à Noto et dans les environs avec nos hôtes." },
         { q: "A-t-on besoin d'une voiture absolument ?", a: "Oui, la voiture est indispensable. Il n'y a pas de transport en commun jusqu'à la villa, et les villages, plages et sites du Val di Noto ne sont accessibles qu'en voiture. Voir la page Comment venir." },
       ],
@@ -120,7 +120,7 @@ const FAQS: Record<Lang, Category[]> = {
     {
       cat: 'The surroundings',
       items: [
-        { q: 'Is there a supermarket nearby?', a: "Noto (5 km) has several supermarkets and a weekly market, held on Monday mornings. Groceries can also be ordered from Noto." },
+        { q: 'Is there a supermarket nearby?', a: "Noto (5 km) has several supermarkets and a weekly market on Monday mornings. A second market takes place in Avola on Thursdays. In Syracuse (30 km), the Ortigia fish market is an unmissable experience. Groceries can also be ordered from Noto." },
         { q: 'Which restaurants do you recommend in Noto?', a: "Contact us directly — we are happy to share our personal favourite addresses in Noto and the surrounding area with our guests." },
         { q: 'Is a car absolutely necessary?', a: "Yes, a car is essential. There is no public transport to the villa, and the villages, beaches and sites of the Val di Noto are only accessible by car. See the Getting Here page." },
       ],
@@ -163,7 +163,7 @@ const FAQS: Record<Lang, Category[]> = {
     {
       cat: 'I dintorni',
       items: [
-        { q: "C'è un supermercato nelle vicinanze?", a: "Noto (5 km) ha diversi supermercati e un mercato settimanale, il lunedì mattina. È possibile ordinare la spesa anche da Noto." },
+        { q: "C'è un supermercato nelle vicinanze?", a: "Noto (5 km) ha diversi supermercati e un mercato il lunedì mattina. Un secondo mercato si tiene ad Avola il giovedì. A Siracusa (30 km), il mercato del pesce di Ortigia è un'esperienza da non perdere. È possibile ordinare la spesa anche da Noto." },
         { q: 'Quali ristoranti consigliate a Noto?', a: "Contattateci direttamente — siamo lieti di condividere con i nostri ospiti i nostri indirizzi preferiti a Noto e dintorni." },
         { q: "L'auto è assolutamente necessaria?", a: "Sì, l'auto è indispensabile. Non esiste trasporto pubblico fino alla villa, e i borghi, le spiagge e i siti del Val di Noto sono raggiungibili solo in auto. Vedere la pagina Come arrivare." },
       ],
@@ -206,7 +206,7 @@ const FAQS: Record<Lang, Category[]> = {
     {
       cat: 'Die Umgebung',
       items: [
-        { q: 'Gibt es einen Supermarkt in der Nähe?', a: "Noto (5 km) hat mehrere Supermärkte und einen Wochenmarkt, montags. Lebensmittel können auch aus Noto bestellt werden." },
+        { q: 'Gibt es einen Supermarkt in der Nähe?', a: "Noto (5 km) hat mehrere Supermärkte und einen Markt, montags. Ein weiterer Markt findet donnerstags in Avola statt. In Syrakus (30 km) ist der Fischmarkt von Ortigia ein unvergessliches Erlebnis. Lebensmittel können auch aus Noto bestellt werden." },
         { q: 'Welche Restaurants empfehlen Sie in Noto?', a: "Kontaktieren Sie uns direkt — wir teilen gerne unsere persönlichen Lieblingsadressen in Noto und Umgebung mit unseren Gästen." },
         { q: 'Ist ein Auto wirklich notwendig?', a: "Ja, ein Auto ist unverzichtbar. Es gibt keinen öffentlichen Nahverkehr zur Villa, und die Dörfer, Strände und Sehenswürdigkeiten des Val di Noto sind nur mit dem Auto erreichbar. Siehe Seite Anreise." },
       ],
