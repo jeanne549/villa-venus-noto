@@ -40,7 +40,7 @@ export default function Footer() {
         {/* Identité légale + CIN/CIR */}
         <div className="border-t border-white/10 pt-6 mb-4">
           <div className="flex flex-wrap gap-x-6 gap-y-1 font-sans text-white/40 text-xs">
-            <span>Deschaux Jeanne · Codice fiscale DSCJNN71L64F943Q</span>
+            <span>Codice fiscale DSCJNN71L64F943Q</span>
             {SITE_CONFIG.cin && <span>CIN : <span className="font-mono">{SITE_CONFIG.cin}</span></span>}
             {SITE_CONFIG.cir && <span>CIR : <span className="font-mono">{SITE_CONFIG.cir}</span></span>}
             <span>Contact local : Emanuele Di Pietro · +39 348 006 46 72</span>
