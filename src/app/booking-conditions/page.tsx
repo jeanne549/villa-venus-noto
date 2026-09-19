@@ -63,7 +63,7 @@ export default function BookingConditions() {
       <p>
         In accordance with the municipality of Noto, a <strong>local tourist tax</strong> applies for each stay.
         It is due for up to 6 consecutive nights. Exemptions: children under 14 and persons over 75.
-        This tax is collected on site, in addition to the rental rate. <strong>The exact amount will be confirmed at booking.</strong>
+        This tax is collected on site, in addition to the rental rate. <strong>It amounts to €3 per person per night.</strong>
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">12. Italian legal obligations</h2>

@@ -63,7 +63,7 @@ export default function ConditionsDeReservation() {
       <p>
         Conformément à la réglementation de la commune de Noto, une <strong>taxe de séjour communale</strong> est due pour chaque séjour.
         Elle s'applique dans la limite de 6 nuits consécutives. Sont exemptés les enfants de moins de 14 ans et les personnes de plus de 75 ans.
-        Cette taxe est collectée sur place, en supplément du loyer. <strong>Le montant exact vous sera communiqué lors de la confirmation de réservation.</strong>
+        Cette taxe est collectée sur place, en supplément du loyer. <strong>Elle s'élève à 3 € par personne et par nuit.</strong>
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">12. Obligations légales italiennes</h2>

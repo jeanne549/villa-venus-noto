@@ -63,7 +63,7 @@ export default function CondizioniDiPrenotazione() {
       <p>
         In conformità con la normativa del Comune di Noto, è dovuta una <strong>tassa di soggiorno comunale</strong> per ogni soggiorno.
         Si applica per un massimo di 6 notti consecutive. Sono esenti i minori di 14 anni e le persone di età superiore a 75 anni.
-        Questa tassa viene riscossa in loco, in aggiunta al canone di locazione. <strong>L'importo esatto verrà comunicato alla conferma della prenotazione.</strong>
+        Questa tassa viene riscossa in loco, in aggiunta al canone di locazione. <strong>È pari a 3 € a persona a notte.</strong>
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">12. Obblighi di legge italiani</h2>
