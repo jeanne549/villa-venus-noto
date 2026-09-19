@@ -9,7 +9,7 @@ import { getBreadcrumbSchema, getOfferSchema } from '@/lib/structured-data'
 import PricingViewTracker from '@/components/PricingViewTracker'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }))
@@ -28,13 +28,19 @@ const META = {
     title: 'Tariffe e disponibilità — Villa Vénus Noto, Sicilia',
     description: 'Affitto villa da 580 €/notte per 9 persone. Prezzi alta/bassa stagione, servizi inclusi, minimo 6 notti. Verifica le date disponibili.',
   },
+  de: {
+    title: 'Preise & Verfügbarkeit — Villa Vénus Noto, Sizilien',
+    description: 'Villenvermietung ab 580 €/Nacht für 9 Personen. Hoch-/Nebensaisonpreise, Inklusivleistungen, mindestens 6 Nächte. Verfügbare Daten prüfen.',
+  },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = hasPlaceholders(CONTENT[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = locale === 'de'
+    ? { index: false, follow: false }
+    : hasPlaceholders(CONTENT[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,
@@ -137,13 +143,44 @@ const CONTENT = {
     link_villa: '← La villa',
     link_services: 'Servizi inclusi →',
   },
+  de: {
+    breadcrumb: 'Preise',
+    h1: 'Preise und Verfügbarkeit',
+    intro: "Die Villa wird wochenweise oder länger vermietet, direkt bei den Eigentümern — ohne Agenturprovision und ohne Plattformgebühren. Der Preis, den Sie sehen, ist der Preis, den Sie zahlen.",
+    season_label: 'Saison',
+    season_val: 'April bis Oktober',
+    min_label: 'Mindestaufenthalt',
+    min_val: '6 Nächte',
+    cap_label: 'Kapazität',
+    cap_val: 'Bis zu 9 Gäste',
+    from_label: 'Preise ab',
+    from_val: '580 € / Nacht',
+    pricing_h2: 'Preisübersicht',
+    pricing_note: "Die Preise variieren je nach Zeitraum und Aufenthaltsdauer. Kontaktieren Sie uns für ein individuelles Angebot — unten finden Sie die Richtwerte für jede Saison.",
+    seasons: [
+      { label: 'Nebensaison', period: 'April · Mai · Oktober', price: 'Ab 580 € / Nacht', note: 'Ideal für die Infiorata (Mai) oder das milde Oktober-Wetter' },
+      { label: 'Zwischensaison', period: 'Juni · September', price: 'Ab 680 € / Nacht', note: 'Warmes Meer, angenehme Besucherzahlen' },
+      { label: 'Hochsaison', period: 'Juli · August', price: '780 – 880 € / Nacht', note: 'Sizilianischer Hochsommer — 6 bis 12 Monate im Voraus buchen' },
+    ],
+    included_h2: 'Im Mietpreis enthalten',
+    included: ['Privater Pool (14 m × 7 m)', 'Bettwäsche (Laken und Badetücher)', 'Poolhandtücher', 'Hochgeschwindigkeits-WLAN', 'Klimaanlage in allen Suiten', 'Privater Parkplatz', 'Holzbackofen, Grill, Plancha', 'Außenküche auf dem Rooftop'],
+    not_included_h2: 'Optionen & Extras',
+    not_included: ['Zwischenreinigung — auf Anfrage, auf Kosten des Gastes', 'Kurtaxe — siehe Buchungsbedingungen'],
+    conditions_h2: 'Buchungsbedingungen',
+    conditions_note: 'Buchungen erfolgen direkt bei den Eigentümern. Die vollständigen Bedingungen werden bei Bestätigung per E-Mail übermittelt.',
+    conditions: ['Anzahlung: 30 % bei Buchung', 'Restbetrag: vollständiger Betrag am Anreisetag', 'Stornierung: Anzahlung erstattet (abzügl. Bearbeitungsgebühr) bei Stornierung mehr als 60 Tage vor Anreise · Anzahlung nicht erstattet bei weniger als 60 Tagen', 'Kommunale Kurtaxe · vor Ort zu bezahlen · Betrag wird bei Buchung mitgeteilt'],
+    cta_cal: 'Aktuelle Verfügbarkeit ansehen →',
+    cta_contact: 'Angebot anfragen →',
+    link_villa: '← Die Villa',
+    link_services: 'Enthaltene Leistungen →',
+  },
 }
 
 export default function TarifsPage({ params }: { params: { locale: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const c = CONTENT[locale]
 
-  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   return (
     <>
       <PricingViewTracker locale={locale} />
@@ -157,7 +194,7 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
       <PageLayout lang={locale} page="tarifs" breadcrumb={c.breadcrumb}>
 
       <div className="mb-14">
-        <p className="section-subtitle">{locale === 'fr' ? 'Réservation directe' : locale === 'en' ? 'Direct booking' : 'Prenotazione diretta'}</p>
+        <p className="section-subtitle">{locale === 'fr' ? 'Réservation directe' : locale === 'en' ? 'Direct booking' : locale === 'de' ? 'Direktbuchung' : 'Prenotazione diretta'}</p>
         <h1 className="font-serif text-4xl md:text-5xl text-charcoal leading-tight mb-6">{c.h1}</h1>
         <div className="gold-divider" />
         <p className="font-sans text-muted text-base leading-relaxed max-w-2xl">{c.intro}</p>

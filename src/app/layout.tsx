@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${cormorant.variable} ${inter.variable} ${cinzel.variable}`}>
       <head>
         {/* Set html.lang from URL before hydration — avoids dynamic headers() in root layout */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){var p=location.pathname;document.documentElement.lang=p.startsWith('/en')?'en':p.startsWith('/it')?'it':'fr';})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var p=location.pathname;document.documentElement.lang=p.startsWith('/en')?'en':p.startsWith('/it')?'it':p.startsWith('/de')?'de':'fr';})()` }} />
       </head>
       <body>{children}</body>
     </html>

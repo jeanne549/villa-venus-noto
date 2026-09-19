@@ -9,7 +9,7 @@ type Props = {
 }
 
 export default function LocaleLayout({ children, params }: Props) {
-  const locale = (['fr', 'en', 'it'].includes(params.locale) ? params.locale : 'fr') as Lang
+  const locale = (['fr', 'en', 'it', 'de'].includes(params.locale) ? params.locale : 'fr') as Lang
   return (
     <LanguageProvider initialLang={locale}>
       {children}

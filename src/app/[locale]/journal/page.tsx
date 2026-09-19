@@ -7,7 +7,7 @@ import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }))
@@ -17,13 +17,16 @@ const META = {
   fr: { title: 'Journal — Séjours, saisons et idées autour de Villa Vénus Noto', description: "L'Infiorata de Noto en mai, les plages du sud-est sicilien en été, la Sicile en septembre. Inspirations de séjour depuis Villa Vénus Noto." },
   en: { title: 'Journal — Stays, Seasons & Ideas around Villa Vénus Noto', description: "Noto's Infiorata in May, southeast Sicily's beaches in summer, Sicily in September. Travel inspiration from Villa Vénus Noto." },
   it: { title: 'Diario — Soggiorni, stagioni e idee intorno a Villa Vénus Noto', description: "L'Infiorata di Noto a maggio, le spiagge del sud-est siciliano in estate, la Sicilia a settembre. Ispirazione di viaggio da Villa Vénus Noto." },
+  de: { title: 'Journal — Villa Vénus Noto, Sizilien', description: "Reiseberichte, Ideen und praktische Ratschläge für Ihren Aufenthalt im Südosten Siziliens. Aus der Villa, von den Eigentümern." },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = hasPlaceholders(ARTICLES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = locale === 'de'
+    ? { index: false, follow: false }
+    : hasPlaceholders(ARTICLES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,
@@ -48,12 +51,18 @@ const ARTICLES = {
     { slug: 'spiagge-sud-est-sicilia', date: 'Luglio · Agosto', tag: 'Spiagge', title: "Le più belle spiagge del sud-est siciliano da Villa Vénus Noto", excerpt: "Vendicari, San Lorenzo, Lido di Noto, Calamosche, Marzamemi: una selezione delle spiagge più accessibili e più belle dalla villa, con le distanze e cosa si trova.", readTime: '6 min' },
     { slug: 'sicilia-settembre', date: 'Settembre', tag: 'Stagione', title: "Perché settembre è il mese migliore per la Sicilia", excerpt: "Il mare è caldo, le folle sono sparite, la campagna riprende i suoi colori dopo l'estate, i grappoli maturano nei vigneti del Val di Noto. Un mese a parte.", readTime: '5 min' },
   ],
+  de: [
+    { slug: 'infiorata-noto-mai', date: 'Mai', tag: 'Veranstaltung', title: "Die Infiorata von Noto: das Maispektakel, das kaum ein Reisender sieht", excerpt: "Jedes dritte Maiwochenende bedecken sich die Straßen des Notoer Zentrums mit Blumenteppichen, die Szenen des sizilianischen Lebens darstellen. Ein weltweit einzigartiges Ereignis, wenige Kilometer von der Villa entfernt.", readTime: '4 Min.' },
+    { slug: 'straende-suedost-sizilien', date: 'Juli · August', tag: 'Strände', title: "Die schönsten Strände Südostsiziliens von Villa Vénus Noto", excerpt: "Vendicari, San Lorenzo, Lido di Noto, Calamosche, Marzamemi: eine Auswahl der zugänglichsten und schönsten Strände von der Villa aus, mit Entfernungen und was Sie dort erwartet.", readTime: '6 Min.' },
+    { slug: 'sizilien-september', date: 'September', tag: 'Saison', title: "Warum September der beste Monat für Sizilien ist", excerpt: "Das Meer ist warm, die Massen sind verschwunden, die Landschaft erwacht nach dem Sommer zu neuem Leben, die Trauben reifen in den Weinbergen des Val di Noto. Ein besonderer Monat.", readTime: '5 Min.' },
+  ],
 }
 
 const H = {
   fr: { breadcrumb: 'Journal', h1: 'Journal', sub: 'Inspirations de séjour · Villa Vénus Noto', intro: "Des récits, des idées et des conseils pratiques pour préparer votre séjour dans le sud-est de la Sicile. Écrits depuis la villa, par les propriétaires.", read: 'Lire →', link_noto: 'Noto et les environs →' },
   en: { breadcrumb: 'Journal', h1: 'Journal', sub: 'Travel inspiration · Villa Vénus Noto', intro: "Stories, ideas and practical advice to prepare your stay in southeast Sicily. Written from the villa, by the owners.", read: 'Read →', link_noto: 'Noto & surroundings →' },
   it: { breadcrumb: 'Diario', h1: 'Diario', sub: 'Ispirazione di viaggio · Villa Vénus Noto', intro: "Racconti, idee e consigli pratici per preparare il vostro soggiorno nel sud-est della Sicilia. Scritti dalla villa, dai proprietari.", read: 'Leggi →', link_noto: 'Noto e dintorni →' },
+  de: { breadcrumb: 'Journal', h1: 'Journal', sub: 'Reiseinspirationen · Villa Vénus Noto', intro: "Reiseberichte, Ideen und praktische Ratschläge für Ihren Aufenthalt im Südosten Siziliens. Geschrieben von der Villa, von den Eigentümern.", read: 'Lesen →', link_noto: 'Noto & Umgebung →' },
 }
 
 export default function JournalPage({ params }: { params: { locale: string } }) {
@@ -61,7 +70,7 @@ export default function JournalPage({ params }: { params: { locale: string } }) 
   const h = H[locale]
   const articles = ARTICLES[locale]
 
-  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   return (
     <>
       <JsonLd data={[getBreadcrumbSchema([

@@ -9,7 +9,7 @@ import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }))
@@ -19,13 +19,16 @@ const META = {
   fr: { title: 'Mariage et anniversaire à Noto — Villa Vénus Noto privatisée', description: 'Villa entière pour votre groupe : rooftop pour la cérémonie, jardins, piscine privée. Jusqu\'à 9 personnes. Chef et conciergerie sur mesure à Noto, Sicile.' },
   en: { title: 'Weddings & Celebrations in Noto — Villa Vénus Noto Exclusive Hire', description: 'Exclusive use of the villa: rooftop for ceremonies, private pool, Mediterranean gardens. Up to 9 guests. Private chef and concierge in Noto, Sicily.' },
   it: { title: 'Matrimoni e celebrazioni a Noto — Villa Vénus Noto in esclusiva', description: 'Villa intera per il vostro gruppo: rooftop per la cerimonia, piscina privata, giardini. Fino a 9 persone. Chef privato e concierge a Noto, Sicilia.' },
+  de: { title: 'Hochzeit & Feier in Noto — Villa Vénus Noto exklusiv', description: 'Die gesamte Villa für Ihre Gruppe: Rooftop für die Zeremonie, privater Pool, mediterrane Gärten. Bis zu 9 Personen. Privatkoch und Concierge in Noto, Sizilien.' },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = hasPlaceholders(C[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = locale === 'de'
+    ? { index: false, follow: false }
+    : hasPlaceholders(C[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,
@@ -92,13 +95,32 @@ const C = {
     cta_h2: 'Parlateci del vostro progetto',
     cta_text: "Ogni evento è diverso. Inviateci un messaggio con le date, il numero di persone e cosa avete in mente: risponderemo entro 24 ore con una proposta.",
   },
+  de: {
+    breadcrumb: 'Veranstaltungen',
+    sub: 'Exklusivmiete · Noto, Sizilien',
+    h1: 'Hochzeiten, Geburtstage\nund Familientreffen',
+    intro: "Die Villa eignet sich perfekt für kleine Gruppen, die etwas Außergewöhnliches teilen möchten. Eine intime Hochzeit, ein runder Geburtstag, ein Familientreffen: Wenn die Villa Ihnen gehört, gehört Ihnen das gesamte Anwesen — Pool, Rooftop, Gärten, vom Sonnenaufgang bis in die Nacht.",
+    why_h2: 'Warum die Villa für Ihre Veranstaltung',
+    why: [
+      { title: 'Der Rooftop als Bühne', desc: "360°-Blick über die Hügel von Noto und das Ionische Meer. Tisch für 10 bis 12 Personen, vollständige Außenküche, Loungebereich. Der sizilianische Sonnenuntergang als natürliche Kulisse." },
+      { title: 'Privater Pool und Gärten', desc: "Der 14 m × 7 m große Pool und die mediterranen Gärten gehören während Ihres gesamten Aufenthalts allein Ihnen. Keine Nachbarn, keine Fremden — nur Ihre Gruppe." },
+      { title: '4 unabhängige Suiten', desc: "Jede Familie oder jedes Paar hat seine eigene Suite mit eigenem Bad und Terrasse. Niemand schläft auf einem Sofa — alle haben ihren eigenen Raum." },
+      { title: 'Maßgeschneiderter Concierge', desc: "Privatkoch, Florist, Fotograf, Musiker: Wir helfen Ihnen, alles nach Ihren Wünschen zu organisieren. Sagen Sie uns, was Sie sich vorstellen, und wir finden, wer es umsetzt." },
+    ],
+    ideal_h2: 'Ideal für',
+    ideal: ['Intime Hochzeit (standesamtliche oder kirchliche Trauung in Noto)', 'Junggesellenabschied / -abschiedsfeier', 'Runder Geburtstag (40, 50, 60 Jahre…)', 'Familien- oder Klassentreffen', 'Kleines Firmenseminar', 'Verlängerte Flitterwochen'],
+    capacity_h2: 'Kapazität und Logistik',
+    capacity_note: 'Die Villa beherbergt bis zu 9 Personen in 4 Suiten. Für Veranstaltungen mit externen Gästen (nur tagsüber) kontaktieren Sie uns direkt, um die Machbarkeit gemäß den Hausregeln zu besprechen.',
+    cta_h2: 'Erzählen Sie uns von Ihrem Projekt',
+    cta_text: "Jede Veranstaltung ist anders. Schicken Sie uns eine Nachricht mit Ihren Daten, der Personenzahl und Ihren Vorstellungen: Wir antworten innerhalb von 24 Stunden mit einem Vorschlag.",
+  },
 }
 
 export default function EvenementsPage({ params }: { params: { locale: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const c = C[locale]
 
-  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   return (
     <>
       <JsonLd data={[getBreadcrumbSchema([

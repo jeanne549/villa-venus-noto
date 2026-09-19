@@ -8,7 +8,7 @@ import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema, getFaqPageSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }))
@@ -18,13 +18,16 @@ const META = {
   fr: { title: 'FAQ — Tout savoir avant de réserver Villa Vénus Noto', description: 'Paiement, annulation, animaux, climatisation, linge, check-in, piscine, restauration à proximité. Toutes les réponses pour réserver Villa Vénus Noto en toute confiance.' },
   en: { title: 'FAQ — Everything to Know Before Booking Villa Vénus Noto', description: 'Payment, cancellation, pets, air conditioning, linen, check-in times, pool, nearby restaurants. Full answers for booking Villa Vénus Noto with confidence.' },
   it: { title: 'FAQ — Tutto da sapere prima di prenotare Villa Vénus Noto', description: 'Pagamento, cancellazione, animali, aria condizionata, biancheria, check-in, piscina, ristoranti vicini. Risposte complete per prenotare Villa Vénus Noto con fiducia.' },
+  de: { title: 'FAQ — Alles Wissenswerte vor der Buchung der Villa Vénus Noto', description: 'Zahlung, Stornierung, Haustiere, Klimaanlage, Wäsche, Check-in-Zeiten, Pool, Restaurants in der Nähe. Vollständige Antworten für die Buchung der Villa Vénus Noto.' },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = hasPlaceholders(FAQS[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = locale === 'de'
+    ? { index: false, follow: false }
+    : hasPlaceholders(FAQS[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,
@@ -166,21 +169,65 @@ const FAQS: Record<Lang, Category[]> = {
       ],
     },
   ],
+  de: [
+    {
+      cat: 'Buchung',
+      items: [
+        { q: 'Wie buche ich?', a: "Füllen Sie das Kontaktformular mit Ihren Daten, der Gästezahl und Ihren Fragen aus. Wir antworten innerhalb von 24 Stunden mit Verfügbarkeit und Angebot. Die Buchung wird nach Zahlung der Anzahlung bestätigt." },
+        { q: 'Was ist der Mindestaufenthalt?', a: "6 Nächte. Die Villa wird samstags bis samstags vermietet, oder ab einem anderen Starttag je nach Verfügbarkeit." },
+        { q: 'Wann ist die Villa geöffnet?', a: "Die Saison geht von April bis Oktober. Außerhalb dieser Zeit kontaktieren Sie uns — außergewöhnliche Aufenthalte können je nach Bedingungen möglich sein." },
+        { q: 'Gibt es eine Agenturprovision?', a: "Nein. Sie buchen direkt bei den Eigentümern. Keine Plattformprovision, kein Vermittler." },
+        { q: 'Wie funktioniert die Zahlung?', a: "Bei Buchung wird eine Anzahlung von 30 % verlangt. Der Restbetrag ist am Anreisetag vollständig fällig." },
+        { q: 'Was ist die Stornierungsbedingungen?', a: "Die Bedingungen sind streng. Bei Stornierung mehr als 60 Tage vor Anreise wird die Anzahlung abzüglich einer Bearbeitungsgebühr erstattet. Innerhalb von 60 Tagen vor Anreise ist die Anzahlung nicht erstattungsfähig." },
+      ],
+    },
+    {
+      cat: 'Die Villa',
+      items: [
+        { q: 'Wie viele Personen können in der Villa schlafen?', a: "Die Villa beherbergt bis zu 9 Gäste in 4 Suiten: Suite Agave (Poolblick), Suite Bougainvillea (Gartenblick), Suite Gelsomino (Gartenblick) und Suite Limone (Innenzimmer). Jede Suite verfügt über ein eigenes Bad und eine Terrasse." },
+        { q: 'Gibt es Klimaanlage in allen Suiten?', a: "Ja, alle Suiten sind klimatisiert." },
+        { q: 'Ist Bettwäsche inklusive?', a: "Ja. Laken, Badetücher und Poolhandtücher sind alle im Mietpreis enthalten." },
+        { q: 'Ist der Pool beheizt?', a: "Nein, der Pool ist nicht beheizt. Er wird mit natürlichem Wasser gespeist und bleibt dank der sizilianischen Sonne von Mai bis Oktober auf einer angenehmen Temperatur." },
+        { q: 'Gibt es eine vollständig ausgestattete Küche?', a: "Ja. Die Villa verfügt über eine Innenküche sowie eine vollständige Außenküche auf dem Rooftop, einen Holzbackofen, einen Grill und eine Plancha am Pool." },
+        { q: 'Gibt es WLAN?', a: "Ja, Hochgeschwindigkeits-WLAN ist in der gesamten Villa inklusive." },
+        { q: 'Wie viele Autos können auf dem Gelände parken?', a: "Das Anwesen verfügt über einen gesicherten privaten Parkplatz mit Platz für bis zu 4 Fahrzeuge." },
+      ],
+    },
+    {
+      cat: 'Während Ihres Aufenthalts',
+      items: [
+        { q: 'Wann ist der Check-in?', a: "Die Anreise ist ab 16:00 Uhr möglich. Ein später Check-out oder eine frühe Ankunft kann je nach benachbarten Aufenthalten möglich sein — kontaktieren Sie uns." },
+        { q: 'Wann ist der Check-out?', a: "Die Abreise ist vor 10:00 Uhr." },
+        { q: 'Gibt es jemanden vor Ort, der bei Bedarf helfen kann?', a: "Ja. Emmanuel Di Pietro, unser lokaler Verwalter, ist während Ihres gesamten Aufenthalts erreichbar. Seine Kontaktdaten werden bei Buchungsbestätigung mitgeteilt." },
+        { q: 'Sind Haustiere erlaubt?', a: "Nein, Haustiere sind in der Villa nicht erlaubt. Für besondere Situationen kontaktieren Sie uns bitte vor der Buchung." },
+        { q: 'Ist eine Endreinigung inklusive?', a: "Ja, die Endreinigung ist im Mietpreis enthalten. Eine Zwischenreinigung ist auf Anfrage möglich, auf Kosten des Gastes." },
+      ],
+    },
+    {
+      cat: 'Die Umgebung',
+      items: [
+        { q: 'Gibt es einen Supermarkt in der Nähe?', a: "Noto (5 km) hat mehrere Supermärkte und einen Wochenmarkt. Lebensmittel können auch aus Noto bestellt werden." },
+        { q: 'Welche Restaurants empfehlen Sie in Noto?', a: "Kontaktieren Sie uns direkt — wir teilen gerne unsere persönlichen Lieblingsadressen in Noto und Umgebung mit unseren Gästen." },
+        { q: 'Ist ein Auto wirklich notwendig?', a: "Ja, ein Auto ist unverzichtbar. Es gibt keinen öffentlichen Nahverkehr zur Villa, und die Dörfer, Strände und Sehenswürdigkeiten des Val di Noto sind nur mit dem Auto erreichbar. Siehe Seite Anreise." },
+      ],
+    },
+  ],
 }
 
 const H = {
   fr: { breadcrumb: 'FAQ', h1: 'Questions fréquentes', intro: "Tout ce qu'il faut savoir avant de réserver — de la logistique d'arrivée aux détails du quotidien.", link_conditions: 'Conditions de réservation →', link_acces: 'Comment venir →' },
   en: { breadcrumb: 'FAQ', h1: 'Frequently asked questions', intro: "Everything you need to know before booking — from arrival logistics to day-to-day details.", link_conditions: 'Booking conditions →', link_acces: 'Getting here →' },
   it: { breadcrumb: 'FAQ', h1: 'Domande frequenti', intro: "Tutto quello che dovete sapere prima di prenotare — dalla logistica dell'arrivo ai dettagli quotidiani.", link_conditions: 'Condizioni di prenotazione →', link_acces: 'Come arrivare →' },
+  de: { breadcrumb: 'FAQ', h1: 'Häufig gestellte Fragen', intro: "Alles Wissenswerte vor der Buchung — von der Anreise-Logistik bis zu den täglichen Details.", link_conditions: 'Buchungsbedingungen →', link_acces: 'Anreise →' },
 }
 
 export default function FaqPage({ params }: { params: { locale: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const h = H[locale]
   const faqs = FAQS[locale]
-  const condHref = locale === 'fr' ? '/conditions-de-reservation' : locale === 'en' ? '/booking-conditions' : '/condizioni-di-prenotazione'
+  const condHref = locale === 'fr' ? '/conditions-de-reservation' : locale === 'en' ? '/booking-conditions' : locale === 'de' ? '/buchungsbedingungen' : '/condizioni-di-prenotazione'
 
-  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   const allFaqs = faqs.flatMap(cat => cat.items.map(item => ({ question: item.q, answer: item.a })))
   return (
     <>

@@ -11,6 +11,7 @@ const flags: { lang: Lang; flag: string; label: string }[] = [
   { lang: 'fr', flag: '🇫🇷', label: 'Français' },
   { lang: 'it', flag: '🇮🇹', label: 'Italiano' },
   { lang: 'en', flag: '🇬🇧', label: 'English' },
+  { lang: 'de', flag: '🇩🇪', label: 'Deutsch' },
 ]
 
 export default function Navigation() {

@@ -8,7 +8,7 @@ import { getBreadcrumbSchema } from '@/lib/structured-data'
 import { buildAlternates, pageUrl } from '@/lib/routes'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }))
@@ -18,13 +18,16 @@ const META = {
   fr: { title: 'Comment venir à Villa Vénus Noto — Aéroports, transferts, accès', description: 'Aéroport de Catane à 1h15, Comiso à 45 min. Voiture indispensable. Transferts privés disponibles. Plan d\'accès et coordonnées GPS pour la villa.' },
   en: { title: 'Getting to Villa Vénus Noto — Airports, Transfers & Directions', description: 'Catania airport 1h15, Comiso 45 min. A car is essential. Private airport transfers available. Directions and GPS coordinates for the villa.' },
   it: { title: 'Come arrivare a Villa Vénus Noto — Aeroporti, trasferimenti, accesso', description: 'Aeroporto di Catania a 1h15, Comiso a 45 min. Auto indispensabile. Trasferimenti privati disponibili. Indicazioni stradali e coordinate GPS.' },
+  de: { title: 'Anreise zur Villa Vénus Noto — Flughäfen, Transfers & Wegbeschreibung', description: 'Flughafen Catania 1h15, Comiso 45 Min. Auto unverzichtbar. Private Flughafentransfers verfügbar. Wegbeschreibung und GPS-Koordinaten für die Villa.' },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = hasPlaceholders(C[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = locale === 'de'
+    ? { index: false, follow: false }
+    : hasPlaceholders(C[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,
@@ -133,13 +136,46 @@ const C = {
     link_services: 'Vedi servizi →',
     link_villa: '← La villa',
   },
+  de: {
+    breadcrumb: 'Anreise',
+    sub: 'Anreise & Transfers',
+    h1: 'Anreise zur Villa Vénus Noto',
+    intro: "Die Villa liegt auf dem Land zwischen Noto und dem Meer, in der Contrada Spaccazza. Ein Auto ist unverzichtbar — es gibt keinen öffentlichen Nahverkehr zur Villa, und Sie brauchen eines auch, um die Region zu erkunden. Planen Sie, ein Auto zu mieten oder mit Ihrem eigenen zu kommen.",
+    airports_h2: 'Die zwei Flughäfen',
+    airports: [
+      { code: 'CTA', name: 'Catania — Fontanarossa', dist: '90 km', time: 'ca. 1h15', desc: "Siziliens größter Flughafen mit den meisten Direktverbindungen aus Deutschland (Frankfurt, München, Berlin, Düsseldorf), der Schweiz und Österreich. Empfohlen für Flüge mit Lufthansa und klassischen Fluggesellschaften.", tag: 'Mehr Direktflüge' },
+      { code: 'CIY', name: 'Comiso — Pio La Torre', dist: '55 km', time: '45–50 Min.', desc: "Der der Villa nächstgelegene Flughafen. Hauptsächlich von Ryanair aus Frankfurt Hahn, Mailand, Rom, London Stansted bedient. Weniger Verbindungen, aber sehr kurze Fahrt zur Villa.", tag: 'Am nächsten' },
+    ],
+    car_h2: 'Das Auto: unverzichtbar',
+    car_text: "Es gibt keine Busse oder Sammeltaxis von den Flughäfen zur Villa. Außerdem sind die Dörfer, Strände und Sehenswürdigkeiten des Val di Noto nur mit dem Auto erreichbar. Sie können am Flughafen ein Auto mieten (online im Voraus reservieren empfehlenswert) oder uns bitten, einen lokalen Autovermieter in Noto zu empfehlen.",
+    gps_h2: 'Adresse und GPS',
+    gps_text: "Geben Sie folgende Adresse in Google Maps oder Waze ein, bevor Sie starten — die Konnektivität kann auf dem sizilianischen Land variabel sein.",
+    address: 'Contrada Spaccazza, 96017 Noto (SR), Sicilia',
+    gps_coords: '36.887249° N · 15.026392° E',
+    gps_note: 'Mit der Buchungsbestätigung erhalten Sie einen präzisen Maps-Link und detaillierte Anreiseanweisungen.',
+    distances_h2: 'Entfernungen von der Villa',
+    distances: [
+      { place: 'Noto Stadtzentrum', dist: '5 km · 10 Min.' },
+      { place: 'Strände (Lido di Noto)', dist: '7 km · 10 Min.' },
+      { place: 'Vendicari-Reservat', dist: '8 km · 12 Min.' },
+      { place: 'Marzamemi', dist: '20 km · 22 Min.' },
+      { place: 'Syrakus / Ortygia', dist: '30 km · 35 Min.' },
+      { place: 'Ragusa Ibla', dist: '45 km · 55 Min.' },
+      { place: 'Flughafen Comiso', dist: '55 km · 50 Min.' },
+      { place: 'Flughafen Catania', dist: '90 km · 1h15' },
+    ],
+    transfer_h2: 'Private Transfers',
+    transfer_text: "Wenn Sie bei Ankunft lieber kein Auto mieten möchten oder wenn Sie spät abends ankommen, bieten wir private Transfers von beiden Flughäfen an. Details auf der Seite Leistungen.",
+    link_services: 'Leistungen ansehen →',
+    link_villa: '← Die Villa',
+  },
 }
 
 export default function AccesPage({ params }: { params: { locale: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const c = C[locale]
 
-  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   return (
     <>
       <JsonLd data={[getBreadcrumbSchema([

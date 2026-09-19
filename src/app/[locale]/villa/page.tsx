@@ -8,7 +8,7 @@ import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }))
@@ -27,13 +27,19 @@ const META = {
     title: 'La villa e le 4 suite — Villa Vénus Noto, Sicilia',
     description: '4 suite parentali indipendenti con veranda, piscina 14×7 m e rooftop 360°. Villa privata per 9 persone a 5 km da Noto UNESCO. Planimetria e servizi.',
   },
+  de: {
+    title: 'Die Villa & 4 Suiten — Villa Vénus Noto, Sizilien',
+    description: '4 unabhängige Master-Suiten mit privater Veranda, Pool 14×7 m und 360°-Rooftop. Privatvilla für 9 Personen, 5 km vom UNESCO-Noto. Grundriss und Ausstattung.',
+  },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = hasPlaceholders(CONTENT[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = locale === 'de'
+    ? { index: false, follow: false }
+    : hasPlaceholders(CONTENT[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,
@@ -136,13 +142,43 @@ const CONTENT = {
       { href: '/it/noto', label: 'Noto e dintorni →' },
     ],
   },
+  de: {
+    breadcrumb: 'Die Villa',
+    h1: 'Die Villa und die 4 Suiten',
+    intro: "Aus lokalem Tuffstein erbaut ist Villa Vénus Noto ein Privatanwesen für 9 Personen, eingebettet in die sizilianische Landschaft, 5 km vom UNESCO-Welterbe-Barockzentrum von Noto entfernt. Auf einem einzigen Domäne vereint es, was Sizilien an Seltenem bietet: Raum, Stille, Licht — und einen privaten Pool von 14 m × 7 m.",
+    suites_h2: 'Die 4 Master-Suiten',
+    suites_intro: "Jede Suite ist selbstständig, mit eigenem Bad und eigener Terrasse oder Veranda mit Blick auf die Gärten oder den Pool. Niemand teilt irgendetwas — das ist das Prinzip der Villa.",
+    suites: [
+      { name: 'Suite Agave', vue: 'Poolblick', desc: "Mit Blick auf den Pool hat die Suite Agave die beste Ausrichtung. Am Morgen fällt das Licht direkt von der Terrasse.", img: '/photos/esp-piscine-rooftop.jpg', alt: 'Suite Agave — Veranda mit Poolblick' },
+      { name: 'Suite Bougainvillea', vue: 'Gartenblick', desc: "Zur Gartenseite hin öffnet sich die Suite Bougainvillea auf eine schattige Veranda. Absolute Ruhe und der Duft der Bougainvilleen.", img: '/photos/esp-bougainvillea.jpg', alt: 'Suite Bougainvillea — Gartenveranda' },
+      { name: 'Suite Gelsomino', vue: 'Gartenblick', desc: "Ebenfalls zum Garten hin, ist die Suite Gelsomino abends vom Blumenduft erfüllt. Private Veranda.", img: '/photos/esp-gelsomino.jpg', alt: 'Suite Gelsomino — Veranda und Garten' },
+      { name: 'Suite Limone', vue: 'Innenzimmer', desc: "Die intimere Suite Limone ist das kühlste Zimmer im Sommer. Ideal für heiße Nächte.", img: '/photos/esp-patio.jpg', alt: 'Suite Limone — Innenzimmer' },
+    ],
+    included_h3: 'In jeder Suite',
+    included: ['Eigenes Bad', 'Veranda oder private Terrasse', 'Klimaanlage', 'Bettwäsche und Handtücher inklusive', 'Geräumige Schränke'],
+    spaces_h2: 'Gemeinschaftsbereiche',
+    spaces: [
+      { name: 'Pool · 14 m × 7 m', desc: "Großer privater Pool umgeben von balinesischen Liegestühlen, einem Salon unter einer weißen Pergola und einem Holzbackofen. Die Hauptachse der Villa, wo die Tage verbracht werden.", img: '/photos/piscine.jpg', alt: 'Pool 14x7m und Pergola' },
+      { name: 'Rooftop · 360°-Aussicht', desc: "An der Spitze der Villa: Lounge, Liegebett, großer Tisch und Außenküche. Abends unverbaubare Sicht über die Hügel von Noto, die Olivenhaine und bei klarem Wetter das Ionische Meer.", img: '/photos/rooftop.jpg', alt: 'Panorama-Rooftop bei Sonnenuntergang' },
+      { name: 'Mediterrane Gärten', desc: "Jahrhundertealte Olivenbäume, Mandelbäume, Zitronenbäume und Bougainvilleen umgeben die Villa. Die Gärten sind jederzeit zugänglich — eine ständige Einladung zum Spazierengehen.", img: '/photos/jardins.jpg', alt: 'Mediterrane Gärten der Villa' },
+    ],
+    villa_included_h2: 'Im Mietpreis enthalten',
+    villa_included: ['Privater Pool (unbegrenzter Zugang)', 'Bettwäsche und Poolhandtücher', 'Hochgeschwindigkeits-WLAN', 'Klimaanlage in allen Suiten', 'Privater Parkplatz', 'Holzbackofen · Grill · Plancha', 'Außenküche auf dem Rooftop'],
+    nav_h2: 'Die Villa erkunden',
+    nav_links: [
+      { href: '/de/preise', label: 'Preise und Verfügbarkeit →' },
+      { href: '/de/leistungen', label: 'Leistungen & Concierge →' },
+      { href: '/de/anreise', label: 'Anreise →' },
+      { href: '/de/noto', label: 'Noto & Umgebung →' },
+    ],
+  },
 }
 
 export default function VillaPage({ params }: { params: { locale: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang
   const c = CONTENT[locale]
 
-  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   return (
     <>
       <JsonLd data={[getBreadcrumbSchema([

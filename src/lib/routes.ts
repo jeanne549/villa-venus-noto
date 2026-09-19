@@ -5,14 +5,14 @@
 import type { Lang } from '@/lib/i18n'
 
 export const PAGE_SLUGS: Record<string, Record<Lang, string>> = {
-  villa:      { fr: 'villa',       en: 'villa',           it: 'villa' },
-  tarifs:     { fr: 'tarifs',      en: 'rates',            it: 'tariffe' },
-  services:   { fr: 'services',    en: 'services',         it: 'servizi' },
-  evenements: { fr: 'evenements',  en: 'events',           it: 'eventi' },
-  acces:      { fr: 'acces',       en: 'getting-here',     it: 'come-arrivare' },
-  faq:        { fr: 'faq',         en: 'faq',              it: 'faq' },
-  noto:       { fr: 'noto',        en: 'noto',             it: 'noto' },
-  journal:    { fr: 'journal',     en: 'journal',          it: 'journal' },
+  villa:      { fr: 'villa',       en: 'villa',           it: 'villa',         de: 'villa' },
+  tarifs:     { fr: 'tarifs',      en: 'rates',            it: 'tariffe',       de: 'preise' },
+  services:   { fr: 'services',    en: 'services',         it: 'servizi',       de: 'leistungen' },
+  evenements: { fr: 'evenements',  en: 'events',           it: 'eventi',        de: 'veranstaltungen' },
+  acces:      { fr: 'acces',       en: 'getting-here',     it: 'come-arrivare', de: 'anreise' },
+  faq:        { fr: 'faq',         en: 'faq',              it: 'faq',           de: 'faq' },
+  noto:       { fr: 'noto',        en: 'noto',             it: 'noto',          de: 'noto' },
+  journal:    { fr: 'journal',     en: 'journal',          it: 'journal',       de: 'journal' },
 }
 
 const BASE = 'https://www.villavenusnoto.com'

@@ -6,11 +6,11 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-type Lang = 'fr' | 'en' | 'it'
+type Lang = 'fr' | 'en' | 'it' | 'de'
 
 function formatDate(d: string, lang: Lang) {
   const date = new Date(d + 'T12:00:00')
-  const locales = { fr: 'fr-FR', en: 'en-GB', it: 'it-IT' }
+  const locales = { fr: 'fr-FR', en: 'en-GB', it: 'it-IT', de: 'de-DE' }
   return date.toLocaleDateString(locales[lang], { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
@@ -69,6 +69,23 @@ const labels = {
     closing: 'A presto,\nIl team di Villa Vénus Noto',
     night: 'notte',
     nights_plural: 'notti',
+  },
+  de: {
+    subject_owner: 'Neue Buchungsanfrage — Villa Vénus Noto',
+    subject_client: 'Ihre Anfrage ist eingegangen — Villa Vénus Noto',
+    greeting: 'Guten Tag',
+    received: 'Ihre Buchungsanfrage ist bei uns eingegangen. Wir melden uns innerhalb von 24 Stunden mit einer Bestätigung der Verfügbarkeit.',
+    your_stay: 'Ihr Aufenthalt',
+    arrival: 'Anreise',
+    departure: 'Abreise',
+    nights: 'Nächte',
+    guests: 'Gäste',
+    total: 'Geschätzter Gesamtbetrag',
+    message_label: 'Ihre Nachricht',
+    reply: 'Wir antworten an',
+    closing: 'Bis bald,\nDas Team der Villa Vénus Noto',
+    night: 'Nacht',
+    nights_plural: 'Nächte',
   },
 }
 
@@ -141,7 +158,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { name, email, phone, arrival_date, departure_date, guests, message, lang = 'fr', consent_gdpr } = body
-  const safelang = (['fr', 'en', 'it'].includes(lang) ? lang : 'fr') as Lang
+  const safelang = (['fr', 'en', 'it', 'de'].includes(lang) ? lang : 'fr') as Lang
 
   // Validation serveur
   if (!name || !email || !arrival_date || !departure_date || !guests) {

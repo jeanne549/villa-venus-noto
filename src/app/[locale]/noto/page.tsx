@@ -7,7 +7,7 @@ import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }))
@@ -26,13 +26,19 @@ const META = {
     title: 'Noto e il Val di Noto — Cosa fare da Villa Vénus Noto',
     description: 'Noto barocca UNESCO, Infiorata di maggio, Vendicari, Marzamemi, Siracusa e Ortigia, Ragusa Ibla, Modica, spiagge e vini Nero d\'Avola. Tutto vicino a Villa Vénus Noto.',
   },
+  de: {
+    title: 'Noto & Val di Noto — Ausflüge von Villa Vénus Noto',
+    description: 'UNESCO-Barockstadt Noto, Vendicari-Naturreservat, Marzamemi, Syrakus und Ortygia, Ragusa Ibla, Modica, Strände und Nero d\'Avola-Weine. Alles von Villa Vénus Noto aus erreichbar.',
+  },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = hasPlaceholders(PLACES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = locale === 'de'
+    ? { index: false, follow: false }
+    : hasPlaceholders(PLACES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,
@@ -207,12 +213,67 @@ const PLACES = {
       desc: "La provincia di Siracusa è il cuore della produzione del Nero d'Avola, il vitigno rosso più emblematico della Sicilia. Diverse tenute aperte alle visite tra Noto e Avola propongono degustazioni direttamente in cantina. Chiedeteci gli indirizzi che consigliamo.",
     },
   ],
+  de: [
+    {
+      cat: 'Noto · 5 km · 10 Min.',
+      name: "Noto Barock",
+      desc: "Nach dem Erdbeben von 1693 nach einem einzigartigen Stadtplan wieder aufgebaut, gilt Noto als Meisterwerk des sizilianischen Barocks. Sein Corso Vittorio Emanuele, gesäumt von goldsteinigen Palästen, steht seit 2002 auf der UNESCO-Welterbeliste. Am besten abends zu erkunden, wenn das Licht sanft wird und die Fassaden zu leuchten scheinen.",
+      extra: "Die Infiorata (3. Maiwochenende): Die Straßen des Stadtzentrums sind mit Blumenteppichen bedeckt, die lebende Gemälde darstellen. Ein einzigartiges Ereignis der Welt — nicht verpassen, wenn Sie im Mai dort sind.",
+    },
+    {
+      cat: 'Vendicari · 8 km · 12 Min.',
+      name: "Naturreservat Vendicari",
+      desc: "Eines der schönsten Naturreservate des Mittelmeers. Küstenwege zwischen Lagunen, Ruinen alter Tonnare und weißen Sandbuchen. Flamingos, Reiher und die ersten Störche im September sind regelmäßige Gäste. Der Strand Calamosche wird regelmäßig als einer der schönsten Italiens gekürt.",
+      extra: "Früh morgens oder am späten Nachmittag kommen, um die Menschenmassen im Juli und August zu vermeiden.",
+    },
+    {
+      cat: 'Marzamemi · 20 km · 22 Min.',
+      name: "Marzamemi",
+      desc: "Ein altes Fischerdorf mit unberührtem Charme — sein zentraler Platz, bunte Boote und Fischrestaurants rund um die alte Tonnare. Der richtige Ort für ein Mittagessen mit Tintenfisch und Weißwein, fast mit den Füßen im Wasser. Abends belebt sich das Dorf und die Terrasse des zentralen Cafés ist die Reise allein wert.",
+    },
+    {
+      cat: 'Syrakus & Ortygia · 30 km · 35 Min.',
+      name: "Syrakus und Ortygia",
+      desc: "Von den Griechen 734 v. Chr. gegründet, ist Syrakus eine der ältesten Städte der Welt. Das antike griechische Theater (5. Jh. v. Chr.) wird im Sommer noch für Aufführungen genutzt. Ortygia, die Barockinseln im Herzen der Stadt, vereint die schönsten Paläste, eine aus einem griechischen Tempel umgewandelte Kathedrale und die Fontana Aretusa. Planen Sie einen ganzen Tag ein.",
+    },
+    {
+      cat: 'Ragusa Ibla · 45 km · 55 Min.',
+      name: "Ragusa Ibla",
+      desc: "Eine Barockstadt auf einem felsigen Vorsprung, Kulisse der Montalbano-TV-Serie. Seine Gassen, skulptierten Balkone und der Ibleo-Garten am Stadtrand lohnen den Aufstieg zu Fuß. Der Palazzo Cosentini mit seinen Balkonen grotesker Atlanten ist das meistfotografierte Denkmal der Stadt.",
+    },
+    {
+      cat: 'Modica · 38 km · 45 Min.',
+      name: "Modica und seine Schokolade",
+      desc: "Modica ist weltweit bekannt für seine Kaltschokolade, hergestellt nach einem aztekischen Rezept, das von den Spaniern weitergegeben wurde. Direkt bei den kleinen Herstellern am Corso Umberto gekauft, ist sie eine der besten Souvenirs Siziliens. Die Barockstadt selbst, über zwei Täler verteilt, ist auch einen Besuch wert.",
+    },
+    {
+      cat: 'Cava Grande del Cassibile · 35 km · 50 Min.',
+      name: "Cava Grande — natürliche Schwimmbecken",
+      desc: "Eine wilde Schlucht mit smaragdgrünen natürlichen Süßwasserbecken, erreichbar über einen Abstiegspfad (40 Min. zu Fuß). Noch wenig bekannt bei ausländischen Touristen, bietet er außergewöhnliches Schwimmen in der Natur. Bei extremer Hitze meiden — der Rückweg ist steil.",
+    },
+    {
+      cat: 'Strand San Lorenzo · 15 km · 20 Min.',
+      name: "Strand San Lorenzo",
+      desc: "Der zugänglichste der großen Strände von der Villa — ein langer Streifen feinen Sandes umgeben von Dünen. Wenige Einrichtungen vor Ort, was seinen wilden Charakter erhält. Sonnenschirm mitbringen.",
+    },
+    {
+      cat: 'Lido di Noto · 7 km · 10 Min.',
+      name: "Lido di Noto",
+      desc: "Der Strand von Noto — nah, einfach, familienfreundlich. Organisierte Badeanstalten mit Liegestühlen und Gastronomie teilen sich die Küste mit freien Zonen. Ideal für einen späten Nachmittag nach einem Tag in der Stadt.",
+    },
+    {
+      cat: 'Weine · Provinz Syrakus',
+      name: "Nero d'Avola und die Weinberge",
+      desc: "Die Provinz Syrakus ist das Herzland der Nero d'Avola-Produktion, der emblematischsten roten Rebsorte Siziliens. Mehrere Weingüter zwischen Noto und Avola bieten Verkostungen direkt im Keller an. Fragen Sie uns nach unseren empfohlenen Adressen.",
+    },
+  ],
 }
 
 const HEADINGS = {
   fr: { breadcrumb: 'Noto et les environs', h1: 'Noto et les environs', sub: 'Val di Noto · Province de Syracuse · Sicile', intro: "La villa est idéalement placée pour explorer le cœur du Val di Noto, l'une des concentrations de baroque sicilien les plus denses au monde. En voiture, tout est accessible : les plus beaux villages, les plages sauvages, les vignobles — sans jamais dépasser 1h30 de route.", link_villa: '← La villa', link_journal: 'Journal de la villa →' },
   en: { breadcrumb: 'Noto & surroundings', h1: 'Noto and the surroundings', sub: 'Val di Noto · Syracuse Province · Sicily', intro: "The villa is ideally placed to explore the heart of the Val di Noto, one of the densest concentrations of Sicilian baroque in the world. By car, everything is within reach: the finest villages, wild beaches, vineyards — never more than 1h30 away.", link_villa: '← The villa', link_journal: 'Villa journal →' },
   it: { breadcrumb: 'Noto e dintorni', h1: 'Noto e i dintorni', sub: 'Val di Noto · Provincia di Siracusa · Sicilia', intro: "La villa è posizionata idealmente per esplorare il cuore del Val di Noto, una delle concentrazioni di barocco siciliano più dense al mondo. In auto, tutto è raggiungibile: i borghi più belli, le spiagge selvagge, i vigneti — senza mai superare 1h30 di strada.", link_villa: '← La villa', link_journal: 'Diario della villa →' },
+  de: { breadcrumb: 'Noto & Umgebung', h1: 'Noto und die Umgebung', sub: 'Val di Noto · Provinz Syrakus · Sizilien', intro: "Die Villa liegt ideal, um das Herz des Val di Noto zu erkunden, einer der dichtesten Konzentrationen sizilianischen Barocks der Welt. Mit dem Auto ist alles erreichbar: die schönsten Dörfer, wilde Strände, Weinberge — nie mehr als 1,5 Stunden entfernt.", link_villa: '← Die Villa', link_journal: 'Villa-Journal →' },
 }
 
 export default function NotoPage({ params }: { params: { locale: string } }) {
@@ -220,7 +281,7 @@ export default function NotoPage({ params }: { params: { locale: string } }) {
   const c = HEADINGS[locale]
   const places = PLACES[locale]
 
-  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   return (
     <>
       <JsonLd data={[getBreadcrumbSchema([

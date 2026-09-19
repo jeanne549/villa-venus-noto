@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const SESSION_SECRET = process.env.ADMIN_SESSION_SECRET!
 const SESSION_COOKIE = 'villa_admin'
-const LOCALES = ['fr', 'en', 'it']
+const LOCALES = ['fr', 'en', 'it', 'de']
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl

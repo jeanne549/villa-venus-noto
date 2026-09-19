@@ -20,7 +20,7 @@ import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 const META = {
   fr: {
@@ -38,6 +38,11 @@ const META = {
     description: 'Villa di lusso in affitto a Noto, Sicilia. Da 580 €/notte · fino a 9 ospiti · 4 suite, piscina privata 14×7 m, rooftop panoramico. Prenotazione diretta senza commissioni. A 5 km da Noto UNESCO.',
     ogLocale: 'it_IT',
   },
+  de: {
+    title: 'Villa Vénus Noto — Luxusvilla Sizilien · Ab 580 €/Nacht',
+    description: 'Luxusvilla-Vermietung in Noto, Sizilien. Ab 580 €/Nacht · bis zu 9 Gäste · 4 Suiten, privater Pool 14×7 m, 360°-Rooftop. Direktbuchung ohne Provision. 5 km vom UNESCO-Noto.',
+    ogLocale: 'de_DE',
+  },
 }
 
 export function generateStaticParams() {
@@ -51,6 +56,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   return {
     title,
     description,
+    robots: locale === 'de' ? { index: false, follow: false } : { index: true, follow: true },
     alternates: {
       canonical: `${BASE}/${locale}`,
       languages: {

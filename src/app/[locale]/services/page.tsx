@@ -8,7 +8,7 @@ import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }))
@@ -18,13 +18,16 @@ const META = {
   fr: { title: 'Informations pratiques — Villa Vénus Noto, Sicile', description: 'Ce qui est inclus dans la location, parking, ménage intermédiaire, gestionnaire local, location de voiture. Tout ce qu\'il faut savoir avant d\'arriver à Villa Vénus Noto.' },
   en: { title: 'Practical information — Villa Vénus Noto, Sicily', description: 'What\'s included in the rental, parking, mid-stay cleaning, local manager, car hire. Everything to know before arriving at Villa Vénus Noto.' },
   it: { title: 'Informazioni pratiche — Villa Vénus Noto, Sicilia', description: 'Cosa è incluso nell\'affitto, parcheggio, pulizie a metà soggiorno, gestore locale, noleggio auto. Tutto quello che c\'è da sapere prima di arrivare a Villa Vénus Noto.' },
+  de: { title: 'Praktische Informationen — Villa Vénus Noto, Sizilien', description: 'Was in der Miete enthalten ist, Parken, Zwischenreinigung, lokaler Verwalter, Autovermietung. Alles Wissenswerte vor Ihrer Ankunft in Villa Vénus Noto.' },
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = hasPlaceholders(SERVICES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = locale === 'de'
+    ? { index: false, follow: false }
+    : hasPlaceholders(SERVICES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,
@@ -55,12 +58,20 @@ const SERVICES = {
     { icon: '📞', name: 'Gestore locale disponibile', desc: "Emmanuel Di Pietro, il nostro gestore locale, è raggiungibile per tutta la durata del soggiorno. Può rispondere a domande pratiche, indicare i posti giusti e intervenire in caso di necessità.", note: 'Disponibile durante tutto il soggiorno · Contatti comunicati alla prenotazione' },
     { icon: '🗺', name: 'Attività ed escursioni — in autonomia', desc: "La villa si affitta in formula di autogestione. Ristoranti, escursioni, attività nautiche e visite sono da organizzare liberamente. Noto, i suoi mercati, le spiagge e i dintorni offrono infinite possibilità — siamo lieti di condividere i nostri indirizzi preferiti su richiesta.", note: 'In autonomia · Contattateci per i nostri consigli personali' },
   ],
+  de: [
+    { icon: '✓', name: 'Endreinigung — inklusive', desc: "Die vollständige Reinigung der Villa ist im Mietpreis enthalten: Suiten, Wohnbereiche, Küche, Bäder, Pool und Außenbereiche. Bettwäsche, Badetücher und Poolhandtücher werden gestellt und bei Ankunft gewechselt.", note: 'Im Mietpreis enthalten · Ohne Aufpreis' },
+    { icon: '🧹', name: 'Zwischenreinigung — auf Anfrage', desc: "Bei längeren Aufenthalten kann eine zusätzliche Reinigung organisiert werden: Suitenreinigung, Wäschewechsel, Neuordnung der Gemeinschaftsbereiche. Bitte bei Buchung anfragen.", note: 'Auf Kosten des Gastes · Preis mit den Eigentümern zu vereinbaren' },
+    { icon: '🚗', name: 'Privater Parkplatz — 4 Fahrzeuge', desc: "Das Anwesen verfügt über einen gesicherten privaten Parkplatz für bis zu 4 Fahrzeuge. Ein Auto ist unerlässlich, um die Region zu erkunden. Die nächsten Flughäfen sind Comiso (CIY, 45 Min.) und Catania (CTA, 1h15).", note: 'Freier Zugang · Im Mietpreis enthalten' },
+    { icon: '📞', name: 'Lokaler Verwalter vor Ort', desc: "Emmanuel Di Pietro, unser lokaler Verwalter, ist während Ihres gesamten Aufenthalts erreichbar. Er kann praktische Fragen beantworten, Sie zu den richtigen Adressen führen und bei Bedarf helfen.", note: 'Während des gesamten Aufenthalts verfügbar · Kontaktdaten bei Buchungsbestätigung' },
+    { icon: '🗺', name: 'Aktivitäten & Ausflüge — selbstständig', desc: "Die Villa wird ohne Catering vermietet. Restaurants, Ausflüge, Wassersport und Besichtigungen sind eigenständig zu organisieren. Noto, seine Märkte, Strände und Umgebung bieten unzählige Möglichkeiten — wir teilen gerne unsere persönlichen Empfehlungen auf Anfrage.", note: 'Selbstständig organisiert · Kontaktieren Sie uns für unsere persönlichen Empfehlungen' },
+  ],
 }
 
 const H = {
   fr: { breadcrumb: 'Infos pratiques', h1: 'Informations pratiques', intro: "La villa Vénus se loue en location directe, sans intermédiaire. Un ménage de fin de séjour, le linge de maison et le parking pour 4 voitures sont inclus. Pour le reste, vous êtes en autonomie — et notre gestionnaire local est disponible si besoin.", included_note: "La réservation se fait directement avec les propriétaires, par email ou téléphone. Les coordonnées du gestionnaire local et les instructions d'arrivée sont transmises à la confirmation.", link_villa: '← La villa', link_acces: 'Comment venir →' },
   en: { breadcrumb: 'Practical info', h1: 'Practical information', intro: "Villa Vénus is a direct rental with no intermediary. End-of-stay cleaning, bed and pool linen, and parking for 4 cars are all included. For the rest, guests are independent — and our local manager is available if needed.", included_note: "Bookings are made directly with the owners by email or phone. The local manager's contact details and arrival instructions are provided at confirmation.", link_villa: '← The villa', link_acces: 'Getting here →' },
   it: { breadcrumb: 'Info pratiche', h1: 'Informazioni pratiche', intro: "Villa Vénus si affitta direttamente, senza intermediari. Pulizie di fine soggiorno, biancheria da letto e da piscina e parcheggio per 4 auto sono inclusi. Per il resto, gli ospiti sono in piena autonomia — e il nostro gestore locale è disponibile se necessario.", included_note: "Le prenotazioni avvengono direttamente con i proprietari via email o telefono. I contatti del gestore locale e le istruzioni di arrivo vengono comunicati alla conferma.", link_villa: '← La villa', link_acces: 'Come arrivare →' },
+  de: { breadcrumb: 'Praktische Infos', h1: 'Praktische Informationen', intro: "Villa Vénus wird direkt ohne Vermittler vermietet. Endreinigung, Bettwäsche und Poolhandtücher sowie Parkplatz für 4 Fahrzeuge sind inklusive. Für den Rest sind die Gäste selbstständig — und unser lokaler Verwalter ist bei Bedarf verfügbar.", included_note: "Buchungen erfolgen direkt bei den Eigentümern per E-Mail oder Telefon. Die Kontaktdaten des lokalen Verwalters und die Anreiseanweisungen werden bei Bestätigung mitgeteilt.", link_villa: '← Die Villa', link_acces: 'Anreise →' },
 }
 
 export default function ServicesPage({ params }: { params: { locale: string } }) {
@@ -68,7 +79,7 @@ export default function ServicesPage({ params }: { params: { locale: string } })
   const h = H[locale]
   const services = SERVICES[locale]
 
-  const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
+  const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   return (
     <>
       <JsonLd data={[getBreadcrumbSchema([
@@ -78,7 +89,7 @@ export default function ServicesPage({ params }: { params: { locale: string } })
       <PageLayout lang={locale} page="services" breadcrumb={h.breadcrumb}>
 
       <div className="mb-14">
-        <p className="section-subtitle">{locale === 'fr' ? 'Sur mesure' : locale === 'en' ? 'Bespoke' : 'Su misura'}</p>
+        <p className="section-subtitle">{locale === 'fr' ? 'Sur mesure' : locale === 'en' ? 'Bespoke' : locale === 'de' ? 'Maßgeschneidert' : 'Su misura'}</p>
         <h1 className="font-serif text-4xl md:text-5xl text-charcoal leading-tight mb-6">{h.h1}</h1>
         <div className="gold-divider" />
         <p className="font-sans text-muted text-base leading-relaxed max-w-2xl">{h.intro}</p>
