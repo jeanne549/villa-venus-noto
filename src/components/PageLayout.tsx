@@ -13,6 +13,7 @@ const UI = {
   fr: { home: 'Accueil', book: 'Réserver', bookSub: 'Réservez votre séjour à Noto', bookDesc: "Dès 580 €/nuit · Jusqu'à 9 personnes · 6 nuits minimum · Sans commission", bookCta: 'Demander les disponibilités', legal: 'Mentions légales', legalHref: '/mentions-legales', cond: 'Conditions', condHref: '/conditions-de-reservation' },
   en: { home: 'Home', book: 'Book', bookSub: 'Book your stay in Noto', bookDesc: 'From €580/night · Up to 9 guests · 6-night minimum · No commission', bookCta: 'Check availability', legal: 'Legal notice', legalHref: '/legal-notice', cond: 'Booking conditions', condHref: '/booking-conditions' },
   it: { home: 'Home', book: 'Prenota', bookSub: 'Prenota il tuo soggiorno a Noto', bookDesc: 'Da 580 €/notte · Fino a 9 ospiti · Minimo 6 notti · Senza commissioni', bookCta: 'Verifica disponibilità', legal: 'Note legali', legalHref: '/note-legali', cond: 'Condizioni', condHref: '/condizioni-di-prenotazione' },
+  de: { home: 'Startseite', book: 'Buchen', bookSub: 'Buchen Sie Ihren Aufenthalt in Noto', bookDesc: 'Ab 580 €/Nacht · Bis zu 9 Personen · Mindestens 6 Nächte · Ohne Provision', bookCta: 'Verfügbarkeit prüfen', legal: 'Impressum', legalHref: '/fr/mentions-legales', cond: 'Buchungsbedingungen', condHref: '/fr/conditions-de-reservation' },
 }
 
 interface Props {

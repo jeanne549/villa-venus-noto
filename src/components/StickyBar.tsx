@@ -8,12 +8,14 @@ const LABELS = {
   fr: { cta: 'Vérifier mes dates', price: 'Dès 580 € / nuit', direct: 'Réservation directe' },
   en: { cta: 'Check my dates', price: 'From €580 / night', direct: 'Direct booking' },
   it: { cta: 'Verifica le date', price: 'Da 580 € / notte', direct: 'Prenotazione diretta' },
+  de: { cta: 'Termine prüfen', price: 'Ab 580 € / Nacht', direct: 'Direktbuchung' },
 }
 
 const WHATSAPP_MESSAGES = {
   fr: encodeURIComponent('Bonjour ! Je souhaite réserver Villa Vénus Noto. Pouvez-vous vérifier les disponibilités ?'),
   en: encodeURIComponent('Hello! I would like to book Villa Vénus Noto. Could you please check availability?'),
   it: encodeURIComponent('Buongiorno! Vorrei prenotare Villa Vénus Noto. Potete verificare la disponibilità?'),
+  de: encodeURIComponent('Hallo! Ich möchte die Villa Vénus Noto buchen. Können Sie die Verfügbarkeit prüfen?'),
 }
 
 export default function StickyBar() {

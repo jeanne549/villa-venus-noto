@@ -533,8 +533,6 @@ export const translations = {
       nav_links: ['La Villa', 'Galleria', 'Servizi', 'Disponibilità', 'Prenota'],
     },
   },
-}
-
   de: {
     nav: {
       villa: 'Die Villa',

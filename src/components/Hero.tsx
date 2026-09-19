@@ -9,12 +9,14 @@ const DIRECT_BADGE = {
   fr: 'Réservation directe · Sans commission',
   en: 'Direct booking · No commission',
   it: 'Prenotazione diretta · Senza commissioni',
+  de: 'Direktbuchung · Ohne Provision',
 }
 
 const PRICE_FROM = {
   fr: 'Dès 580 € / nuit · jusqu\'à 9 personnes',
   en: 'From €580 / night · up to 9 guests',
   it: 'Da 580 € / notte · fino a 9 ospiti',
+  de: 'Ab 580 € / Nacht · bis zu 9 Personen',
 }
 
 export default function Hero() {

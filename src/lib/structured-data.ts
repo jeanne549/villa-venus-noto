@@ -57,12 +57,27 @@ const AMENITIES = {
     'Lettini balinesi',
     'Biancheria da letto e asciugamani',
   ],
+  de: [
+    'Privater Pool 14 m × 7 m',
+    'Klimaanlage',
+    'Hochgeschwindigkeits-WLAN',
+    'Privatparkplatz',
+    'Holzofen',
+    'Panoramadach 360°',
+    'Private Terrasse pro Suite',
+    'Mediterrane Gärten',
+    'Außenküche',
+    'Grill & Plancha',
+    'Balinesische Liegestühle',
+    'Bettwäsche und Handtücher',
+  ],
 }
 
 const DESCRIPTIONS = {
   fr: "Villa de luxe à louer à Noto, Sicile. 4 suites avec salle de bain privée, piscine privée 14 × 7 m, rooftop panoramique 360°, jardins méditerranéens. À 5 km de Noto baroque UNESCO. Jusqu'à 9 personnes. Saison avril–octobre, minimum 6 nuits.",
   en: 'Luxury villa for rent in Noto, Sicily. 4 master suites with private bathroom, private pool 14 × 7 m, panoramic 360° rooftop, Mediterranean gardens. 5 km from UNESCO Baroque Noto. Up to 9 guests. Season April–October, minimum 6 nights.',
   it: 'Villa di lusso in affitto a Noto, Sicilia. 4 suite matrimoniali con bagno privato, piscina privata 14 × 7 m, rooftop panoramico 360°, giardini mediterranei. A 5 km da Noto patrimonio UNESCO. Fino a 9 ospiti. Stagione aprile–ottobre, minimo 6 notti.',
+  de: 'Luxusvilla zur Miete in Noto, Sizilien. 4 Suiten mit privatem Bad, privater Pool 14 × 7 m, Panoramadach 360°, mediterrane Gärten. 5 km vom UNESCO-Barockstadtzentrum Noto. Bis zu 9 Personen. Saison April–Oktober, mindestens 6 Nächte.',
 }
 
 // Returns the next bookable season year.
@@ -102,7 +117,7 @@ export function getWebSiteSchema() {
   }
 }
 
-export function getLodgingBusinessSchema(locale: 'fr' | 'en' | 'it') {
+export function getLodgingBusinessSchema(locale: 'fr' | 'en' | 'it' | 'de') {
   const seasonYear = nextSeasonYear()
   return {
     '@context': 'https://schema.org',
@@ -229,12 +244,12 @@ export function getBlogPostingSchema(post: BlogPostingInput) {
   }
 }
 
-export function getOfferSchema(locale: 'fr' | 'en' | 'it') {
+export function getOfferSchema(locale: 'fr' | 'en' | 'it' | 'de') {
   const seasonYear = nextSeasonYear()
   const label = {
-    low:  { fr: 'Basse saison · Avr – Mai – Oct', en: 'Low season · Apr – May – Oct', it: 'Bassa stagione · Apr – Mag – Ott' },
-    mid:  { fr: 'Moyenne saison · Juin – Sep',    en: 'Mid season · Jun – Sep',       it: 'Media stagione · Giu – Set' },
-    high: { fr: 'Haute saison · Juil – Août',     en: 'High season · Jul – Aug',      it: 'Alta stagione · Lug – Ago' },
+    low:  { fr: 'Basse saison · Avr – Mai – Oct', en: 'Low season · Apr – May – Oct', it: 'Bassa stagione · Apr – Mag – Ott', de: 'Nebensaison · Apr – Mai – Okt' },
+    mid:  { fr: 'Moyenne saison · Juin – Sep',    en: 'Mid season · Jun – Sep',       it: 'Media stagione · Giu – Set',     de: 'Zwischensaison · Jun – Sep' },
+    high: { fr: 'Haute saison · Juil – Août',     en: 'High season · Jul – Aug',      it: 'Alta stagione · Lug – Ago',      de: 'Hochsaison · Jul – Aug' },
   }
   return {
     '@context': 'https://schema.org',

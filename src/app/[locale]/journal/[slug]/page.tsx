@@ -13,6 +13,7 @@ const SLUGS_BY_LOCALE: Record<Lang, string[]> = {
   fr: ['infiorata-noto-mai', 'plages-sud-est-sicile', 'sicile-septembre'],
   en: ['infiorata-noto-may', 'beaches-southeast-sicily', 'sicily-in-september'],
   it: ['infiorata-noto-maggio', 'spiagge-sud-est-sicilia', 'sicilia-settembre'],
+  de: [],
 }
 
 export function generateStaticParams() {
@@ -35,6 +36,7 @@ type ArticleContent = {
 }
 
 const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
+  de: {},
   fr: {
     'infiorata-noto-mai': {
       title: "L'Infiorata de Noto : le spectacle de mai que peu de voyageurs voient",
@@ -218,7 +220,7 @@ export async function generateMetadata({ params }: { params: { locale: string; s
   }
 }
 
-const BACK: Record<Lang, string> = { fr: '← Journal', en: '← Journal', it: '← Diario' }
+const BACK: Record<Lang, string> = { fr: '← Journal', en: '← Journal', it: '← Diario', de: '← Journal' }
 
 export default function ArticlePage({ params }: { params: { locale: string; slug: string } }) {
   const locale = (LOCALES.includes(params.locale as Lang) ? params.locale : 'fr') as Lang

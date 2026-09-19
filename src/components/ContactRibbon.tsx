@@ -22,12 +22,19 @@ const LABELS = {
     whatsapp: 'WhatsApp',
     direct: 'Prenotazione diretta — senza commissioni',
   },
+  de: {
+    left: 'Ab 580 € / Nacht · Bis zu 9 Personen · Mindestens 6 Nächte',
+    cta: 'Verfügbarkeit prüfen',
+    whatsapp: 'WhatsApp',
+    direct: 'Direktbuchung — ohne Provision',
+  },
 }
 
 const WHATSAPP_MESSAGES = {
   fr: encodeURIComponent('Bonjour ! Je souhaite réserver Villa Vénus Noto. Pouvez-vous vérifier les disponibilités ?'),
   en: encodeURIComponent('Hello! I would like to book Villa Vénus Noto. Could you please check availability?'),
   it: encodeURIComponent('Buongiorno! Vorrei prenotare Villa Vénus Noto. Potete verificare la disponibilità?'),
+  de: encodeURIComponent('Hallo! Ich möchte die Villa Vénus Noto buchen. Können Sie die Verfügbarkeit prüfen?'),
 }
 
 export default function ContactRibbon() {

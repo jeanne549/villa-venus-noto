@@ -100,6 +100,38 @@ const T = {
     fallback_high: 'Alta stagione',
     fallback_peak: 'Piena stagione',
   },
+  de: {
+    subtitle: 'Preise',
+    title: 'Ab 580 € / Nacht',
+    tagline: 'Bis zu 9 Personen · Mindestens 6 Nächte · Saison April – Oktober',
+    direct: 'Direktbuchung · Ohne Plattformprovision',
+    direct_sub: 'Buchen Sie direkt und sparen Sie die Airbnb-Provision (15–20%).',
+    period: 'Zeitraum',
+    per_night: '/ Nacht',
+    min6: 'Minimum (6 Nächte)',
+    week7: 'Woche (7 Nächte)',
+    included_title: 'Im Preis enthalten',
+    included: [
+      'Bettwäsche & Handtücher',
+      'Hochgeschwindigkeits-WLAN',
+      'Privatparkplatz',
+      'Wasser',
+      'Strom',
+      'Klimaanlage',
+      'Endreinigung',
+    ],
+    extra_title: 'Nicht enthalten',
+    extra: [
+      'Kommunale Kurtaxe · 3 € / Person / Nacht · vor Ort zu zahlen',
+      'Kinder unter 14 Jahren und Personen über 75 Jahren: befreit',
+    ],
+    deposit: (year: number) => `Kaution: keine (Saison ${year})`,
+    cta: 'Verfügbarkeit prüfen',
+    fallback_low: 'Früh- & Spätsaison',
+    fallback_mid: 'Zwischensaison',
+    fallback_high: 'Hochsaison',
+    fallback_peak: 'Hauptsaison',
+  },
 }
 
 // ─── Fetch pricing data from Supabase ────────────────────────────────────────
@@ -183,7 +215,7 @@ async function fetchPricingData(lang: Lang): Promise<PricingResult> {
     if (error || !data?.length) return { periods: staticPeriods(lang, fallbackYear), seasonYear: fallbackYear }
 
     // Trouver la première saison (avr–oct) avec assez de jours tarifés
-    const years = [...new Set(data.map(r => +r.date.slice(0, 4)))].sort()
+    const years = Array.from(new Set(data.map(r => +r.date.slice(0, 4)))).sort()
     let seasonYear = fallbackYear
     for (const y of years) {
       const count = data.filter(r => {

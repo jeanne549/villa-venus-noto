@@ -7,12 +7,14 @@ const MESSAGES = {
   fr: encodeURIComponent('Bonjour ! Je souhaite réserver Villa Vénus Noto. Pouvez-vous vérifier les disponibilités ?'),
   en: encodeURIComponent('Hello! I would like to book Villa Vénus Noto. Could you please check availability?'),
   it: encodeURIComponent('Buongiorno! Vorrei prenotare Villa Vénus Noto. Potete verificare la disponibilità?'),
+  de: encodeURIComponent('Hallo! Ich möchte die Villa Vénus Noto buchen. Können Sie die Verfügbarkeit prüfen?'),
 }
 
 const LABELS = {
   fr: 'Réserver sur WhatsApp',
   en: 'Book on WhatsApp',
   it: 'Prenota su WhatsApp',
+  de: 'Per WhatsApp buchen',
 }
 
 export default function WhatsAppButton() {

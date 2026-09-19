@@ -7,7 +7,7 @@ const T = {
   fr: {
     h1: 'Page introuvable',
     text: "Cette page n'existe pas ou a été déplacée.",
-    home: 'Retour à l'accueil',
+    home: "Retour à l'accueil",
     faq: 'Questions fréquentes →',
   },
   en: {

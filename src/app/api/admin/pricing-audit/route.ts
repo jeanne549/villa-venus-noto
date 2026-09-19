@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
 
   const inDB = new Set((rows ?? []).map(r => r.date))
 
-  const missing = [...expectedDates].filter(d => !inDB.has(d))
+  const missing = Array.from(expectedDates).filter(d => !inDB.has(d))
   const pricedButClosed = (rows ?? []).filter(r => r.price && r.price > 0 && r.available === false)
   const openWithoutPrice = (rows ?? []).filter(r => (!r.price || r.price <= 0) && r.available !== false)
 
