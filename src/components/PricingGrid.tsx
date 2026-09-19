@@ -26,10 +26,10 @@ const T = {
     ],
     extra_title: 'En supplément',
     extra: [
-      'Taxe de séjour communale · montant communiqué à la réservation',
+      'Taxe de séjour communale · 3 € / personne / nuit · réglée sur place',
       'Enfants de moins de 14 ans et personnes de plus de 75 ans : exonérés',
     ],
-    deposit: 'Caution : aucune (saison 2026)',
+    deposit: (year: number) => `Caution : aucune (saison ${year})`,
     cta: 'Vérifier les disponibilités',
     fallback_low: 'Début & fin de saison',
     fallback_mid: 'Saison intermédiaire',
@@ -58,10 +58,10 @@ const T = {
     ],
     extra_title: 'Not included',
     extra: [
-      'Local tourist tax · amount confirmed at booking',
+      'Local tourist tax · €3 / person / night · payable on site',
       'Children under 14 and persons over 75: exempt',
     ],
-    deposit: 'Security deposit: none (2026 season)',
+    deposit: (year: number) => `Security deposit: none (${year} season)`,
     cta: 'Check availability',
     fallback_low: 'Early & late season',
     fallback_mid: 'Mid season',
@@ -90,10 +90,10 @@ const T = {
     ],
     extra_title: 'Non incluso',
     extra: [
-      'Tassa di soggiorno comunale · importo comunicato alla prenotazione',
+      'Tassa di soggiorno comunale · 3 € / persona / notte · pagata in loco',
       'Bambini sotto i 14 anni e persone sopra i 75 anni: esenti',
     ],
-    deposit: 'Caparra: nessuna (stagione 2026)',
+    deposit: (year: number) => `Caparra: nessuna (stagione ${year})`,
     cta: 'Verifica disponibilità',
     fallback_low: 'Inizio & fine stagione',
     fallback_mid: 'Stagione intermedia',
@@ -143,38 +143,65 @@ function formatDateRange(start: string, end: string, lang: Lang): string {
   return `${fmt(s)} – ${fmt(e)}`
 }
 
-// Fallback static periods when Supabase returns no data
-function staticPeriods(lang: Lang): Period[] {
+function nextSeasonYear(): number {
+  const d = new Date()
+  return d.getMonth() >= 10 ? d.getFullYear() + 1 : d.getFullYear()
+}
+
+function staticPeriods(lang: Lang, year: number): Period[] {
   const t = T[lang]
-  const y = new Date().getFullYear()
   return [
-    { label: t.fallback_low,  startDate: `${y}-04-01`, endDate: `${y}-05-15`, price: 580 },
-    { label: t.fallback_mid,  startDate: `${y}-05-16`, endDate: `${y}-06-30`, price: 680 },
-    { label: t.fallback_high, startDate: `${y}-07-01`, endDate: `${y}-08-14`, price: 780 },
-    { label: t.fallback_peak, startDate: `${y}-08-15`, endDate: `${y}-08-31`, price: 880 },
-    { label: t.fallback_mid,  startDate: `${y}-09-01`, endDate: `${y}-09-30`, price: 680 },
-    { label: t.fallback_low,  startDate: `${y}-10-01`, endDate: `${y}-10-31`, price: 580 },
+    { label: t.fallback_low,  startDate: `${year}-04-01`, endDate: `${year}-05-15`, price: 580 },
+    { label: t.fallback_mid,  startDate: `${year}-05-16`, endDate: `${year}-06-30`, price: 680 },
+    { label: t.fallback_high, startDate: `${year}-07-01`, endDate: `${year}-08-14`, price: 780 },
+    { label: t.fallback_peak, startDate: `${year}-08-15`, endDate: `${year}-08-31`, price: 880 },
+    { label: t.fallback_mid,  startDate: `${year}-09-01`, endDate: `${year}-09-30`, price: 680 },
+    { label: t.fallback_low,  startDate: `${year}-10-01`, endDate: `${year}-10-31`, price: 580 },
   ]
 }
 
-async function fetchPeriods(lang: Lang): Promise<Period[]> {
+type PricingResult = { periods: Period[]; seasonYear: number }
+
+async function fetchPricingData(lang: Lang): Promise<PricingResult> {
+  const fallbackYear = nextSeasonYear()
   try {
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
-    const year = new Date().getFullYear()
+    const today = new Date().toISOString().slice(0, 10)
+    const maxYear = new Date().getFullYear() + 2
     const { data, error } = await supabase
       .from('pricing')
       .select('date, price')
-      .gte('date', `${year}-04-01`)
-      .lte('date', `${year}-10-31`)
+      .gte('date', today)
+      .lte('date', `${maxYear}-10-31`)
+      .not('price', 'is', null)
+      .gt('price', 0)
       .order('date')
 
-    if (error || !data || data.length === 0) return staticPeriods(lang)
-    return groupIntoPeriods(data, lang)
+    if (error || !data?.length) return { periods: staticPeriods(lang, fallbackYear), seasonYear: fallbackYear }
+
+    // Trouver la première saison (avr–oct) avec assez de jours tarifés
+    const years = [...new Set(data.map(r => +r.date.slice(0, 4)))].sort()
+    let seasonYear = fallbackYear
+    for (const y of years) {
+      const count = data.filter(r => {
+        const mo = +r.date.slice(5, 7)
+        return +r.date.slice(0, 4) === y && mo >= 4 && mo <= 10
+      }).length
+      if (count >= 7) { seasonYear = y; break }
+    }
+
+    const seasonRows = data.filter(r => {
+      const mo = +r.date.slice(5, 7)
+      return +r.date.slice(0, 4) === seasonYear && mo >= 4 && mo <= 10
+    }) as PricingRow[]
+
+    const periods = groupIntoPeriods(seasonRows, lang).filter(p => p.price > 0)
+    return { periods, seasonYear }
   } catch {
-    return staticPeriods(lang)
+    return { periods: staticPeriods(lang, fallbackYear), seasonYear: fallbackYear }
   }
 }
 
@@ -182,7 +209,7 @@ async function fetchPeriods(lang: Lang): Promise<Period[]> {
 
 export default async function PricingGrid({ locale }: { locale: Lang }) {
   const t = T[locale]
-  const periods = await fetchPeriods(locale)
+  const { periods, seasonYear } = await fetchPricingData(locale)
 
   return (
     <section id="tarifs" className="py-24 lg:py-32 bg-navy text-white">
@@ -264,7 +291,7 @@ export default async function PricingGrid({ locale }: { locale: Lang }) {
                 </li>
               ))}
             </ul>
-            <p className="font-sans text-xs text-white/40 border-t border-white/10 pt-4">{t.deposit}</p>
+            <p className="font-sans text-xs text-white/40 border-t border-white/10 pt-4">{t.deposit(seasonYear)}</p>
             <p className="font-sans text-xs text-gold/60 mt-2">{t.direct_sub}</p>
           </div>
         </div>

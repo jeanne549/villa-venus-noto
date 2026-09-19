@@ -79,7 +79,7 @@ export default function Calendrier() {
 
   // ─── Seuils de saison calculés depuis la base ──────────────────────────────
   const sortedPrices = Object.values(pricing)
-    .filter(p => p.available !== false && p.price)
+    .filter(p => p.price)
     .map(p => p.price!)
     .sort((a, b) => a - b)
 

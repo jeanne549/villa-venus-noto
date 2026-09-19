@@ -22,6 +22,7 @@ const nextConfig = {
       { source: '/it/tarifs',     destination: '/it/tariffe',        permanent: true },
       { source: '/it/acces',      destination: '/it/come-arrivare',  permanent: true },
       { source: '/it/evenements', destination: '/it/eventi',         permanent: true },
+      { source: '/it/services',  destination: '/it/servizi',         permanent: true },
     ]
   },
 
@@ -36,6 +37,7 @@ const nextConfig = {
       { source: '/it/tariffe',       destination: '/it/tarifs' },
       { source: '/it/come-arrivare', destination: '/it/acces' },
       { source: '/it/eventi',        destination: '/it/evenements' },
+      { source: '/it/servizi',       destination: '/it/services' },
     ]
   },
 }

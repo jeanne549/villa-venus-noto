@@ -1,7 +1,10 @@
+import { notFound } from 'next/navigation'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import CookieBanner from '@/components/CookieBanner'
 import AnalyticsLoader from '@/components/AnalyticsLoader'
 import type { Lang } from '@/lib/i18n'
+
+const VALID_LOCALES: readonly string[] = ['fr', 'en', 'it', 'de']
 
 type Props = {
   children: React.ReactNode
@@ -9,7 +12,8 @@ type Props = {
 }
 
 export default function LocaleLayout({ children, params }: Props) {
-  const locale = (['fr', 'en', 'it', 'de'].includes(params.locale) ? params.locale : 'fr') as Lang
+  if (!VALID_LOCALES.includes(params.locale)) notFound()
+  const locale = params.locale as Lang
   return (
     <LanguageProvider initialLang={locale}>
       {children}
