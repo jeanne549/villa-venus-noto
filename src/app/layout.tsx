@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
   verification: {
-    google: 'dy02-liORD9vNJTbETBLvPPKtxwRLUWVNHmY7LSk30E',
+    google: ['dy02-liORD9vNJTbETBLvPPKtxwRLUWVNHmY7LSk30E', 'JxKa5V2-ANgCfe5g4n12J-SBgcCHRy_RC-d-_nW0SRI'],
   },
 }
 
