@@ -5,6 +5,7 @@ import type { Lang } from '@/lib/i18n'
 import { hasPlaceholders } from '@/lib/placeholder'
 import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema } from '@/lib/structured-data'
+import PageTracker from '@/components/PageTracker'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
@@ -73,6 +74,7 @@ export default function JournalPage({ params }: { params: { locale: string } }) 
   const homeLabel = locale === 'fr' ? 'Accueil' : locale === 'de' ? 'Startseite' : 'Home'
   return (
     <>
+      <PageTracker page="journal" lang={locale} />
       <JsonLd data={[getBreadcrumbSchema([
         { name: homeLabel, item: `${BASE}/${locale}` },
         { name: h.breadcrumb, item: `${BASE}/${locale}/journal` },

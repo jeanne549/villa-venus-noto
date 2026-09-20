@@ -28,6 +28,7 @@ type DashboardData = {
     created_at: string
     lang: string
   }>
+  requests_by_month: number[]
 }
 
 const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc']
@@ -106,6 +107,7 @@ export default function AdminDashboard() {
 
   const year = new Date().getFullYear()
   const maxNights = Math.max(...data.bookings_by_month, 1)
+  const maxRequests = Math.max(...(data.requests_by_month ?? new Array(12).fill(0)), 1)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -221,6 +223,26 @@ export default function AdminDashboard() {
             ))}
           </div>
         </div>
+
+        {/* Requested months chart */}
+        {(data.requests_by_month ?? []).some(n => n > 0) && (
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-sm font-semibold text-gray-900 mb-1">Mois les plus demandés ({year})</h2>
+            <p className="text-xs text-gray-400 mb-6">Date d'arrivée souhaitée dans les formulaires reçus</p>
+            <div className="flex items-end gap-1.5 h-36">
+              {(data.requests_by_month ?? new Array(12).fill(0)).map((n, i) => (
+                <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                  <span className="text-[10px] font-medium text-gray-500">{n > 0 ? n : ''}</span>
+                  <div
+                    className="w-full bg-blue-400 rounded-t"
+                    style={{ height: `${n > 0 ? Math.max((n / maxRequests) * 100, 6) : 3}px`, opacity: n > 0 ? 1 : 0.2 }}
+                  />
+                  <span className="text-[10px] text-gray-400">{MONTHS[i]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Recent requests */}
         <div className="bg-white rounded-xl border border-gray-200 p-6">

@@ -8,19 +8,19 @@ const STORAGE_KEY = 'villa_cookie_consent'
 
 const texts = {
   fr: {
-    message: 'Ce site utilise des cookies fonctionnels (mémorisation de vos préférences). Aucun cookie publicitaire sans votre accord.',
+    message: "Ce site peut utiliser Google Analytics et Meta Pixel pour mesurer son audience. Ces outils ne s'activent qu'avec votre accord.",
     accept: 'Accepter',
     refuse: 'Refuser',
     policy: 'Politique cookies',
   },
   en: {
-    message: 'This site uses functional cookies (remembering your preferences). No advertising cookies without your agreement.',
+    message: 'This site may use Google Analytics and Meta Pixel to measure its audience. These tools activate only with your consent.',
     accept: 'Accept',
     refuse: 'Decline',
     policy: 'Cookie policy',
   },
   it: {
-    message: 'Questo sito utilizza cookie funzionali (memorizzazione delle preferenze). Nessun cookie pubblicitario senza il tuo accordo.',
+    message: "Questo sito può utilizzare Google Analytics e Meta Pixel per misurare l'audience. Questi strumenti si attivano solo con il tuo consenso.",
     accept: 'Accetta',
     refuse: 'Rifiuta',
     policy: 'Politica cookie',
@@ -80,13 +80,13 @@ export default function CookieBanner() {
         <div className="flex gap-3 shrink-0">
           <button
             onClick={() => choose('refused')}
-            className="font-sans text-xs tracking-widest uppercase text-white/60 hover:text-white border border-white/30 hover:border-white px-4 py-2 transition-colors"
+            className="font-sans text-xs tracking-widest uppercase text-white border border-white px-5 py-2 hover:bg-white/10 transition-colors"
           >
             {tc.refuse}
           </button>
           <button
             onClick={() => choose('accepted')}
-            className="font-sans text-xs tracking-widest uppercase bg-gold text-navy hover:bg-gold/90 px-5 py-2 font-semibold transition-colors"
+            className="font-sans text-xs tracking-widest uppercase bg-gold text-navy border border-gold hover:bg-gold/90 px-5 py-2 font-semibold transition-colors"
           >
             {tc.accept}
           </button>

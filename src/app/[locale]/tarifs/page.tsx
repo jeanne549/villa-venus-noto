@@ -7,6 +7,7 @@ import { buildAlternates, pageUrl } from '@/lib/routes'
 import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema, getOfferSchema } from '@/lib/structured-data'
 import PricingViewTracker from '@/components/PricingViewTracker'
+import PageTracker from '@/components/PageTracker'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
@@ -184,6 +185,7 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
   return (
     <>
       <PricingViewTracker locale={locale} />
+      <PageTracker page="tarifs" lang={locale} />
       <JsonLd data={[
         getBreadcrumbSchema([
           { name: homeLabel, item: `${BASE}/${locale}` },

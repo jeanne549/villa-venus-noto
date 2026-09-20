@@ -6,6 +6,7 @@ import { hasPlaceholders } from '@/lib/placeholder'
 import { pageUrl } from '@/lib/routes'
 import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema, getFaqPageSchema } from '@/lib/structured-data'
+import PageTracker from '@/components/PageTracker'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
@@ -231,6 +232,7 @@ export default function FaqPage({ params }: { params: { locale: string } }) {
   const allFaqs = faqs.flatMap(cat => cat.items.map(item => ({ question: item.q, answer: item.a })))
   return (
     <>
+      <PageTracker page="faq" lang={locale} />
       <JsonLd data={[
         getBreadcrumbSchema([
           { name: homeLabel, item: `${BASE}/${locale}` },

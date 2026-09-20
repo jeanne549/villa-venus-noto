@@ -32,6 +32,7 @@ export async function GET() {
     bookedDates,
     seasonDates,
     recentRequests,
+    requestedDates,
   ] = await Promise.all([
     sbGet(`contact_requests?select=id&created_at=gte.${startOfMonth}`),
     sbGet('contact_requests?select=id'),
@@ -39,6 +40,7 @@ export async function GET() {
     sbGet(`pricing?select=date&available=eq.false&date=gte.${yearStart}&date=lte.${yearEnd}`),
     sbGet(`pricing?select=available&date=gte.${seasonStart}&date=lte.${seasonEnd}`),
     sbGet('contact_requests?select=id,name,email,arrival_date,departure_date,guests,status,created_at,lang&order=created_at.desc&limit=10'),
+    sbGet(`contact_requests?select=arrival_date&arrival_date=gte.${yearStart}&arrival_date=lte.${yearEnd}`),
   ])
 
   // Nuits réservées par mois (index 0 = janvier)
@@ -46,6 +48,15 @@ export async function GET() {
   for (const row of Array.isArray(bookedDates) ? bookedDates : []) {
     const m = new Date(row.date).getMonth()
     monthNights[m]++
+  }
+
+  // Mois d'arrivée les plus demandés dans les formulaires
+  const requestsByMonth = new Array(12).fill(0)
+  for (const row of Array.isArray(requestedDates) ? requestedDates : []) {
+    if (row.arrival_date) {
+      const m = new Date(row.arrival_date).getMonth()
+      requestsByMonth[m]++
+    }
   }
 
   const seasonTotal  = Array.isArray(seasonDates) ? seasonDates.length : 0
@@ -62,5 +73,6 @@ export async function GET() {
     season_booked:       seasonBooked,
     season_total:        seasonTotal,
     recent_requests:     Array.isArray(recentRequests) ? recentRequests : [],
+    requests_by_month:   requestsByMonth,
   })
 }

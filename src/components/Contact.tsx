@@ -99,7 +99,10 @@ export default function Contact() {
       const data = await res.json()
       if (data.success) {
         setStatus('success')
-        trackEvent('reservation_sent', { lang, guests: parseInt(form.guests) })
+        const nights = form.arrival_date && form.departure_date
+          ? Math.round((new Date(form.departure_date).getTime() - new Date(form.arrival_date).getTime()) / 86400000)
+          : 0
+        trackEvent('reservation_sent', { lang, guests: parseInt(form.guests), nights, value: nights * 580, currency: 'EUR' })
       } else throw new Error('failed')
     } catch {
       setStatus('error')
