@@ -211,7 +211,7 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
           { label: c.from_label, value: c.from_val },
         ].map(stat => (
           <div key={stat.label} className="bg-white border border-gold/20 p-6">
-            <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold mb-2">{stat.label}</p>
+            <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold-text mb-2">{stat.label}</p>
             <p className="font-serif text-lg text-charcoal leading-tight">{stat.value}</p>
           </div>
         ))}
@@ -225,7 +225,7 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {c.seasons.map((s, i) => (
             <div key={i} className={`p-6 border ${i === 2 ? 'border-gold bg-gold/5' : 'border-gold/20 bg-white'}`}>
-              <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-gold mb-2">{s.label}</p>
+              <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-gold-text mb-2">{s.label}</p>
               <p className="font-sans text-xs text-muted mb-4 leading-relaxed">{s.period}</p>
               <p className="font-serif text-xl text-charcoal mb-3">{s.price}</p>
               <p className="font-sans text-xs text-muted italic">{s.note}</p>
@@ -241,7 +241,7 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
           <ul className="space-y-2">
             {c.included.map(item => (
               <li key={item} className="font-sans text-sm text-charcoal flex items-start gap-2">
-                <span className="text-gold mt-0.5 flex-shrink-0">✓</span>{item}
+                <span className="text-gold-text mt-0.5 flex-shrink-0">✓</span>{item}
               </li>
             ))}
           </ul>
@@ -299,7 +299,7 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
           {c.link_villa}
         </Link>
         <Link href={`/${locale}/services`}
-          className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">
+          className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300">
           {c.link_services}
         </Link>
       </div>

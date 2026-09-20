@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
         <strong>Deschaux Jeanne</strong> (private individual)<br />
         Codice fiscale: DSCJNN71L64F943Q<br />
         c/o Paola Deschaux Dimaio, Largo Nazario Sauro 4, 96017 Noto (SR) — Italy<br />
-        Email: <a href="mailto:contact@villavenusnoto.com" className="text-gold hover:underline">contact@villavenusnoto.com</a>
+        Email: <a href="mailto:contact@villavenusnoto.com" className="text-gold-text hover:underline">contact@villavenusnoto.com</a>
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">2. Data collected</h2>
@@ -94,14 +94,14 @@ export default function PrivacyPolicy() {
         <li><strong>Withdrawal of consent</strong> — at any time, without retroactive effect</li>
       </ul>
       <p className="mt-3">
-        To exercise these rights: <a href="mailto:contact@villavenusnoto.com" className="text-gold hover:underline">contact@villavenusnoto.com</a>.
+        To exercise these rights: <a href="mailto:contact@villavenusnoto.com" className="text-gold-text hover:underline">contact@villavenusnoto.com</a>.
         We respond within 30 days. In case of dispute, you may lodge a complaint with the relevant supervisory authority (in France: CNIL; in Italy: Garante Privacy).
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">7. Cookies</h2>
       <p>
         This website uses technical cookies necessary for its operation. No advertising cookies are placed without your prior consent.
-        For more information, please see our <a href="/cookies" className="text-gold hover:underline">cookie policy</a>.
+        For more information, please see our <a href="/cookies" className="text-gold-text hover:underline">cookie policy</a>.
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">8. Security</h2>

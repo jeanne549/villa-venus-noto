@@ -153,7 +153,7 @@ export default function EvenementsPage({ params }: { params: { locale: string } 
           <ul className="space-y-2">
             {c.ideal.map(item => (
               <li key={item} className="font-sans text-sm text-charcoal flex items-start gap-2">
-                <span className="text-gold flex-shrink-0">›</span>{item}
+                <span className="text-gold-text flex-shrink-0">›</span>{item}
               </li>
             ))}
           </ul>

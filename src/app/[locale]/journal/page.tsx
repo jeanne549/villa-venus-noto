@@ -92,13 +92,13 @@ export default function JournalPage({ params }: { params: { locale: string } }) 
             className="group bg-white border border-gold/20 hover:border-gold transition-all duration-300 block">
             <div className="p-6">
               <div className="flex items-center gap-3 mb-4">
-                <span className="font-sans text-[10px] tracking-[0.15em] uppercase bg-gold/10 text-gold px-2 py-1">{article.tag}</span>
+                <span className="font-sans text-[10px] tracking-[0.15em] uppercase bg-gold/10 text-gold-text px-2 py-1">{article.tag}</span>
                 <span className="font-sans text-[10px] text-muted tracking-wide">{article.date}</span>
               </div>
               <h2 className="font-serif text-xl text-charcoal mb-3 leading-snug group-hover:text-gold transition-colors">{article.title}</h2>
               <p className="font-sans text-muted text-sm leading-relaxed mb-4">{article.excerpt}</p>
               <div className="flex items-center justify-between">
-                <span className="font-sans text-xs text-gold tracking-wide">{h.read}</span>
+                <span className="font-sans text-xs text-gold-text tracking-wide">{h.read}</span>
                 <span className="font-sans text-[10px] text-muted">{article.readTime}</span>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function JournalPage({ params }: { params: { locale: string } }) 
       </div>
 
       <Link href={`/${locale}/noto`}
-        className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300 inline-block">
+        className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300 inline-block">
         {h.link_noto}
       </Link>
 

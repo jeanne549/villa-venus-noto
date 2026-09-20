@@ -299,7 +299,7 @@ export default function CoursesPage({ params }: { params: { locale: string } }) 
       <PageLayout lang={locale} page="courses" breadcrumb={c.breadcrumb}>
         <div className="max-w-2xl">
           <h1 className="font-serif text-3xl md:text-4xl text-charcoal leading-tight mb-3">{c.h1}</h1>
-          <p className="font-sans text-xs tracking-[0.15em] uppercase text-gold mb-6">{c.sub}</p>
+          <p className="font-sans text-xs tracking-[0.15em] uppercase text-gold-text mb-6">{c.sub}</p>
           <div className="gold-divider" />
           <p className="font-sans text-base text-muted leading-relaxed mb-14">{c.intro}</p>
 
@@ -324,7 +324,7 @@ export default function CoursesPage({ params }: { params: { locale: string } }) 
             <Link href={`/${locale}/itineraire`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 bg-gold text-white hover:bg-gold/80 transition-all duration-300">
               {c.link_itineraire}
             </Link>
-            <Link href={`/${locale}/services`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">
+            <Link href={`/${locale}/services`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300">
               {c.link_services}
             </Link>
           </div>

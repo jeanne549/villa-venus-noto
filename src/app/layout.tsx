@@ -11,14 +11,14 @@ const cormorant = Cormorant_Garamond({
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400'],
   variable: '--font-inter',
   display: 'swap',
 })
 
 const cinzel = Cinzel({
   subsets: ['latin'],
-  weight: ['400', '600'],
+  weight: ['400'],
   variable: '--font-cinzel',
   display: 'swap',
 })

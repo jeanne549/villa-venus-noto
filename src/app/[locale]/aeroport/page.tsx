@@ -330,17 +330,17 @@ export default function AeroportPage({ params }: { params: { locale: string } })
       <PageLayout lang={locale} page="aeroport" breadcrumb={c.breadcrumb}>
         <div className="max-w-2xl">
           <h1 className="font-serif text-3xl md:text-4xl text-charcoal leading-tight mb-3">{c.h1}</h1>
-          <p className="font-sans text-xs tracking-[0.15em] uppercase text-gold mb-6">{c.sub}</p>
+          <p className="font-sans text-xs tracking-[0.15em] uppercase text-gold-text mb-6">{c.sub}</p>
           <div className="gold-divider" />
           <p className="font-sans text-base text-muted leading-relaxed mb-12">{c.intro}</p>
 
           {/* Aéroport principal */}
           <div className="bg-gold/5 border border-gold/20 p-6 mb-8">
-            <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold mb-3">{c.airport_title}</p>
+            <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold-text mb-3">{c.airport_title}</p>
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-3">
               <h2 className="font-serif text-2xl text-charcoal">{c.airport_name}</h2>
               <span className="font-sans text-xs tracking-widest text-muted">{c.airport_code}</span>
-              <span className="font-sans text-xs text-gold font-medium">{c.airport_dist} · {c.airport_drive}</span>
+              <span className="font-sans text-xs text-gold-text font-medium">{c.airport_dist} · {c.airport_drive}</span>
             </div>
             <p className="font-sans text-sm text-muted leading-relaxed">{c.airport_note}</p>
           </div>
@@ -376,7 +376,7 @@ export default function AeroportPage({ params }: { params: { locale: string } })
 
           {/* Adresse + GPS */}
           <div className="bg-navy text-white p-8 mb-12">
-            <h2 className="font-serif text-xl text-gold mb-5">{c.address_title}</h2>
+            <h2 className="font-serif text-xl text-gold-text mb-5">{c.address_title}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 {c.address_lines.map((line, i) => (
@@ -384,12 +384,12 @@ export default function AeroportPage({ params }: { params: { locale: string } })
                 ))}
               </div>
               <div>
-                <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold/70 mb-1">{c.gps_label}</p>
+                <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold-text/70 mb-1">{c.gps_label}</p>
                 <p className="font-sans text-sm text-white/90 font-mono">{c.gps}</p>
               </div>
             </div>
             <div className="border-t border-white/10 mt-6 pt-6">
-              <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold/70 mb-2">{c.arrival_title}</p>
+              <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold-text/70 mb-2">{c.arrival_title}</p>
               <p className="font-sans text-sm text-white/80 leading-relaxed">{c.arrival_text}</p>
             </div>
           </div>
@@ -398,7 +398,7 @@ export default function AeroportPage({ params }: { params: { locale: string } })
             <Link href={`/${locale}/acces`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 bg-gold text-white hover:bg-gold/80 transition-all duration-300">
               {c.link_acces}
             </Link>
-            <Link href={`/${locale}`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">
+            <Link href={`/${locale}`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300">
               {c.link_villa}
             </Link>
           </div>

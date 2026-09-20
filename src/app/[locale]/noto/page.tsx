@@ -491,7 +491,7 @@ export default function NotoPage({ params }: { params: { locale: string } }) {
       <div className="bg-navy text-white p-8 mb-14 grid grid-cols-2 md:grid-cols-3 gap-6">
         {c.distances.map(d => (
           <div key={d.place} className="text-center">
-            <p className="font-serif text-2xl text-gold">{d.dist}</p>
+            <p className="font-serif text-2xl text-gold-text">{d.dist}</p>
             <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-white/60 mt-1">{d.place}</p>
           </div>
         ))}
@@ -502,7 +502,7 @@ export default function NotoPage({ params }: { params: { locale: string } }) {
         {places.map((place, i) => (
           <article key={i} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-0 border-b border-gold/20 pb-12 last:border-none">
             <div className="md:pt-1 mb-4 md:mb-0">
-              <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold leading-relaxed">{place.cat}</p>
+              <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold-text leading-relaxed">{place.cat}</p>
             </div>
             <div>
               <h2 className="font-serif text-2xl text-charcoal mb-3">{place.name}</h2>
@@ -520,11 +520,11 @@ export default function NotoPage({ params }: { params: { locale: string } }) {
 
       {/* 3-day mini-itinerary */}
       <div className="mb-16 bg-navy text-white p-8 md:p-10">
-        <h2 className="font-serif text-2xl md:text-3xl text-gold mb-8">{c.itinerary3_title}</h2>
+        <h2 className="font-serif text-2xl md:text-3xl text-gold-text mb-8">{c.itinerary3_title}</h2>
         <div className="space-y-7">
           {c.itinerary3.map((day, i) => (
             <div key={i} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-2 md:gap-6 border-b border-white/10 pb-7 last:border-none last:pb-0">
-              <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold/80 md:pt-1">{day.label}</p>
+              <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold-text/80 md:pt-1">{day.label}</p>
               <p className="font-sans text-sm leading-relaxed text-white/80">{day.text}</p>
             </div>
           ))}
@@ -538,7 +538,7 @@ export default function NotoPage({ params }: { params: { locale: string } }) {
           {c.link_beaches}
         </Link>
         <Link href={`/${locale}/itineraire`}
-          className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">
+          className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300">
           {c.link_itinerary}
         </Link>
       </div>
@@ -550,7 +550,7 @@ export default function NotoPage({ params }: { params: { locale: string } }) {
           {c.link_villa}
         </Link>
         <Link href={`/${locale}/journal`}
-          className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">
+          className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300">
           {c.link_journal}
         </Link>
       </div>

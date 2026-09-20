@@ -220,7 +220,7 @@ export default function VillaPage({ params }: { params: { locale: string } }) {
                   <ul className="grid grid-cols-2 gap-1">
                     {c.included.map(item => (
                       <li key={item} className="font-sans text-xs text-charcoal flex items-center gap-1.5">
-                        <span className="text-gold text-[10px]">✓</span>{item}
+                        <span className="text-gold-text text-[10px]">✓</span>{item}
                       </li>
                     ))}
                   </ul>
@@ -256,7 +256,7 @@ export default function VillaPage({ params }: { params: { locale: string } }) {
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {c.villa_included.map(item => (
             <li key={item} className="font-sans text-sm text-charcoal flex items-center gap-2">
-              <span className="text-gold font-semibold">✓</span>{item}
+              <span className="text-gold-text font-semibold">✓</span>{item}
             </li>
           ))}
         </ul>

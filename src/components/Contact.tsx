@@ -130,7 +130,7 @@ export default function Contact() {
                 <div key={item.title} className="flex items-start gap-4">
                   <span className="text-xl mt-1">{item.icon}</span>
                   <div>
-                    <p className="font-sans text-xs tracking-widests uppercase text-gold mb-1">{item.title}</p>
+                    <p className="font-sans text-xs tracking-widests uppercase text-gold-text mb-1">{item.title}</p>
                     {item.href ? (
                       <a href={item.href} target={item.href.startsWith('https') ? '_blank' : undefined}
                         rel="noopener noreferrer"
@@ -213,8 +213,8 @@ export default function Contact() {
                   <div className="bg-red-50 border border-red-200 px-4 py-4">
                     <p className="font-sans text-red-700 text-sm mb-3">{t.contact.error}</p>
                     <p className="font-sans text-sm text-charcoal font-medium mb-1">{t.contact.error_fallback}</p>
-                    <a href={`mailto:${EMAIL}`} className="font-sans text-sm text-gold underline block">📧 {EMAIL}</a>
-                    <a href="https://wa.me/33624542995" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-gold underline block">📱 WhatsApp {WHATSAPP}</a>
+                    <a href={`mailto:${EMAIL}`} className="font-sans text-sm text-gold-text underline block">📧 {EMAIL}</a>
+                    <a href="https://wa.me/33624542995" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-gold-text underline block">📱 WhatsApp {WHATSAPP}</a>
                   </div>
                 )}
 
@@ -231,11 +231,11 @@ export default function Contact() {
                   />
                   <label htmlFor="consent_gdpr" className="font-sans text-xs text-muted leading-relaxed cursor-pointer">
                     {lang === 'en' ? (
-                      <>I have read and accept the <a href="/privacy-policy" target="_blank" className="text-gold underline">privacy policy</a>. My data will be used solely to process this booking request.</>
+                      <>I have read and accept the <a href="/privacy-policy" target="_blank" className="text-gold-text underline">privacy policy</a>. My data will be used solely to process this booking request.</>
                     ) : lang === 'it' ? (
-                      <>Ho letto e accetto la <a href="/informativa-privacy" target="_blank" className="text-gold underline">informativa sulla privacy</a>. I miei dati saranno utilizzati esclusivamente per elaborare questa richiesta.</>
+                      <>Ho letto e accetto la <a href="/informativa-privacy" target="_blank" className="text-gold-text underline">informativa sulla privacy</a>. I miei dati saranno utilizzati esclusivamente per elaborare questa richiesta.</>
                     ) : (
-                      <>J&apos;ai lu et j&apos;accepte la <a href="/confidentialite" target="_blank" className="text-gold underline">politique de confidentialité</a>. Mes données seront utilisées uniquement pour traiter cette demande de réservation.</>
+                      <>J&apos;ai lu et j&apos;accepte la <a href="/confidentialite" target="_blank" className="text-gold-text underline">politique de confidentialité</a>. Mes données seront utilisées uniquement pour traiter cette demande de réservation.</>
                     )}
                   </label>
                 </div>

@@ -238,22 +238,22 @@ export default function Calendrier() {
           <p className="font-sans text-sm text-muted">
             {!startDate ? tc.select_start : !endDate ? tc.select_end : ''}
           </p>
-          <p className="font-sans text-xs text-gold tracking-wide">
+          <p className="font-sans text-xs text-gold-text tracking-wide">
             ◈ {tc.saturday_preferred}
           </p>
         </div>
 
         {/* Navigation mois */}
         <div className="flex items-center justify-between mb-6">
-          <button onClick={prevMonth} aria-label={tc.months[(month + 11) % 12]} className="w-11 h-11 flex items-center justify-center border border-gray-200 hover:border-gold text-charcoal hover:text-gold transition-all text-xl">‹</button>
+          <button onClick={prevMonth} aria-label={tc.months[(month + 11) % 12]} className="w-12 h-12 flex items-center justify-center border border-gray-200 hover:border-gold text-charcoal hover:text-gold transition-all text-xl">‹</button>
           <h3 className="font-serif text-2xl text-charcoal">{tc.months[month]} {year}</h3>
-          <button onClick={nextMonth} aria-label={tc.months[(month + 1) % 12]} className="w-11 h-11 flex items-center justify-center border border-gray-200 hover:border-gold text-charcoal hover:text-gold transition-all text-xl">›</button>
+          <button onClick={nextMonth} aria-label={tc.months[(month + 1) % 12]} className="w-12 h-12 flex items-center justify-center border border-gray-200 hover:border-gold text-charcoal hover:text-gold transition-all text-xl">›</button>
         </div>
 
         {/* Jours semaine — samedi (index 5) mis en évidence */}
         <div className="grid grid-cols-7 mb-2">
           {tc.days.map((d, idx) => (
-            <div key={d} className={`text-center font-sans text-xs tracking-widests uppercase py-2 ${idx === 5 ? 'text-gold font-semibold' : 'text-muted'}`}>{d}</div>
+            <div key={d} className={`text-center font-sans text-xs tracking-widests uppercase py-2 ${idx === 5 ? 'text-gold-text font-semibold' : 'text-muted'}`}>{d}</div>
           ))}
         </div>
 
@@ -291,7 +291,7 @@ export default function Calendrier() {
                 onMouseEnter={() => startDate && !endDate && setHovered(dateStr)}
                 onMouseLeave={() => setHovered(null)}
                 disabled={isPast || isUnavailable}
-                aria-label={`${day} ${tc.months[month]} ${year}${isUnavailable ? ' — indisponible' : hasPrice ? ` — ${info?.price}€` : ''}`}
+                aria-label={`${day} ${tc.months[month]} ${year}${isUnavailable ? ` — ${tc.legend_unavailable}` : hasPrice ? ` — ${info?.price}€` : ''}`}
                 aria-pressed={isStart || isEnd || inRange ? true : undefined}
                 className={`relative aspect-square flex flex-col items-center justify-center border text-center transition-all text-[11px] ${cellClass}`}
               >
@@ -301,7 +301,7 @@ export default function Calendrier() {
                 )}
                 <span className={`font-sans font-medium ${isStart || isEnd ? 'text-white' : 'text-charcoal'}`}>{day}</span>
                 {hasPrice && (
-                  <span className={`font-sans leading-tight ${isStart || isEnd ? 'text-white/90' : 'text-gold'}`}>
+                  <span className={`font-sans leading-tight ${isStart || isEnd ? 'text-white/90' : 'text-gold-text'}`}>
                     {info!.price}€
                   </span>
                 )}
@@ -351,7 +351,7 @@ export default function Calendrier() {
                 <p className="font-sans text-xs text-muted tracking-widests uppercase mb-1">{tc.arrival}</p>
                 <p className="font-serif text-base text-charcoal leading-tight">{formatDateLong(startDate, tc.months)}</p>
                 {isSaturday(startDate) && (
-                  <p className="font-sans text-xs text-gold mt-1">◈ {tc.saturday_preferred.split(' ').slice(-1)[0]}</p>
+                  <p className="font-sans text-xs text-gold-text mt-1">◈ {tc.saturday_preferred.split(' ').slice(-1)[0]}</p>
                 )}
               </div>
               <div className="border-l-2 border-gold pl-4">
@@ -454,7 +454,7 @@ export default function Calendrier() {
 
                   {/* ─── Simulation par email ─────────────────────────────── */}
                   {simStatus === 'sent' ? (
-                    <p className="font-sans text-xs text-gold text-center pt-3">
+                    <p className="font-sans text-xs text-gold-text text-center pt-3">
                       {lang === 'en' ? '✓ Simulation sent to your inbox' : lang === 'it' ? '✓ Simulazione inviata alla vostra email' : '✓ Simulation envoyée à votre email'}
                     </p>
                   ) : (
@@ -513,7 +513,7 @@ export default function Calendrier() {
         {/* ─── Liste d'attente ──────────────────────────────────────────── */}
         <div className="mt-14 border-t border-gold/20 pt-10">
           <div className="max-w-lg mx-auto text-center">
-            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold mb-3">
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold-text mb-3">
               {lang === 'en' ? 'Dates taken?' : lang === 'it' ? 'Date occupate?' : 'Ces dates sont prises ?'}
             </p>
             <h3 className="font-serif text-xl text-charcoal mb-3">
@@ -529,7 +529,7 @@ export default function Calendrier() {
 
             {wlStatus === 'sent' ? (
               <div className="bg-gold/10 border border-gold/30 px-6 py-4">
-                <p className="font-sans text-sm text-gold">
+                <p className="font-sans text-sm text-gold-text">
                   {lang === 'en' ? '✓ Alert registered. We will notify you.' : lang === 'it' ? '✓ Avviso registrato. Vi notificheremo.' : '✓ Alerte enregistrée. Nous vous préviendrons.'}
                 </p>
               </div>

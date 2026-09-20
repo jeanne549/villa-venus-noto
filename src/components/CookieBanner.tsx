@@ -73,7 +73,7 @@ export default function CookieBanner() {
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <p className="font-sans text-sm text-white/80 flex-1">
           {tc.message}{' '}
-          <Link href="/cookies" className="text-gold hover:underline whitespace-nowrap">
+          <Link href="/cookies" className="text-gold-text hover:underline whitespace-nowrap">
             {tc.policy}
           </Link>
         </p>

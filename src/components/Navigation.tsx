@@ -54,7 +54,7 @@ export default function Navigation() {
             <span className={`font-display text-lg tracking-[0.2em] uppercase transition-colors duration-300 ${scrolled && !menuOpen ? 'text-navy' : 'text-white'}`}>
               Villa Vénus Noto
             </span>
-            <span className={`font-sans text-[10px] tracking-[0.4em] uppercase transition-colors duration-300 ${scrolled && !menuOpen ? 'text-gold' : 'text-gold-light'}`}>
+            <span className={`font-sans text-[10px] tracking-[0.4em] uppercase transition-colors duration-300 ${scrolled && !menuOpen ? 'text-gold-text' : 'text-gold-light'}`}>
               {t.hero.location}
             </span>
           </Link>

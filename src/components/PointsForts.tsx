@@ -39,7 +39,7 @@ export default function PointsForts() {
                 </div>
               </div>
               <div className={`bg-white flex flex-col justify-center px-10 py-14 lg:px-16 ${i % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
-                <span className="font-display text-gold text-[10px] tracking-[0.5em] uppercase mb-6 block">{point.detail}</span>
+                <span className="font-display text-gold-text text-[10px] tracking-[0.5em] uppercase mb-6 block">{point.detail}</span>
                 <h3 className="font-serif text-3xl md:text-4xl text-charcoal leading-tight mb-6 whitespace-pre-line">{point.titre}</h3>
                 <div className="w-8 h-px bg-gold mb-6" />
                 <p className="font-sans text-muted text-base leading-relaxed">{point.desc}</p>

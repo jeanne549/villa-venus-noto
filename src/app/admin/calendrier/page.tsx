@@ -224,7 +224,7 @@ export default function AdminCalendrier() {
           ] as { id: typeof tab; label: string }[]).map(t => (
             <button key={t.id} onClick={() => setTab(t.id)}
               className={`font-sans text-xs tracking-widest uppercase px-6 py-4 border-b-2 transition-colors ${
-                tab === t.id ? 'border-gold text-gold' : 'border-transparent text-muted hover:text-charcoal'}`}>
+                tab === t.id ? 'border-gold text-gold-text' : 'border-transparent text-muted hover:text-charcoal'}`}>
               {t.label}
             </button>
           ))}
@@ -372,7 +372,7 @@ export default function AdminCalendrier() {
                       {review.origin && <p className="font-sans text-xs text-muted">{review.origin}</p>}
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-gold text-sm">{'★'.repeat(review.rating)}</span>
+                      <span className="text-gold-text text-sm">{'★'.repeat(review.rating)}</span>
                       <span className={`font-sans text-[10px] tracking-widests uppercase px-2 py-0.5 ${
                         review.status === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'}`}>
                         {review.status === 'pending' ? 'En attente' : 'Publié'}

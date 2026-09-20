@@ -256,7 +256,7 @@ export default function PlagesPage({ params }: { params: { locale: string } }) {
       <PageLayout lang={locale} page="plages" breadcrumb={c.breadcrumb}>
         <div className="max-w-2xl">
           <h1 className="font-serif text-3xl md:text-4xl text-charcoal leading-tight mb-3">{c.h1}</h1>
-          <p className="font-sans text-xs tracking-[0.15em] uppercase text-gold mb-6">{c.sub}</p>
+          <p className="font-sans text-xs tracking-[0.15em] uppercase text-gold-text mb-6">{c.sub}</p>
           <div className="gold-divider" />
           <p className="font-sans text-base text-muted leading-relaxed mb-14">{c.intro}</p>
 
@@ -265,9 +265,9 @@ export default function PlagesPage({ params }: { params: { locale: string } }) {
               <div key={i} className="border-l-2 border-gold/30 pl-6">
                 <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
                   <h2 className="font-serif text-2xl text-charcoal">{beach.name}</h2>
-                  <span className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold">{beach.dist} · {beach.time}</span>
+                  <span className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold-text">{beach.dist} · {beach.time}</span>
                 </div>
-                <span className="inline-block font-sans text-[10px] tracking-widest uppercase bg-gold/10 text-gold px-2 py-1 mb-3">{beach.label}</span>
+                <span className="inline-block font-sans text-[10px] tracking-widest uppercase bg-gold/10 text-gold-text px-2 py-1 mb-3">{beach.label}</span>
                 <p className="font-sans text-sm text-muted leading-relaxed mb-2">{beach.desc}</p>
                 <p className="font-sans text-xs text-muted/70 leading-relaxed mb-2">{beach.access}</p>
                 <p className="font-sans text-xs text-charcoal italic border-l border-gold/40 pl-3 leading-relaxed">{beach.tip}</p>
@@ -276,11 +276,11 @@ export default function PlagesPage({ params }: { params: { locale: string } }) {
           </div>
 
           <div className="bg-navy text-white p-8 md:p-10 mb-16">
-            <h2 className="font-serif text-2xl text-gold mb-7">{c.practical_title}</h2>
+            <h2 className="font-serif text-2xl text-gold-text mb-7">{c.practical_title}</h2>
             <div className="space-y-5">
               {c.practical.map((item, i) => (
                 <div key={i} className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 md:gap-6 border-b border-white/10 pb-5 last:border-none last:pb-0">
-                  <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold/80 md:pt-0.5">{item.heading}</p>
+                  <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-gold-text/80 md:pt-0.5">{item.heading}</p>
                   <p className="font-sans text-sm leading-relaxed text-white/80">{item.text}</p>
                 </div>
               ))}
@@ -291,7 +291,7 @@ export default function PlagesPage({ params }: { params: { locale: string } }) {
             <Link href={`/${locale}/noto`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 bg-gold text-white hover:bg-gold/80 transition-all duration-300">
               {c.link_noto}
             </Link>
-            <Link href={`/${locale}`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">
+            <Link href={`/${locale}`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300">
               {c.link_villa}
             </Link>
           </div>

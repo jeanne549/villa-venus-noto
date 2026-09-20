@@ -206,10 +206,10 @@ export default function AccesPage({ params }: { params: { locale: string } }) {
             <div key={ap.name} className="bg-white border border-gold/20 p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="font-display text-gold text-sm tracking-[0.2em] mb-1">{ap.code}</p>
+                  <p className="font-display text-gold-text text-sm tracking-[0.2em] mb-1">{ap.code}</p>
                   <h3 className="font-serif text-lg text-charcoal">{ap.name}</h3>
                 </div>
-                <span className="font-sans text-[10px] tracking-[0.1em] uppercase bg-gold/10 text-gold px-2 py-1">{ap.tag}</span>
+                <span className="font-sans text-[10px] tracking-[0.1em] uppercase bg-gold/10 text-gold-text px-2 py-1">{ap.tag}</span>
               </div>
               <div className="flex gap-6 mb-4">
                 <div>
@@ -252,7 +252,7 @@ export default function AccesPage({ params }: { params: { locale: string } }) {
           {c.distances.map(d => (
             <div key={d.place} className="flex justify-between items-center bg-white border border-gold/15 px-5 py-3">
               <span className="font-sans text-sm text-charcoal">{d.place}</span>
-              <span className="font-sans text-sm text-gold font-medium">{d.dist}</span>
+              <span className="font-sans text-sm text-gold-text font-medium">{d.dist}</span>
             </div>
           ))}
         </div>
@@ -263,7 +263,7 @@ export default function AccesPage({ params }: { params: { locale: string } }) {
         <h2 className="font-serif text-xl text-charcoal mb-2">{c.transfer_h2}</h2>
         <p className="font-sans text-muted text-sm mb-4">{c.transfer_text}</p>
         <Link href={`/${locale}/services`}
-          className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300 inline-block">
+          className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300 inline-block">
           {c.link_services}
         </Link>
       </section>

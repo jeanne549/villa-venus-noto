@@ -72,7 +72,7 @@ export default function ReviewForm() {
                 <div className="flex gap-2">
                   {[1, 2, 3, 4, 5].map((n) => (
                     <button key={n} type="button" onClick={() => setForm(prev => ({ ...prev, rating: n }))}
-                      className={`text-3xl transition-all ${n <= form.rating ? 'text-gold' : 'text-gray-200'}`}>★</button>
+                      className={`text-3xl transition-all ${n <= form.rating ? 'text-gold-text' : 'text-gray-200'}`}>★</button>
                   ))}
                   <span className="font-sans text-muted text-sm self-center ml-2">{form.rating}/5</span>
                 </div>

@@ -31,7 +31,7 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="text-center mb-16">
-          <p className="font-display text-xs tracking-[0.3em] uppercase text-gold mb-4">{tt.subtitle}</p>
+          <p className="font-display text-xs tracking-[0.3em] uppercase text-gold-text mb-4">{tt.subtitle}</p>
           <h2 className="font-serif text-4xl md:text-5xl text-white">{tt.title}</h2>
           <div className="w-16 h-px bg-gold mx-auto my-6" />
         </div>
@@ -46,7 +46,7 @@ export default function Testimonials() {
               href={AIRBNB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 border border-gold text-gold font-sans text-xs tracking-widest uppercase px-8 py-4 hover:bg-gold hover:text-white transition-all duration-300"
+              className="inline-flex items-center gap-3 border border-gold text-gold-text font-sans text-xs tracking-widest uppercase px-8 py-4 hover:bg-gold hover:text-white transition-all duration-300"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 0C5.374 0 0 5.373 0 12c0 6.628 5.374 12 12 12 6.627 0 12-5.372 12-12C24 5.373 18.627 0 12 0zm5.491 16.784c-.182.312-.47.512-.79.55-.32.04-.644-.09-.877-.35l-3.1-3.54-.793.91v2.09c0 .414-.336.75-.75.75s-.75-.336-.75-.75V7.5c0-.414.336-.75.75-.75s.75.336.75.75v4.636l3.564-4.084c.232-.266.558-.398.885-.358.327.04.616.241.793.55.177.308.192.678.04.999l-2.365 2.71 2.605 2.977c.24.275.304.655.14.972l-.052.082z"/>
@@ -65,7 +65,7 @@ export default function Testimonials() {
                 <div key={r.id} className="border border-white/10 p-8 flex flex-col">
                   <div className="flex gap-0.5 mb-4">
                     {Array.from({ length: r.rating }).map((_, j) => (
-                      <span key={j} className="text-gold text-lg">★</span>
+                      <span key={j} className="text-gold-text text-lg">★</span>
                     ))}
                   </div>
                   <p className="font-sans text-white/80 leading-relaxed flex-1 mb-6 text-sm italic">&ldquo;{r.text}&rdquo;</p>
@@ -80,7 +80,7 @@ export default function Testimonials() {
             <div className="text-center mt-12">
               <div className="inline-flex items-center gap-1 mb-2">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <span key={i} className={`text-xl ${i < Math.round(parseFloat(avgRating!)) ? 'text-gold' : 'text-white/20'}`}>★</span>
+                  <span key={i} className={`text-xl ${i < Math.round(parseFloat(avgRating!)) ? 'text-gold-text' : 'text-white/20'}`}>★</span>
                 ))}
               </div>
               <p className="font-sans text-white/60 text-sm">{tt.note_avg(avgRating!, reviews.length)}</p>
@@ -90,7 +90,7 @@ export default function Testimonials() {
 
         {/* CTA "Laisser un avis" — toujours visible */}
         <div className="text-center mt-10">
-          <a href="#avis" className="inline-block border border-gold text-gold font-sans text-xs tracking-widest uppercase px-8 py-3 hover:bg-gold hover:text-white transition-all duration-300">
+          <a href="#avis" className="inline-block border border-gold text-gold-text font-sans text-xs tracking-widest uppercase px-8 py-3 hover:bg-gold hover:text-white transition-all duration-300">
             {tt.cta}
           </a>
         </div>

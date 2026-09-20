@@ -136,7 +136,7 @@ export default function ConfidenceBlock({ lang }: { lang: Lang }) {
             <div key={i} className="bg-white border border-gold/20 p-6 flex gap-4 items-start">
               <span className="text-2xl mt-0.5 shrink-0">{block.icon}</span>
               <div>
-                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-gold font-semibold mb-2 leading-snug">{block.title}</p>
+                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-gold-text font-semibold mb-2 leading-snug">{block.title}</p>
                 <p className="font-sans text-sm text-muted leading-relaxed">{block.body}</p>
               </div>
             </div>

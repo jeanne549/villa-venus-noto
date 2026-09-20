@@ -17,7 +17,7 @@ export default function Datenschutz() {
         Verantwortlich für die Datenverarbeitung auf dieser Website im Sinne der DSGVO:<br />
         <strong>Deschaux Jeanne</strong><br />
         c/o Mme Paola Deschaux Dimaio, Largo Nazario Sauro 4, 96017 Noto (SR) — Italien<br />
-        E-Mail: <a href="mailto:contact@villavenusnoto.com" className="text-gold hover:underline">contact@villavenusnoto.com</a><br />
+        E-Mail: <a href="mailto:contact@villavenusnoto.com" className="text-gold-text hover:underline">contact@villavenusnoto.com</a><br />
         WhatsApp: +33 6 24 54 29 95
       </p>
 
@@ -61,16 +61,16 @@ export default function Datenschutz() {
         <li>Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
       </ul>
       <p className="mt-3">
-        Um diese Rechte geltend zu machen, wenden Sie sich bitte per E-Mail an: <a href="mailto:contact@villavenusnoto.com" className="text-gold hover:underline">contact@villavenusnoto.com</a>.
+        Um diese Rechte geltend zu machen, wenden Sie sich bitte per E-Mail an: <a href="mailto:contact@villavenusnoto.com" className="text-gold-text hover:underline">contact@villavenusnoto.com</a>.
       </p>
       <p className="mt-3">
-        Sie haben außerdem das Recht, bei einer Datenschutz-Aufsichtsbehörde Beschwerde einzulegen. Die zuständige Behörde in Italien ist der <em>Garante per la protezione dei dati personali</em> (<a href="https://www.garanteprivacy.it" className="text-gold hover:underline" target="_blank" rel="noopener noreferrer">www.garanteprivacy.it</a>).
+        Sie haben außerdem das Recht, bei einer Datenschutz-Aufsichtsbehörde Beschwerde einzulegen. Die zuständige Behörde in Italien ist der <em>Garante per la protezione dei dati personali</em> (<a href="https://www.garanteprivacy.it" className="text-gold-text hover:underline" target="_blank" rel="noopener noreferrer">www.garanteprivacy.it</a>).
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">7. Cookies</h2>
       <p>
         Diese Website verwendet technisch notwendige Cookies sowie optionale Analyse-Cookies.
-        Weitere Informationen finden Sie in unserer <a href="/cookies" className="text-gold hover:underline">Cookie-Richtlinie</a>.
+        Weitere Informationen finden Sie in unserer <a href="/cookies" className="text-gold-text hover:underline">Cookie-Richtlinie</a>.
       </p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">8. Anwendbares Recht</h2>
@@ -80,9 +80,9 @@ export default function Datenschutz() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">Weiterführende Links</h2>
       <ul className="list-disc list-inside space-y-1 text-sm">
-        <li><a href="/impressum" className="text-gold hover:underline">Impressum</a></li>
-        <li><a href="/cookies" className="text-gold hover:underline">Cookie-Richtlinie</a></li>
-        <li><a href="/buchungsbedingungen" className="text-gold hover:underline">Buchungsbedingungen</a></li>
+        <li><a href="/impressum" className="text-gold-text hover:underline">Impressum</a></li>
+        <li><a href="/cookies" className="text-gold-text hover:underline">Cookie-Richtlinie</a></li>
+        <li><a href="/buchungsbedingungen" className="text-gold-text hover:underline">Buchungsbedingungen</a></li>
       </ul>
     </LegalLayout>
   )

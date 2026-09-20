@@ -264,7 +264,7 @@ export default function FaqPage({ params }: { params: { locale: string } }) {
       </div>
 
       <div className="flex flex-wrap gap-4">
-        <Link href={condHref} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">{h.link_conditions}</Link>
+        <Link href={condHref} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300">{h.link_conditions}</Link>
         <Link href={pageUrl('acces', locale)} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-navy text-navy hover:bg-navy hover:text-white transition-all duration-300">{h.link_acces}</Link>
       </div>
 

@@ -100,7 +100,7 @@ export default function ServicesPage({ params }: { params: { locale: string } })
             <div>
               <h2 className="font-serif text-lg text-charcoal mb-2">{s.name}</h2>
               <p className="font-sans text-muted text-sm leading-relaxed mb-3">{s.desc}</p>
-              <p className="font-sans text-xs text-gold/80 italic">{s.note}</p>
+              <p className="font-sans text-xs text-gold-text/80 italic">{s.note}</p>
             </div>
           </div>
         ))}
@@ -112,7 +112,7 @@ export default function ServicesPage({ params }: { params: { locale: string } })
 
       <div className="flex flex-wrap gap-4">
         <Link href={`/${locale}/villa`} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-navy text-navy hover:bg-navy hover:text-white transition-all duration-300">{h.link_villa}</Link>
-        <Link href={pageUrl('acces', locale)} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300">{h.link_acces}</Link>
+        <Link href={pageUrl('acces', locale)} className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300">{h.link_acces}</Link>
       </div>
 
     </PageLayout>

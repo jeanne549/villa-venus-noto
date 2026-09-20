@@ -97,7 +97,7 @@ export default function AdminPage() {
         <div>
           <h1 className="font-serif text-xl">Villa Vénus Noto — Administration</h1>
           <p className="font-sans text-white/60 text-xs">
-            {requests.length} demande(s) · {newCount > 0 && <span className="text-gold font-semibold">{newCount} nouvelle(s)</span>}
+            {requests.length} demande(s) · {newCount > 0 && <span className="text-gold-text font-semibold">{newCount} nouvelle(s)</span>}
           </p>
         </div>
         <div className="flex items-center gap-6">

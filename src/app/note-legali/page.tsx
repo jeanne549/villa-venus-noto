@@ -19,7 +19,7 @@ export default function NoteLegali() {
         <strong>Deschaux Jeanne</strong>, privato<br />
         Codice fiscale: DSCJNN71L64F943Q<br />
         c/o Sig.ra Paola Deschaux Dimaio, Largo Nazario Sauro 4, 96017 Noto (SR) — Italia<br />
-        Email: <a href="mailto:contact@villavenusnoto.com" className="text-gold hover:underline">contact@villavenusnoto.com</a><br />
+        Email: <a href="mailto:contact@villavenusnoto.com" className="text-gold-text hover:underline">contact@villavenusnoto.com</a><br />
         WhatsApp: +33 6 24 54 29 95
       </p>
 
@@ -60,9 +60,9 @@ export default function NoteLegali() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">Pagine collegate</h2>
       <ul className="list-disc list-inside space-y-1 text-sm">
-        <li><a href="/informativa-privacy" className="text-gold hover:underline">Informativa sulla privacy</a></li>
-        <li><a href="/cookies" className="text-gold hover:underline">Politica dei cookie</a></li>
-        <li><a href="/condizioni-di-prenotazione" className="text-gold hover:underline">Condizioni di prenotazione</a></li>
+        <li><a href="/informativa-privacy" className="text-gold-text hover:underline">Informativa sulla privacy</a></li>
+        <li><a href="/cookies" className="text-gold-text hover:underline">Politica dei cookie</a></li>
+        <li><a href="/condizioni-di-prenotazione" className="text-gold-text hover:underline">Condizioni di prenotazione</a></li>
       </ul>
     </LegalLayout>
   )

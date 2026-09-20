@@ -87,7 +87,7 @@ export default function FaqEn() {
         </header>
 
         <main className="max-w-4xl mx-auto px-6 py-16">
-          <p className="font-sans text-xs tracking-[0.3em] uppercase text-gold mb-4">Frequently asked questions</p>
+          <p className="font-sans text-xs tracking-[0.3em] uppercase text-gold-text mb-4">Frequently asked questions</p>
           <h1 className="font-serif text-4xl text-charcoal mb-3">FAQ — Villa Vénus Noto</h1>
           <div className="w-12 h-px bg-gold mb-10" />
 
@@ -215,7 +215,7 @@ export default function FaqEn() {
           <div className="mt-16 p-8 bg-navy text-white">
             <p className="font-display text-xl mb-2">A question not answered here?</p>
             <p className="font-sans text-white/70 text-sm mb-4">Contact us directly — we reply within 24 hours.</p>
-            <Link href="/en#contact" className="inline-block font-sans text-xs tracking-[0.2em] uppercase border border-gold text-gold px-6 py-3 hover:bg-gold hover:text-navy transition-colors">
+            <Link href="/en#contact" className="inline-block font-sans text-xs tracking-[0.2em] uppercase border border-gold text-gold-text px-6 py-3 hover:bg-gold hover:text-navy transition-colors">
               Contact us
             </Link>
           </div>
@@ -251,7 +251,7 @@ function FaqItem({
           {needsConfirm && <span className="inline-block mr-2 text-amber-500">⚠</span>}
           {question}
         </span>
-        <span className="text-gold text-xl font-light group-open:rotate-45 transition-transform shrink-0">+</span>
+        <span className="text-gold-text text-xl font-light group-open:rotate-45 transition-transform shrink-0">+</span>
       </summary>
       <div className="px-6 pb-6 pt-2 font-sans text-charcoal/80 leading-relaxed text-sm border-t border-sand">
         {answer}

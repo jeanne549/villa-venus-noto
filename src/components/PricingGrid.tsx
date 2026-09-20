@@ -250,16 +250,16 @@ export default async function PricingGrid({ locale }: { locale: Lang }) {
         {/* Badge direct booking */}
         <div className="flex justify-center mb-10">
           <div className="inline-flex items-center gap-3 bg-gold/10 border border-gold/40 px-6 py-3">
-            <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-gold shrink-0">
+            <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-gold-text shrink-0">
               <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
             </svg>
-            <span className="font-sans text-xs tracking-[0.2em] uppercase text-gold">{t.direct}</span>
+            <span className="font-sans text-xs tracking-[0.2em] uppercase text-gold-text">{t.direct}</span>
           </div>
         </div>
 
         {/* En-tête */}
         <div className="text-center mb-12">
-          <p className="font-sans text-xs tracking-[0.35em] uppercase text-gold/70 mb-4">{t.subtitle}</p>
+          <p className="font-sans text-xs tracking-[0.35em] uppercase text-gold-text/70 mb-4">{t.subtitle}</p>
           <h2 className="font-serif text-4xl md:text-5xl text-white mb-4">{t.title}</h2>
           <p className="font-sans text-white/60 text-sm tracking-wide">{t.tagline}</p>
         </div>
@@ -283,7 +283,7 @@ export default async function PricingGrid({ locale }: { locale: Lang }) {
                     <p className="font-sans text-xs text-white/40 mt-0.5">{formatDateRange(p.startDate, p.endDate, locale)}</p>
                   </td>
                   <td className="py-4 px-4 text-right">
-                    <span className="font-serif text-xl text-gold">{(p.price ?? 0).toLocaleString('fr-FR')} €</span>
+                    <span className="font-serif text-xl text-gold-text">{(p.price ?? 0).toLocaleString('fr-FR')} €</span>
                   </td>
                   <td className="py-4 px-4 text-right">
                     <span className="font-sans text-sm text-white/70">{((p.price ?? 0) * 6).toLocaleString('fr-FR')} €</span>
@@ -300,11 +300,11 @@ export default async function PricingGrid({ locale }: { locale: Lang }) {
         {/* Inclus / non inclus */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           <div className="bg-white/5 border border-white/10 p-6">
-            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold mb-5">{t.included_title}</p>
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold-text mb-5">{t.included_title}</p>
             <ul className="space-y-3">
               {t.included.map((item) => (
                 <li key={item} className="flex items-start gap-3 font-sans text-sm text-white/80">
-                  <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-gold shrink-0 mt-0.5">
+                  <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-gold-text shrink-0 mt-0.5">
                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
                   </svg>
                   {item}
@@ -324,7 +324,7 @@ export default async function PricingGrid({ locale }: { locale: Lang }) {
               ))}
             </ul>
             <p className="font-sans text-xs text-white/40 border-t border-white/10 pt-4">{t.deposit(seasonYear)}</p>
-            <p className="font-sans text-xs text-gold/60 mt-2">{t.direct_sub}</p>
+            <p className="font-sans text-xs text-gold-text/60 mt-2">{t.direct_sub}</p>
           </div>
         </div>
 

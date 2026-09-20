@@ -44,7 +44,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
             <p className="font-display text-lg tracking-[0.2em] uppercase mb-1">Villa Vénus Noto</p>
-            <p className="font-sans text-white/50 text-xs tracking-widests uppercase mb-4">{t.footer.tagline}</p>
+            <p className="font-sans text-white/65 text-xs tracking-widests uppercase mb-4">{t.footer.tagline}</p>
             <p className="font-sans text-white/60 text-sm leading-relaxed">{t.footer.desc}</p>
           </div>
           <div>
@@ -68,7 +68,7 @@ export default function Footer() {
         </div>
         {/* Identité légale + CIN/CIR */}
         <div className="border-t border-white/10 pt-6 mb-4">
-          <div className="flex flex-wrap gap-x-6 gap-y-1 font-sans text-white/40 text-xs">
+          <div className="flex flex-wrap gap-x-6 gap-y-1 font-sans text-white/65 text-xs">
             <span>Codice fiscale DSCJNN71L64F943Q</span>
             {SITE_CONFIG.cin && <span>CIN : <span className="font-mono">{SITE_CONFIG.cin}</span></span>}
             {SITE_CONFIG.cir && <span>CIR : <span className="font-mono">{SITE_CONFIG.cir}</span></span>}
@@ -79,14 +79,14 @@ export default function Footer() {
         {/* Liens légaux */}
         <div className="flex flex-wrap gap-x-4 gap-y-2 mb-6">
           {legalLinks.map(link => (
-            <a key={link.href} href={link.href} className="font-sans text-white/40 text-xs hover:text-white/70 transition-colors">
+            <a key={link.href} href={link.href} className="font-sans text-white/65 text-xs hover:text-white transition-colors">
               {link.label}
             </a>
           ))}
         </div>
 
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="font-sans text-white/40 text-xs">© {year} Villa Vénus Noto · {t.footer.rights}</p>
+          <p className="font-sans text-white/65 text-xs">© {year} Villa Vénus Noto · {t.footer.rights}</p>
           <a href="/admin/calendrier" className="font-sans text-white/30 text-xs hover:text-white/60 transition-colors">{t.footer.admin}</a>
         </div>
       </div>

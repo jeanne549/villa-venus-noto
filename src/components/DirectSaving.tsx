@@ -79,7 +79,7 @@ export default function DirectSaving({ lang }: { lang: Lang }) {
             <thead>
               <tr className="border-b border-white/10">
                 {[t.col_stay, t.col_direct, t.col_platform, t.col_saving].map((h, i) => (
-                  <th key={i} className={`pb-3 font-sans text-[10px] tracking-widest uppercase ${i === 3 ? 'text-gold text-right pl-6' : i === 0 ? 'text-white/40 text-left pr-6' : 'text-white/40 text-right px-6'}`}>{h}</th>
+                  <th key={i} className={`pb-3 font-sans text-[10px] tracking-widest uppercase ${i === 3 ? 'text-gold-text text-right pl-6' : i === 0 ? 'text-white/40 text-left pr-6' : 'text-white/40 text-right px-6'}`}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -121,7 +121,7 @@ export default function DirectSaving({ lang }: { lang: Lang }) {
                     <p className="font-sans text-xs text-white/25 line-through mt-1">{fmt(platform)}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="font-sans text-[10px] tracking-widest uppercase text-gold mb-1">{t.col_saving}</p>
+                    <p className="font-sans text-[10px] tracking-widest uppercase text-gold-text mb-1">{t.col_saving}</p>
                     <span className="inline-block bg-gold text-navy font-bold text-xl px-3 py-1">{fmt(saving)}</span>
                   </div>
                 </div>

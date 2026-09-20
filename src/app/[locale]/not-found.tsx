@@ -32,13 +32,13 @@ export default function LocaleNotFound() {
   return (
     <div className="min-h-screen bg-cream flex items-center justify-center px-6">
       <div className="text-center">
-        <p className="font-display text-xs tracking-[0.4em] uppercase text-gold mb-4">404</p>
+        <p className="font-display text-xs tracking-[0.4em] uppercase text-gold-text mb-4">404</p>
         <h1 className="font-serif text-5xl text-charcoal mb-4">{t.h1}</h1>
         <div className="w-16 h-px bg-gold mx-auto my-6" />
         <p className="font-sans text-muted mb-8">{t.text}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href={`/${locale}`} className="btn-primary">{t.home}</Link>
-          <Link href={`/${locale}/faq`} className="font-sans text-sm text-gold hover:underline py-3">{t.faq}</Link>
+          <Link href={`/${locale}/faq`} className="font-sans text-sm text-gold-text hover:underline py-3">{t.faq}</Link>
         </div>
       </div>
     </div>

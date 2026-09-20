@@ -60,7 +60,7 @@ export default function PageLayout({ lang, page, breadcrumb, heroImg, heroAlt, c
         <div className="max-w-5xl mx-auto px-6 py-3">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-sans text-xs text-muted">
             <Link href={`/${lang}`} className="hover:text-gold transition-colors">{ui.home}</Link>
-            <span className="text-gold/60">›</span>
+            <span className="text-gold-text/60">›</span>
             <span className="text-charcoal">{breadcrumb}</span>
           </nav>
         </div>
@@ -82,7 +82,7 @@ export default function PageLayout({ lang, page, breadcrumb, heroImg, heroAlt, c
       {/* Booking CTA */}
       <section className="bg-navy py-16 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-display text-[10px] tracking-[0.5em] uppercase text-gold mb-4">
+          <p className="font-display text-[10px] tracking-[0.5em] uppercase text-gold-text mb-4">
             {lang === 'fr' ? 'Réservation directe · Sans commission' : lang === 'en' ? 'Direct booking · No commission' : lang === 'de' ? 'Direktbuchung · Ohne Provision' : 'Prenotazione diretta · Senza commissioni'}
           </p>
           <h2 className="font-serif text-3xl md:text-4xl text-white mb-4 leading-tight">{ui.bookSub}</h2>
@@ -96,7 +96,7 @@ export default function PageLayout({ lang, page, breadcrumb, heroImg, heroAlt, c
 
       {/* Footer */}
       <footer className="bg-charcoal py-8 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-sans text-xs text-white/40 tracking-wide">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-sans text-xs text-white/65 tracking-wide">
           <p>© {new Date().getFullYear()} Villa Vénus Noto</p>
           <div className="flex flex-wrap justify-center gap-5">
             <Link href={`/${lang}`} className="hover:text-white/80 transition-colors">{ui.home}</Link>

@@ -55,7 +55,7 @@ export default function Pricing() {
               <ul className="space-y-3 mb-8">
                 {season.features.map((f) => (
                   <li key={f} className="flex items-center gap-2 font-sans text-sm text-muted">
-                    <span className="text-gold">✓</span> {f}
+                    <span className="text-gold-text">✓</span> {f}
                   </li>
                 ))}
               </ul>

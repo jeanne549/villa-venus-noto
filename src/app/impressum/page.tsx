@@ -19,7 +19,7 @@ export default function Impressum() {
         <strong>Deschaux Jeanne</strong>, Privatperson<br />
         Codice fiscale: DSCJNN71L64F943Q<br />
         c/o Mme Paola Deschaux Dimaio, Largo Nazario Sauro 4, 96017 Noto (SR) — Italien<br />
-        E-Mail: <a href="mailto:contact@villavenusnoto.com" className="text-gold hover:underline">contact@villavenusnoto.com</a><br />
+        E-Mail: <a href="mailto:contact@villavenusnoto.com" className="text-gold-text hover:underline">contact@villavenusnoto.com</a><br />
         WhatsApp: +33 6 24 54 29 95
       </p>
 
@@ -60,9 +60,9 @@ export default function Impressum() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">Weiterführende Links</h2>
       <ul className="list-disc list-inside space-y-1 text-sm">
-        <li><a href="/datenschutz" className="text-gold hover:underline">Datenschutzerklärung</a></li>
-        <li><a href="/cookies" className="text-gold hover:underline">Cookie-Richtlinie</a></li>
-        <li><a href="/buchungsbedingungen" className="text-gold hover:underline">Buchungsbedingungen</a></li>
+        <li><a href="/datenschutz" className="text-gold-text hover:underline">Datenschutzerklärung</a></li>
+        <li><a href="/cookies" className="text-gold-text hover:underline">Cookie-Richtlinie</a></li>
+        <li><a href="/buchungsbedingungen" className="text-gold-text hover:underline">Buchungsbedingungen</a></li>
       </ul>
     </LegalLayout>
   )

@@ -312,7 +312,7 @@ export default function ArticlePage({ params }: { params: { locale: string; slug
 
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-6">
-            <span className="font-sans text-[10px] tracking-[0.15em] uppercase bg-gold/10 text-gold px-2 py-1">{article.tag}</span>
+            <span className="font-sans text-[10px] tracking-[0.15em] uppercase bg-gold/10 text-gold-text px-2 py-1">{article.tag}</span>
             <span className="font-sans text-[10px] text-muted tracking-wide">{article.date}</span>
             <span className="font-sans text-[10px] text-muted">{article.readTime}</span>
           </div>
@@ -336,7 +336,7 @@ export default function ArticlePage({ params }: { params: { locale: string; slug
             {BACK[locale]}
           </Link>
           <Link href={`/${locale}/${article.related_slug}`}
-            className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300 inline-block">
+            className="font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold text-gold-text hover:bg-gold hover:text-white transition-all duration-300 inline-block">
             {article.related_link}
           </Link>
         </div>

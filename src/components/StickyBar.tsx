@@ -40,7 +40,7 @@ export default function StickyBar() {
       <div className="flex items-center gap-3 px-4 py-3">
         {/* Price + label */}
         <div className="flex-1 min-w-0">
-          <p className="font-serif text-gold text-sm truncate">{l.price}</p>
+          <p className="font-serif text-gold-text text-sm truncate">{l.price}</p>
           <p className="font-sans text-white/50 text-[10px] tracking-widest uppercase">{l.direct}</p>
         </div>
 

@@ -137,7 +137,7 @@ export default function Amenities() {
                 <ul className="space-y-3">
                   {group.items.map((item) => (
                     <li key={item} className="flex items-start gap-3 font-sans text-sm text-muted">
-                      <span className="text-gold mt-0.5 flex-shrink-0">—</span>
+                      <span className="text-gold-text mt-0.5 flex-shrink-0">—</span>
                       {item}
                     </li>
                   ))}
