@@ -35,8 +35,8 @@ export default function BookingConditions() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">5. Cancellation policy</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li>Cancellation <strong>more than 30 days</strong> before arrival: the 30% deposit is fully refunded.</li>
-        <li>Cancellation <strong>30 days or less</strong> before arrival: the 30% deposit is forfeited and non-refundable.</li>
+        <li>Cancellation <strong>more than 60 days</strong> before arrival: the 30% deposit is refunded minus admin fees.</li>
+        <li>Cancellation <strong>60 days or less</strong> before arrival: the 30% deposit is forfeited and non-refundable.</li>
         <li>Cancellation after the balance has been paid: no refund.</li>
       </ul>
 

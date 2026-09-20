@@ -85,9 +85,8 @@ function buildContractHtml(r: Record<string, unknown>, nights: number, total: nu
   <h2>Article 6 — Annulation</h2>
   <p class="clause">Toute annulation doit être notifiée par email à <strong>contact@villavenusnoto.com</strong>.</p>
   <table>
-    <tr><td>Plus de 60 jours avant l'arrivée</td><td>Remboursement intégral de l'acompte</td></tr>
-    <tr><td>Entre 60 et 30 jours avant l'arrivée</td><td>Remboursement de 50 % de l'acompte</td></tr>
-    <tr><td>Moins de 30 jours avant l'arrivée</td><td>Acompte conservé intégralement</td></tr>
+    <tr><td>Plus de 60 jours avant l'arrivée</td><td>Remboursement de l'acompte, frais de dossier déduits</td></tr>
+    <tr><td>60 jours ou moins avant l'arrivée</td><td>Acompte conservé intégralement, non remboursable</td></tr>
   </table>
   <p class="clause">En cas d'annulation par le Bailleur (force majeure exceptée), l'intégralité des sommes versées est remboursée dans un délai de 5 jours ouvrés.</p>
 

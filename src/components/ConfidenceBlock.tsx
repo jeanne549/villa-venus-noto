@@ -22,7 +22,7 @@ const BLOCKS: Record<Lang, { icon: string; title: string; body: string }[]> = {
     {
       icon: '↩',
       title: 'Annulation claire et équitable',
-      body: 'Remboursement intégral jusqu\'à 60 jours avant l\'arrivée. 50 % si vous annulez entre J-60 et J-30. Au-delà de J-30, l\'acompte reste acquis.',
+      body: 'Annulation avant 60 jours : remboursement de l'acompte, frais de dossier déduits. À moins de 60 jours de l'arrivée, l'acompte n'est pas remboursable.',
     },
     {
       icon: '🏡',
@@ -49,7 +49,7 @@ const BLOCKS: Record<Lang, { icon: string; title: string; body: string }[]> = {
     {
       icon: '↩',
       title: 'Fair and clear cancellation policy',
-      body: 'Full refund up to 60 days before arrival. 50% if you cancel between 60 and 30 days before. Within 30 days, the deposit is non-refundable.',
+      body: 'Cancellation more than 60 days before arrival: deposit refunded minus admin fees. Within 60 days of arrival, the deposit is non-refundable.',
     },
     {
       icon: '🏡',
@@ -76,7 +76,7 @@ const BLOCKS: Record<Lang, { icon: string; title: string; body: string }[]> = {
     {
       icon: '↩',
       title: 'Politica di cancellazione equa e chiara',
-      body: 'Rimborso integrale fino a 60 giorni prima dell\'arrivo. 50 % tra J-60 e J-30. Oltre tale termine, l\'acconto non è rimborsabile.',
+      body: 'Cancellazione oltre 60 giorni prima dell'arrivo: acconto rimborsato meno le spese di gestione. Entro 60 giorni dall'arrivo, l'acconto non è rimborsabile.',
     },
     {
       icon: '🏡',
@@ -103,7 +103,7 @@ const BLOCKS: Record<Lang, { icon: string; title: string; body: string }[]> = {
     {
       icon: '↩',
       title: 'Faire und klare Stornobedingungen',
-      body: 'Vollständige Rückerstattung bis 60 Tage vor Anreise. 50 % bei Stornierung zwischen J-60 und J-30. Danach ist die Anzahlung nicht rückerstattungsfähig.',
+      body: 'Stornierung mehr als 60 Tage vor Anreise: Anzahlung erstattet abzüglich Bearbeitungsgebühr. Innerhalb von 60 Tagen vor Anreise ist die Anzahlung nicht erstattungsfähig.',
     },
     {
       icon: '🏡',

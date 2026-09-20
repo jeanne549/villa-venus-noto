@@ -31,7 +31,7 @@ const SCHEMA_FAQS = [
   },
   {
     question: "Quelle est la politique d'annulation ?",
-    answer: "Annulation plus de 30 jours avant l'arrivée : l'acompte de 30 % est intégralement remboursé. Annulation 30 jours ou moins avant l'arrivée : l'acompte est conservé et non remboursable. Annulation après règlement du solde : aucun remboursement.",
+    answer: "Annulation plus de 60 jours avant l'arrivée : l'acompte est remboursé, frais de dossier déduits. Annulation 60 jours ou moins avant l'arrivée : l'acompte est conservé et non remboursable. Annulation après règlement du solde : aucun remboursement.",
   },
   {
     question: "Quels sont les horaires d'arrivée et de départ ?",
@@ -123,8 +123,8 @@ export default function FaqFr() {
               question="Quelle est la politique d'annulation ?"
               answer={
                 <ul className="space-y-2 list-disc list-inside">
-                  <li>Annulation <strong>plus de 30 jours</strong> avant l'arrivée : acompte de 30 % remboursé intégralement.</li>
-                  <li>Annulation <strong>30 jours ou moins</strong> avant l'arrivée : acompte conservé, non remboursable.</li>
+                  <li>Annulation <strong>plus de 60 jours</strong> avant l'arrivée : acompte remboursé, frais de dossier déduits.</li>
+                  <li>Annulation <strong>60 jours ou moins</strong> avant l'arrivée : acompte conservé, non remboursable.</li>
                   <li>Annulation après règlement du solde : aucun remboursement.</li>
                 </ul>
               }

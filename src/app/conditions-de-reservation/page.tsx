@@ -35,8 +35,8 @@ export default function ConditionsDeReservation() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">5. Politique d'annulation</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li>Annulation <strong>plus de 30 jours</strong> avant l'arrivée : l'acompte de 30 % est remboursé intégralement.</li>
-        <li>Annulation <strong>30 jours ou moins</strong> avant l'arrivée : l'acompte de 30 % est conservé et non remboursable.</li>
+        <li>Annulation <strong>plus de 60 jours</strong> avant l'arrivée : l'acompte de 30 % est remboursé, frais de dossier déduits.</li>
+        <li>Annulation <strong>60 jours ou moins</strong> avant l'arrivée : l'acompte de 30 % est conservé et non remboursable.</li>
         <li>En cas d'annulation après le versement du solde : aucun remboursement.</li>
       </ul>
 

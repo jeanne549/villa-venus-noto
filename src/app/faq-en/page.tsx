@@ -30,7 +30,7 @@ const SCHEMA_FAQS = [
   },
   {
     question: 'What is the cancellation policy?',
-    answer: 'Cancellation more than 30 days before arrival: the 30% deposit is fully refunded. Cancellation 30 days or less before arrival: the deposit is retained and non-refundable. Cancellation after payment of the balance: no refund.',
+    answer: 'Cancellation more than 60 days before arrival: the 30% deposit is refunded minus admin fees. Cancellation 60 days or less before arrival: the deposit is retained and non-refundable. Cancellation after payment of the balance: no refund.',
   },
   {
     question: 'What are the check-in and check-out times?',
@@ -122,8 +122,8 @@ export default function FaqEn() {
               question="What is the cancellation policy?"
               answer={
                 <ul className="space-y-2 list-disc list-inside">
-                  <li>Cancellation <strong>more than 30 days</strong> before arrival: 30% deposit fully refunded.</li>
-                  <li>Cancellation <strong>30 days or less</strong> before arrival: deposit retained, non-refundable.</li>
+                  <li>Cancellation <strong>more than 60 days</strong> before arrival: deposit refunded minus admin fees.</li>
+                  <li>Cancellation <strong>60 days or less</strong> before arrival: deposit retained, non-refundable.</li>
                   <li>Cancellation after payment of the balance: no refund.</li>
                 </ul>
               }

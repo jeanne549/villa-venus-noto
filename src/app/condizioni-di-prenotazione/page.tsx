@@ -35,8 +35,8 @@ export default function CondizioniDiPrenotazione() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">5. Politica di cancellazione</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li>Cancellazione <strong>più di 30 giorni</strong> prima dell'arrivo: l'acconto del 30% viene rimborsato integralmente.</li>
-        <li>Cancellazione <strong>30 giorni o meno</strong> prima dell'arrivo: l'acconto del 30% è trattenuto e non rimborsabile.</li>
+        <li>Cancellazione <strong>più di 60 giorni</strong> prima dell'arrivo: l'acconto del 30% viene rimborsato meno le spese di gestione.</li>
+        <li>Cancellazione <strong>60 giorni o meno</strong> prima dell'arrivo: l'acconto del 30% è trattenuto e non rimborsabile.</li>
         <li>Cancellazione dopo il versamento del saldo: nessun rimborso.</li>
       </ul>
 

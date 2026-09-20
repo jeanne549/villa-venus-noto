@@ -30,7 +30,7 @@ const SCHEMA_FAQS = [
   },
   {
     question: 'Qual è la politica di cancellazione?',
-    answer: 'Cancellazione più di 30 giorni prima dell\'arrivo: l\'acconto del 30% viene rimborsato integralmente. Cancellazione 30 giorni o meno prima dell\'arrivo: l\'acconto viene trattenuto e non è rimborsabile. Cancellazione dopo il pagamento del saldo: nessun rimborso.',
+    answer: 'Cancellazione più di 60 giorni prima dell\'arrivo: l\'acconto del 30% viene rimborsato meno le spese di gestione. Cancellazione 60 giorni o meno prima dell\'arrivo: l\'acconto viene trattenuto e non è rimborsabile. Cancellazione dopo il pagamento del saldo: nessun rimborso.',
   },
   {
     question: 'Quali sono gli orari di check-in e check-out?',
@@ -122,8 +122,8 @@ export default function FaqIt() {
               question="Qual è la politica di cancellazione?"
               answer={
                 <ul className="space-y-2 list-disc list-inside">
-                  <li>Cancellazione <strong>più di 30 giorni</strong> prima dell&apos;arrivo: acconto del 30% rimborsato integralmente.</li>
-                  <li>Cancellazione <strong>30 giorni o meno</strong> prima dell&apos;arrivo: acconto trattenuto, non rimborsabile.</li>
+                  <li>Cancellazione <strong>più di 60 giorni</strong> prima dell&apos;arrivo: acconto rimborsato meno le spese di gestione.</li>
+                  <li>Cancellazione <strong>60 giorni o meno</strong> prima dell&apos;arrivo: acconto trattenuto, non rimborsabile.</li>
                   <li>Cancellazione dopo il pagamento del saldo: nessun rimborso.</li>
                 </ul>
               }
