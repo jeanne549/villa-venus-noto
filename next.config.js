@@ -38,6 +38,9 @@ const nextConfig = {
       { source: '/it/come-arrivare', destination: '/it/acces' },
       { source: '/it/eventi',        destination: '/it/evenements' },
       { source: '/it/servizi',       destination: '/it/services' },
+      { source: '/de/preise',         destination: '/de/tarifs' },
+      { source: '/de/anreise',        destination: '/de/acces' },
+      { source: '/de/veranstaltungen', destination: '/de/evenements' },
     ]
   },
 }

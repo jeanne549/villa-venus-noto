@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   return {
     title, description,
     robots,
-    alternates: { canonical: `${BASE}/${locale}/services`, languages: { fr: `${BASE}/fr/services`, en: `${BASE}/en/services`, it: `${BASE}/it/services`, 'x-default': `${BASE}/fr/services` } },
+    alternates: { canonical: `${BASE}/${locale}/services`, languages: { fr: `${BASE}/fr/services`, en: `${BASE}/en/services`, it: `${BASE}/it/services`, de: `${BASE}/de/services`, 'x-default': `${BASE}/fr/services` } },
     openGraph: { title, description, url: `${BASE}/${locale}/services`, siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
   }
 }

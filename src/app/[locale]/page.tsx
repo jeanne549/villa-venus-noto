@@ -65,6 +65,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
         fr: `${BASE}/fr`,
         en: `${BASE}/en`,
         it: `${BASE}/it`,
+        de: `${BASE}/de`,
         'x-default': `${BASE}/fr`,
       },
     },

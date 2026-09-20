@@ -6,14 +6,14 @@ import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema, getBlogPostingSchema } from '@/lib/structured-data'
 
 const BASE = 'https://www.villavenusnoto.com'
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 
 // Slugs publiés — "où dîner" retiré (brouillon, contenu incomplet)
 const SLUGS_BY_LOCALE: Record<Lang, string[]> = {
   fr: ['infiorata-noto-mai', 'plages-sud-est-sicile', 'sicile-septembre'],
   en: ['infiorata-noto-may', 'beaches-southeast-sicily', 'sicily-in-september'],
   it: ['infiorata-noto-maggio', 'spiagge-sud-est-sicilia', 'sicilia-settembre'],
-  de: [],
+  de: ['infiorata-noto-mai', 'straende-suedost-sizilien', 'sizilien-september'],
 }
 
 export function generateStaticParams() {
@@ -36,7 +36,60 @@ type ArticleContent = {
 }
 
 const ARTICLES: Record<Lang, Record<string, ArticleContent>> = {
-  de: {},
+  de: {
+    'infiorata-noto-mai': {
+      title: "Die Infiorata von Noto: das Maispektakel, das kaum ein Reisender sieht",
+      date: 'Mai · Jedes dritte Wochenende',
+      publishedAt: '2025-04-01',
+      tag: 'Veranstaltung',
+      readTime: '4 Min.',
+      intro: "Seit 1980 bedecken die Bewohner von Noto an jedem dritten Maiwochenende die Via Nicolaci und die Gässchen des Barockzentrums mit riesigen Blumenteppichen. Hunderttausende von Blütenblättern, Nacht für Nacht von Hand ausgelegt, um Szenen des sizilianischen Lebens, religiöse Symbole und Porträts darzustellen. Die Infiorata von Noto ist als immaterielles UNESCO-Kulturerbe eingetragen. Und sie findet 5 Kilometer von der Villa entfernt statt.",
+      body: [
+        { heading: 'Wann genau?', text: "Die Infiorata findet immer am dritten Maiwochenende statt. Die infioratores (die Handwerker, die die Blumen auslegen) arbeiten in der Nacht von Freitag auf Samstag, manchmal bis Sonntagmorgen. Die offizielle Eröffnung findet Samstagmorgen statt. Der Sonntag ist der belebteste Tag. Wenn Sie wählen können, kommen Sie Freitagabend, um die nächtliche Arbeit zu beobachten — das ist oft der bewegendste Moment." },
+        { heading: 'Was man sieht', text: "Die Via Nicolaci, die spektakulärste Barockstraße Notos, wird mit einem durchgehenden Teppich von etwa 100 Metern bedeckt. Aber das gesamte historische Zentrum verwandelt sich: Dutzende von Kompositionen, einige von nur wenigen Quadratmetern, andere ganze Plätze füllend. Die Künstler wetteifern in der Technik: frische Blumen, getrocknete Blütenblätter, Körner, Blätter, Rinden, Farbpulver." },
+        { heading: 'Anfahrt von der Villa', text: "Die Villa liegt 5 Kilometer von Noto entfernt. Mit dem Auto dauert die Fahrt 10 Minuten. Während des Infiorata-Wochenendes ist das Zentrum von Noto teilweise für den Verkehr gesperrt. Wir empfehlen, auf den Außenparkplätzen zu parken (Piazzale Marconi oder am Ende der Via Roma) und zu Fuß ins historische Zentrum zu gehen. Abends ist die beleuchtete Via Nicolaci mit den Kompositionen besonders schön." },
+        { heading: 'Buchung während der Infiorata', text: "Wenn Sie während der Infiorata in der Villa Vénus übernachten möchten, buchen Sie mehrere Monate im Voraus: Dies ist unsere am meisten nachgefragte Woche des Jahres. Der Mindestaufenthalt von 6 Nächten gilt. Kontaktieren Sie uns direkt, um die Verfügbarkeit zu prüfen." },
+      ],
+      related_title: 'Noto & Umgebung',
+      related_link: 'Noto entdecken →',
+      related_slug: 'noto',
+    },
+    'straende-suedost-sizilien': {
+      title: "Die schönsten Strände Südostsiziliens von Villa Vénus Noto",
+      date: 'Juli · August · September',
+      publishedAt: '2025-06-01',
+      tag: 'Strände',
+      readTime: '6 Min.',
+      intro: "Die Küste des Val di Noto ist eine der am besten erhaltenen des Mittelmeers. Keine massiven Strandanlagen, keine Reihen von Tretbooten, keine verstärkte Musik. Naturschutzgebiete, Goldsandbuchten, türkisfarbenes Wasser. Die Villa ist ideal gelegen, um die schönsten Strände in weniger als 30 Minuten zu erreichen.",
+      body: [
+        { heading: 'Vendicari (8 km · 12 Min.)', text: "Das Naturschutzgebiet Vendicari ist die absolute Referenz. Mehrere aufeinanderfolgende Buchten — Torre Vendicari, Eloro, Pillirina — durch Küstenpfade durch die Macchia getrennt. Freier Zugang, kostenpflichtiger Parkplatz am Eingang. Vermeiden Sie den August, wenn Sie keine großen Menschenmengen mögen." },
+        { heading: 'San Lorenzo (12 km · 15 Min.)', text: "Ein langer Sandstrand zwischen zwei Kalksteinmassiven. Weniger frequentiert als Vendicari, weiter zum Meer hin offen. Einige Fischerboote vor Anker. Ideal für ruhige Morgenstunden." },
+        { heading: 'Lido di Noto (15 km · 20 Min.)', text: "Notos eigener Strand: feiner Sand, klares Wasser, einige Strandbetriebe mit Liegestühlen und Sonnenschirmen. Der praktische Kompromiss für Tage, an denen man sich ohne langes Suchen niederlassen möchte." },
+        { heading: 'Calamosche (Vendicari, 12 km)', text: "Die geschützteste Bucht im Vendicari-Reservat. Nur zu Fuß vom Nordeingang-Parkplatz erreichbar (ca. 20 Minuten). Einer der schönsten Strände Siziliens: ein perfekter Sandbogen, flaches Wasser, Dünen im Hintergrund. Keine Liegestühle, keine Strandbar — bringen Sie Wasser und ein Picknick mit." },
+        { heading: 'Marzamemi (20 km · 22 Min.)', text: "Technisch gesehen eher ein Fischerdorf als ein Strand. Aber die Felsen und Buchten rund um den Hafen sind einen Umweg wert. Und vor allem ist es der beste Ort der Region zum Mittagessen: Die Hauptpiazza ist von Fischrestaurants umgeben. Die Tonnara Campisi, seit 1905 eine lokale Institution, ist sehenswert." },
+      ],
+      related_title: 'Services & Concierge',
+      related_link: 'Bootsausflug →',
+      related_slug: 'services',
+    },
+    'sizilien-september': {
+      title: "Warum September der beste Monat für Sizilien ist",
+      date: 'September · Anfang Oktober',
+      publishedAt: '2025-08-01',
+      tag: 'Saison',
+      readTime: '5 Min.',
+      intro: "Juni, Juli, August: Sizilien ist wunderschön, aber auch überfüllt, trocken, und die Preise sind auf ihrem Höchststand. Der September ändert alles. Das Meer erreicht 26–27°C — tatsächlich sein thermischer Jahreshöchststand. Die Touristen sind abgereist. Die Weinlese beginnt im Val di Noto. Und die Preise sinken. Es ist ein besonderer Monat.",
+      body: [
+        { heading: 'Das Meer im September', text: "Kontraintuitiv, aber wahr: Das Mittelmeer ist im September wärmer als im Juli. Es speichert die Sommerwärme und gibt sie allmählich wieder ab. Die Wassertemperatur bei Noto übersteigt im September oft 26°C, manchmal 27°C. Die Tage bleiben lang (Sonnenuntergang gegen 19:30 Uhr) und die Sonne ist weniger intensiv als im August." },
+        { heading: 'Die sizilianische Landschaft', text: "Nach der sommerlichen Trockenheit erwecken die ersten Septemberregen die Farben. Die Landschaft zwischen der Villa und Noto — Weinreben, Mandelbäume, Feigenkakteen — nimmt Gold- und Ockertöne an. Es ist die Zeit der Weinlese für den Nero d'Avola und andere Rebsorten des Val di Noto. Einige Weingüter öffnen ihre Türen für partizipative Weinlese-Veranstaltungen." },
+        { heading: 'Noto ohne Menschenmassen', text: "Im August ist die Via Nicolaci am späten Nachmittag praktisch unpassierbar. Im September spazieren Sie frei durch das Barockzentrum. Die Restaurants haben Platz. Die Piazza del Municipio findet ihre Ruhe zurück. Die Stadt, so wie sie den Rest des Jahres ist." },
+        { heading: 'Preise und Verfügbarkeit', text: "September gehört zu unserer Nebensaison — die Preise beginnen bei 580 €/Nacht. Wenn Sie das beste Preis-Leistungs-Verhältnis für einen Sizilien-Aufenthalt suchen, ist dies wahrscheinlich der optimale Zeitraum." },
+      ],
+      related_title: 'Preise & Verfügbarkeit',
+      related_link: 'Preise ansehen →',
+      related_slug: 'tarifs',
+    },
+  },
   fr: {
     'infiorata-noto-mai': {
       title: "L'Infiorata de Noto : le spectacle de mai que peu de voyageurs voient",
@@ -236,7 +289,7 @@ export default function ArticlePage({ params }: { params: { locale: string; slug
 
   const homeLabel = locale === 'fr' ? 'Accueil' : 'Home'
   const journalLabel = locale === 'it' ? 'Diario' : 'Journal'
-  const langCode = locale === 'fr' ? 'fr-FR' : locale === 'en' ? 'en-GB' : 'it-IT'
+  const langCode = locale === 'fr' ? 'fr-FR' : locale === 'en' ? 'en-GB' : locale === 'de' ? 'de-DE' : 'it-IT'
   return (
     <>
       <JsonLd data={[

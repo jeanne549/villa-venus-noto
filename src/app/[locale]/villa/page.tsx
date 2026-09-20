@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     robots,
     alternates: {
       canonical: `${BASE}/${locale}/villa`,
-      languages: { fr: `${BASE}/fr/villa`, en: `${BASE}/en/villa`, it: `${BASE}/it/villa`, 'x-default': `${BASE}/fr/villa` },
+      languages: { fr: `${BASE}/fr/villa`, en: `${BASE}/en/villa`, it: `${BASE}/it/villa`, de: `${BASE}/de/villa`, 'x-default': `${BASE}/fr/villa` },
     },
     openGraph: { title, description, url: `${BASE}/${locale}/villa`, siteName: 'Villa Vénus Noto', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
   }
