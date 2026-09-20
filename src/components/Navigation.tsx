@@ -125,7 +125,7 @@ export default function Navigation() {
             {t.nav.reserver}
           </a>
           <p className="font-sans text-white/30 text-xs tracking-widest uppercase mt-12 text-center">
-            Contrada Spaccazza · Noto, Sicile
+            {lang === 'en' ? 'Contrada Spaccazza · Noto, Sicily' : lang === 'it' ? 'Contrada Spaccazza · Noto, Sicilia' : lang === 'de' ? 'Contrada Spaccazza · Noto, Sizilien' : 'Contrada Spaccazza · Noto, Sicile'}
           </p>
         </div>
       </div>

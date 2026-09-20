@@ -7,13 +7,14 @@ const FLAGS: { lang: Lang; flag: string }[] = [
   { lang: 'fr', flag: '🇫🇷' },
   { lang: 'it', flag: '🇮🇹' },
   { lang: 'en', flag: '🇬🇧' },
+  { lang: 'de', flag: '🇩🇪' },
 ]
 
 const UI = {
   fr: { home: 'Accueil', book: 'Réserver', bookSub: 'Réservez votre séjour à Noto', bookDesc: "Dès 580 €/nuit · Jusqu'à 9 personnes · 6 nuits minimum · Sans commission", bookCta: 'Demander les disponibilités', legal: 'Mentions légales', legalHref: '/mentions-legales', cond: 'Conditions', condHref: '/conditions-de-reservation' },
   en: { home: 'Home', book: 'Book', bookSub: 'Book your stay in Noto', bookDesc: 'From €580/night · Up to 9 guests · 6-night minimum · No commission', bookCta: 'Check availability', legal: 'Legal notice', legalHref: '/legal-notice', cond: 'Booking conditions', condHref: '/booking-conditions' },
   it: { home: 'Home', book: 'Prenota', bookSub: 'Prenota il tuo soggiorno a Noto', bookDesc: 'Da 580 €/notte · Fino a 9 ospiti · Minimo 6 notti · Senza commissioni', bookCta: 'Verifica disponibilità', legal: 'Note legali', legalHref: '/note-legali', cond: 'Condizioni', condHref: '/condizioni-di-prenotazione' },
-  de: { home: 'Startseite', book: 'Buchen', bookSub: 'Buchen Sie Ihren Aufenthalt in Noto', bookDesc: 'Ab 580 €/Nacht · Bis zu 9 Personen · Mindestens 6 Nächte · Ohne Provision', bookCta: 'Verfügbarkeit prüfen', legal: 'Impressum', legalHref: '/fr/mentions-legales', cond: 'Buchungsbedingungen', condHref: '/fr/conditions-de-reservation' },
+  de: { home: 'Startseite', book: 'Buchen', bookSub: 'Buchen Sie Ihren Aufenthalt in Noto', bookDesc: 'Ab 580 €/Nacht · Bis zu 9 Personen · Mindestens 6 Nächte · Ohne Provision', bookCta: 'Verfügbarkeit prüfen', legal: 'Impressum', legalHref: '/impressum', cond: 'Buchungsbedingungen', condHref: '/buchungsbedingungen' },
 }
 
 interface Props {
@@ -82,7 +83,7 @@ export default function PageLayout({ lang, page, breadcrumb, heroImg, heroAlt, c
       <section className="bg-navy py-16 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <p className="font-display text-[10px] tracking-[0.5em] uppercase text-gold mb-4">
-            {lang === 'fr' ? 'Réservation directe · Sans commission' : lang === 'en' ? 'Direct booking · No commission' : 'Prenotazione diretta · Senza commissioni'}
+            {lang === 'fr' ? 'Réservation directe · Sans commission' : lang === 'en' ? 'Direct booking · No commission' : lang === 'de' ? 'Direktbuchung · Ohne Provision' : 'Prenotazione diretta · Senza commissioni'}
           </p>
           <h2 className="font-serif text-3xl md:text-4xl text-white mb-4 leading-tight">{ui.bookSub}</h2>
           <p className="font-sans text-white/60 text-sm mb-8">{ui.bookDesc}</p>
@@ -100,7 +101,7 @@ export default function PageLayout({ lang, page, breadcrumb, heroImg, heroAlt, c
           <div className="flex flex-wrap justify-center gap-5">
             <Link href={`/${lang}`} className="hover:text-white/80 transition-colors">{ui.home}</Link>
             <Link href={`/${lang}/villa`} className="hover:text-white/80 transition-colors">Villa</Link>
-            <Link href={pageUrl('tarifs', lang)} className="hover:text-white/80 transition-colors">{lang === 'fr' ? 'Tarifs' : lang === 'en' ? 'Rates' : 'Tariffe'}</Link>
+            <Link href={pageUrl('tarifs', lang)} className="hover:text-white/80 transition-colors">{lang === 'fr' ? 'Tarifs' : lang === 'en' ? 'Rates' : lang === 'de' ? 'Preise' : 'Tariffe'}</Link>
             <Link href={`/${lang}#contact`} className="hover:text-white/80 transition-colors">{ui.book}</Link>
             <Link href={ui.legalHref} className="hover:text-white/80 transition-colors">{ui.legal}</Link>
           </div>

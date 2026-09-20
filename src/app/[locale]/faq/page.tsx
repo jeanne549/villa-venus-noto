@@ -177,7 +177,7 @@ const FAQS: Record<Lang, Category[]> = {
         { q: 'Wann ist die Villa geöffnet?', a: "Die Saison geht von April bis Oktober. Außerhalb dieser Zeit kontaktieren Sie uns — außergewöhnliche Aufenthalte können je nach Bedingungen möglich sein." },
         { q: 'Gibt es eine Agenturprovision?', a: "Nein. Sie buchen direkt bei den Eigentümern. Keine Plattformprovision, kein Vermittler." },
         { q: 'Wie funktioniert die Zahlung?', a: "Bei Buchung wird eine Anzahlung von 50 % verlangt. Der Restbetrag von 50 % ist am Anreisetag fällig." },
-        { q: 'Was ist die Stornierungsbedingungen?', a: "Die Bedingungen sind streng. Bei Stornierung mehr als 60 Tage vor Anreise wird die Anzahlung abzüglich einer Bearbeitungsgebühr erstattet. Innerhalb von 60 Tagen vor Anreise ist die Anzahlung nicht erstattungsfähig." },
+        { q: 'Was sind die Stornierungsbedingungen?', a: "Die Bedingungen sind streng. Bei Stornierung mehr als 60 Tage vor Anreise wird die Anzahlung abzüglich einer Bearbeitungsgebühr erstattet. Innerhalb von 60 Tagen vor Anreise ist die Anzahlung nicht erstattungsfähig." },
       ],
     },
     {
@@ -197,7 +197,7 @@ const FAQS: Record<Lang, Category[]> = {
       items: [
         { q: 'Wann ist der Check-in?', a: "Die Anreise ist ab 16:00 Uhr möglich. Ein später Check-out oder eine frühe Ankunft kann je nach benachbarten Aufenthalten möglich sein — kontaktieren Sie uns." },
         { q: 'Wann ist der Check-out?', a: "Die Abreise ist vor 10:00 Uhr." },
-        { q: 'Gibt es jemanden vor Ort, der bei Bedarf helfen kann?', a: "Ja. Emmanuel Di Pietro, unser lokaler Verwalter, ist während Ihres gesamten Aufenthalts erreichbar. Seine Kontaktdaten werden bei Buchungsbestätigung mitgeteilt." },
+        { q: 'Gibt es jemanden vor Ort, der bei Bedarf helfen kann?', a: "Ja. Emanuele Di Pietro, unser lokaler Verwalter, ist während Ihres gesamten Aufenthalts erreichbar. Seine Kontaktdaten werden bei Buchungsbestätigung mitgeteilt." },
         { q: 'Sind Haustiere erlaubt?', a: "Kleine Haustiere sind willkommen. Bitte teilen Sie uns dies bei der Buchung mit." },
         { q: 'Ist eine Endreinigung inklusive?', a: "Ja, die Endreinigung ist im Mietpreis enthalten. Eine Zwischenreinigung ist auf Anfrage möglich, auf Kosten des Gastes." },
       ],

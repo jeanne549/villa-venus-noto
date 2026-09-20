@@ -4,23 +4,66 @@ import Image from 'next/image'
 import { useState, useRef } from 'react'
 import Lightbox from '@/components/Lightbox'
 import { useLanguage } from '@/contexts/LanguageContext'
+import type { Lang } from '@/lib/i18n'
 
-const photos = [
-  { src: '/photos/piscine.jpg',  alt: 'Piscine privée et pergola avec drapés blancs' },
-  { src: '/photos/histoire.jpg', alt: 'Salon extérieur et vue sur la piscine au coucher du soleil' },
-  { src: '/photos/photo2.jpg',   alt: 'Vue panoramique piscine depuis la véranda' },
-  { src: '/photos/photo3.jpg',   alt: 'Terrasse avec salon en rotin et vue jardins' },
-  { src: '/photos/rooftop.jpg',  alt: 'Rooftop au coucher du soleil' },
-  { src: '/photos/jardins.jpg',  alt: 'Jardins méditerranéens au soleil couchant' },
-  { src: '/photos/veranda.jpg',  alt: 'Terrasse avec mobilier rotin et vue piscine' },
-  { src: '/photos/salon.jpg',             alt: 'Salon intérieur de Villa Vénus' },
-  { src: '/photos/facade.jpg',            alt: 'Jardins et bougainvillées de la villa' },
-  { src: '/photos/pf-coucher-soleil.jpg', alt: 'Coucher de soleil depuis le rooftop de Villa Vénus' },
-  { src: '/photos/vue-sur-pergola.jpg',   alt: 'Vue sur la pergola et le jardin' },
-]
+const PHOTOS_BY_LANG: Record<Lang, { src: string; alt: string }[]> = {
+  fr: [
+    { src: '/photos/piscine.jpg',             alt: 'Piscine privée et pergola avec drapés blancs' },
+    { src: '/photos/histoire.jpg',            alt: 'Salon extérieur et vue sur la piscine au coucher du soleil' },
+    { src: '/photos/photo2.jpg',              alt: 'Vue panoramique piscine depuis la véranda' },
+    { src: '/photos/photo3.jpg',              alt: 'Terrasse avec salon en rotin et vue jardins' },
+    { src: '/photos/rooftop.jpg',             alt: 'Rooftop au coucher du soleil' },
+    { src: '/photos/jardins.jpg',             alt: 'Jardins méditerranéens au soleil couchant' },
+    { src: '/photos/veranda.jpg',             alt: 'Terrasse avec mobilier rotin et vue piscine' },
+    { src: '/photos/salon.jpg',               alt: 'Salon intérieur de Villa Vénus' },
+    { src: '/photos/facade.jpg',              alt: 'Jardins et bougainvillées de la villa' },
+    { src: '/photos/pf-coucher-soleil.jpg',   alt: 'Coucher de soleil depuis le rooftop de Villa Vénus' },
+    { src: '/photos/vue-sur-pergola.jpg',     alt: 'Vue sur la pergola et le jardin' },
+  ],
+  en: [
+    { src: '/photos/piscine.jpg',             alt: 'Private pool and pergola with white drapes' },
+    { src: '/photos/histoire.jpg',            alt: 'Outdoor lounge and pool view at sunset' },
+    { src: '/photos/photo2.jpg',              alt: 'Panoramic pool view from the veranda' },
+    { src: '/photos/photo3.jpg',              alt: 'Terrace with rattan furniture and garden view' },
+    { src: '/photos/rooftop.jpg',             alt: 'Rooftop at sunset' },
+    { src: '/photos/jardins.jpg',             alt: 'Mediterranean gardens at dusk' },
+    { src: '/photos/veranda.jpg',             alt: 'Terrace with rattan furniture and pool view' },
+    { src: '/photos/salon.jpg',               alt: 'Interior lounge of Villa Vénus' },
+    { src: '/photos/facade.jpg',              alt: 'Villa gardens and bougainvillea' },
+    { src: '/photos/pf-coucher-soleil.jpg',   alt: 'Sunset from the Villa Vénus rooftop' },
+    { src: '/photos/vue-sur-pergola.jpg',     alt: 'View of the pergola and garden' },
+  ],
+  it: [
+    { src: '/photos/piscine.jpg',             alt: 'Piscina privata e pergola con tende bianche' },
+    { src: '/photos/histoire.jpg',            alt: 'Salotto esterno e vista piscina al tramonto' },
+    { src: '/photos/photo2.jpg',              alt: 'Vista panoramica piscina dalla veranda' },
+    { src: '/photos/photo3.jpg',              alt: 'Terrazza con divani in rattan e vista giardino' },
+    { src: '/photos/rooftop.jpg',             alt: 'Rooftop al tramonto' },
+    { src: '/photos/jardins.jpg',             alt: 'Giardini mediterranei al tramonto' },
+    { src: '/photos/veranda.jpg',             alt: 'Terrazza con mobili in rattan e vista piscina' },
+    { src: '/photos/salon.jpg',               alt: 'Salotto interno di Villa Vénus' },
+    { src: '/photos/facade.jpg',              alt: 'Giardini e bouganville della villa' },
+    { src: '/photos/pf-coucher-soleil.jpg',   alt: 'Tramonto dal rooftop di Villa Vénus' },
+    { src: '/photos/vue-sur-pergola.jpg',     alt: 'Vista sulla pergola e il giardino' },
+  ],
+  de: [
+    { src: '/photos/piscine.jpg',             alt: 'Privater Pool und Pergola mit weißen Vorhängen' },
+    { src: '/photos/histoire.jpg',            alt: 'Außenwohnbereich und Poolblick bei Sonnenuntergang' },
+    { src: '/photos/photo2.jpg',              alt: 'Panoramablick auf den Pool von der Veranda' },
+    { src: '/photos/photo3.jpg',              alt: 'Terrasse mit Rattanmöbeln und Gartenblick' },
+    { src: '/photos/rooftop.jpg',             alt: 'Rooftop bei Sonnenuntergang' },
+    { src: '/photos/jardins.jpg',             alt: 'Mediterrane Gärten in der Abenddämmerung' },
+    { src: '/photos/veranda.jpg',             alt: 'Terrasse mit Rattanmöbeln und Poolblick' },
+    { src: '/photos/salon.jpg',               alt: 'Wohnzimmer der Villa Vénus' },
+    { src: '/photos/facade.jpg',              alt: 'Gärten und Bougainvilleen der Villa' },
+    { src: '/photos/pf-coucher-soleil.jpg',   alt: 'Sonnenuntergang vom Rooftop der Villa Vénus' },
+    { src: '/photos/vue-sur-pergola.jpg',     alt: 'Blick auf die Pergola und den Garten' },
+  ],
+}
 
 export default function Gallery() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+  const photos = PHOTOS_BY_LANG[lang] ?? PHOTOS_BY_LANG.fr
   const [current, setCurrent] = useState(0)
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null)
   const total = photos.length

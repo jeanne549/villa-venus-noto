@@ -4,24 +4,79 @@ import Image from 'next/image'
 import { useState, useRef } from 'react'
 import Lightbox from '@/components/Lightbox'
 import { useLanguage } from '@/contexts/LanguageContext'
+import type { Lang } from '@/lib/i18n'
 
-const espacesPhotos = [
-  { src: '/photos/esp-piscine-rooftop.jpg', alt: 'Vue sur la piscine et les jardins depuis le rooftop au coucher du soleil', pos: 'object-center' },
-  { src: '/photos/piscine.jpg',             alt: 'Piscine et pergola avec transats balinais', pos: 'object-top' },
-  { src: '/photos/esp-gelsomino.jpg',        alt: 'Véranda suite Gelsomino — fauteuil à bascule et vue sur le jardin', pos: 'object-center' },
-  { src: '/photos/esp-bougainvillea.jpg',   alt: 'Véranda suite Bougainvillea avec vue sur le jardin', pos: 'object-center' },
-  { src: '/photos/esp-bougainvillea-2.jpg', alt: 'Véranda suite Bougainvillea — hamac et terrasse privée', pos: 'object-center' },
-  { src: '/photos/esp-patio.jpg',           alt: 'Véranda patio en pierre avec lanternes en rotin', pos: 'object-center' },
-  { src: '/photos/esp-patio-jardin.jpg',    alt: 'Patio couvert de vigne avec table et vue sur les jardins', pos: 'object-center' },
-  { src: '/photos/esp-lit-rooftop.jpg',     alt: 'Lit rooftop avec coussins colorés et vue coucher de soleil', pos: 'object-center' },
-  { src: '/photos/esp-rooftop-table.jpg',   alt: 'Grande table et cuisine extérieure sur le rooftop', pos: 'object-center' },
-  { src: '/photos/esp-vue-rooftop.jpg',     alt: 'Vue panoramique depuis le rooftop — palmiers et collines siciliennes', pos: 'object-center' },
-  { src: '/photos/photo2.jpg',              alt: 'Vue piscine depuis la véranda au coucher du soleil', pos: 'object-center' },
-  { src: '/photos/jardins.jpg',             alt: 'Jardins méditerranéens au soleil couchant', pos: 'object-top' },
-]
+type Photo = { src: string; alt: string; pos: string }
+
+const ESPACES_BY_LANG: Record<Lang, Photo[]> = {
+  fr: [
+    { src: '/photos/esp-piscine-rooftop.jpg', alt: 'Vue sur la piscine et les jardins depuis le rooftop au coucher du soleil', pos: 'object-center' },
+    { src: '/photos/piscine.jpg',             alt: 'Piscine et pergola avec transats balinais', pos: 'object-top' },
+    { src: '/photos/esp-gelsomino.jpg',        alt: 'Véranda suite Gelsomino — fauteuil à bascule et vue sur le jardin', pos: 'object-center' },
+    { src: '/photos/esp-bougainvillea.jpg',   alt: 'Véranda suite Bougainvillea avec vue sur le jardin', pos: 'object-center' },
+    { src: '/photos/esp-bougainvillea-2.jpg', alt: 'Véranda suite Bougainvillea — hamac et terrasse privée', pos: 'object-center' },
+    { src: '/photos/esp-patio.jpg',           alt: 'Véranda patio en pierre avec lanternes en rotin', pos: 'object-center' },
+    { src: '/photos/esp-patio-jardin.jpg',    alt: 'Patio couvert de vigne avec table et vue sur les jardins', pos: 'object-center' },
+    { src: '/photos/esp-lit-rooftop.jpg',     alt: 'Lit rooftop avec coussins colorés et vue coucher de soleil', pos: 'object-center' },
+    { src: '/photos/esp-rooftop-table.jpg',   alt: 'Grande table et cuisine extérieure sur le rooftop', pos: 'object-center' },
+    { src: '/photos/esp-vue-rooftop.jpg',     alt: 'Vue panoramique depuis le rooftop — palmiers et collines siciliennes', pos: 'object-center' },
+    { src: '/photos/photo2.jpg',              alt: 'Vue piscine depuis la véranda au coucher du soleil', pos: 'object-center' },
+    { src: '/photos/jardins.jpg',             alt: 'Jardins méditerranéens au soleil couchant', pos: 'object-top' },
+  ],
+  en: [
+    { src: '/photos/esp-piscine-rooftop.jpg', alt: 'Pool and garden view from the rooftop at sunset', pos: 'object-center' },
+    { src: '/photos/piscine.jpg',             alt: 'Pool and pergola with Balinese sun loungers', pos: 'object-top' },
+    { src: '/photos/esp-gelsomino.jpg',        alt: 'Gelsomino suite veranda — rocking chair and garden view', pos: 'object-center' },
+    { src: '/photos/esp-bougainvillea.jpg',   alt: 'Bougainvillea suite veranda with garden view', pos: 'object-center' },
+    { src: '/photos/esp-bougainvillea-2.jpg', alt: 'Bougainvillea suite veranda — hammock and private terrace', pos: 'object-center' },
+    { src: '/photos/esp-patio.jpg',           alt: 'Stone patio veranda with rattan lanterns', pos: 'object-center' },
+    { src: '/photos/esp-patio-jardin.jpg',    alt: 'Vine-covered patio with table and garden view', pos: 'object-center' },
+    { src: '/photos/esp-lit-rooftop.jpg',     alt: 'Rooftop daybed with colourful cushions and sunset view', pos: 'object-center' },
+    { src: '/photos/esp-rooftop-table.jpg',   alt: 'Large table and outdoor kitchen on the rooftop', pos: 'object-center' },
+    { src: '/photos/esp-vue-rooftop.jpg',     alt: 'Panoramic rooftop view — palm trees and Sicilian hills', pos: 'object-center' },
+    { src: '/photos/photo2.jpg',              alt: 'Pool view from the veranda at sunset', pos: 'object-center' },
+    { src: '/photos/jardins.jpg',             alt: 'Mediterranean gardens at dusk', pos: 'object-top' },
+  ],
+  it: [
+    { src: '/photos/esp-piscine-rooftop.jpg', alt: 'Vista sulla piscina e i giardini dal rooftop al tramonto', pos: 'object-center' },
+    { src: '/photos/piscine.jpg',             alt: 'Piscina e pergola con lettini balinesi', pos: 'object-top' },
+    { src: '/photos/esp-gelsomino.jpg',        alt: 'Veranda suite Gelsomino — sedia a dondolo e vista giardino', pos: 'object-center' },
+    { src: '/photos/esp-bougainvillea.jpg',   alt: 'Veranda suite Bougainvillea con vista giardino', pos: 'object-center' },
+    { src: '/photos/esp-bougainvillea-2.jpg', alt: 'Veranda suite Bougainvillea — amaca e terrazza privata', pos: 'object-center' },
+    { src: '/photos/esp-patio.jpg',           alt: 'Veranda patio in pietra con lanterne in rattan', pos: 'object-center' },
+    { src: '/photos/esp-patio-jardin.jpg',    alt: 'Patio coperto di vite con tavolo e vista giardino', pos: 'object-center' },
+    { src: '/photos/esp-lit-rooftop.jpg',     alt: 'Letto rooftop con cuscini colorati e vista tramonto', pos: 'object-center' },
+    { src: '/photos/esp-rooftop-table.jpg',   alt: 'Grande tavolo e cucina esterna sul rooftop', pos: 'object-center' },
+    { src: '/photos/esp-vue-rooftop.jpg',     alt: 'Vista panoramica dal rooftop — palme e colline siciliane', pos: 'object-center' },
+    { src: '/photos/photo2.jpg',              alt: 'Vista piscina dalla veranda al tramonto', pos: 'object-center' },
+    { src: '/photos/jardins.jpg',             alt: 'Giardini mediterranei al tramonto', pos: 'object-top' },
+  ],
+  de: [
+    { src: '/photos/esp-piscine-rooftop.jpg', alt: 'Blick auf Pool und Gärten vom Rooftop bei Sonnenuntergang', pos: 'object-center' },
+    { src: '/photos/piscine.jpg',             alt: 'Pool und Pergola mit balinesischen Liegestühlen', pos: 'object-top' },
+    { src: '/photos/esp-gelsomino.jpg',        alt: 'Veranda der Suite Gelsomino — Schaukelstuhl und Gartenblick', pos: 'object-center' },
+    { src: '/photos/esp-bougainvillea.jpg',   alt: 'Veranda der Suite Bougainvillea mit Gartenblick', pos: 'object-center' },
+    { src: '/photos/esp-bougainvillea-2.jpg', alt: 'Veranda der Suite Bougainvillea — Hängematte und private Terrasse', pos: 'object-center' },
+    { src: '/photos/esp-patio.jpg',           alt: 'Steinveranda mit Rattanlaternen', pos: 'object-center' },
+    { src: '/photos/esp-patio-jardin.jpg',    alt: 'Weinberankte Veranda mit Tisch und Gartenblick', pos: 'object-center' },
+    { src: '/photos/esp-lit-rooftop.jpg',     alt: 'Rooftop-Tagesbett mit bunten Kissen und Sonnenuntergang', pos: 'object-center' },
+    { src: '/photos/esp-rooftop-table.jpg',   alt: 'Großer Tisch und Außenküche auf dem Rooftop', pos: 'object-center' },
+    { src: '/photos/esp-vue-rooftop.jpg',     alt: 'Panoramablick vom Rooftop — Palmen und sizilianische Hügel', pos: 'object-center' },
+    { src: '/photos/photo2.jpg',              alt: 'Poolblick von der Veranda bei Sonnenuntergang', pos: 'object-center' },
+    { src: '/photos/jardins.jpg',             alt: 'Mediterrane Gärten in der Abenddämmerung', pos: 'object-top' },
+  ],
+}
+
+const HISTOIRE_ALT: Record<Lang, string> = {
+  fr: 'Vue depuis le salon extérieur sur la piscine et la villa au coucher du soleil',
+  en: 'View from the outdoor lounge over the pool and villa at sunset',
+  it: 'Vista dal salotto esterno sulla piscina e la villa al tramonto',
+  de: 'Blick vom Außenwohnbereich auf Pool und Villa bei Sonnenuntergang',
+}
 
 export default function About() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+  const espacesPhotos = ESPACES_BY_LANG[lang] ?? ESPACES_BY_LANG.fr
   const [current, setCurrent] = useState(0)
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null)
   const total = espacesPhotos.length
@@ -47,7 +102,7 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <div className="relative">
             <div className="relative h-[720px] overflow-hidden">
-              <Image src="/photos/histoire.jpg" alt="Vue depuis le salon extérieur sur la piscine et la villa au coucher du soleil" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-center" />
+              <Image src="/photos/histoire.jpg" alt={HISTOIRE_ALT[lang]} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-center" />
             </div>
           </div>
 

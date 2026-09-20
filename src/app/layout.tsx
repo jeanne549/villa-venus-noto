@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: 'Villa Vénus Noto — Location de Luxe en Sicile',
   description: 'Villa de luxe à louer à Noto, Sicile. 4 suites parentales, piscine privée 14×7 m, rooftop 360°, jardins méditerranéens. À 5 km de Noto baroque UNESCO. Location saisonnière jusqu\'à 9 personnes.',
-  keywords: ['villa noto sicile', 'location villa noto', 'villa luxe sicile', 'villa vénus noto', 'location saisonnière sicile', 'villa piscine noto', 'contrada spaccazza'],
+  keywords: ['villa noto sicily', 'villa venus noto', 'luxury villa sicily', 'villa piscine noto', 'contrada spaccazza noto'],
   authors: [{ name: 'Villa Vénus Noto' }],
   alternates: {
     canonical: BASE_URL,

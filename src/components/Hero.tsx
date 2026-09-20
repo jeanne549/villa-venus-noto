@@ -36,7 +36,7 @@ export default function Hero() {
   return (
     <section className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
       <div ref={parallaxRef} className="absolute inset-0 scale-110">
-        <Image src="/photos/hero.jpg" alt="Villa Vénus Noto — piscine et jardins en Sicile" fill sizes="100vw" className="object-cover object-center" priority />
+        <Image src="/photos/hero.jpg" alt={lang === 'en' ? 'Villa Vénus Noto — private pool and gardens in Sicily' : lang === 'it' ? 'Villa Vénus Noto — piscina privata e giardini in Sicilia' : lang === 'de' ? 'Villa Vénus Noto — privater Pool und Gärten in Sizilien' : 'Villa Vénus Noto — piscine et jardins en Sicile'} fill sizes="100vw" className="object-cover object-center" priority />
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/60" />
 
@@ -78,7 +78,7 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap gap-8 justify-center md:justify-between">
           {[
             { label: t.hero.stats_suites, value: '4' },
-            { label: t.hero.stats_capacity, value: '9 pers.' },
+            { label: t.hero.stats_capacity, value: lang === 'en' ? '9 guests' : lang === 'de' ? '9 Pers.' : '9 pers.' },
             { label: t.hero.stats_pool, value: '14 m × 7 m' },
             { label: t.hero.stats_rooftop, value: '360°' },
           ].map((item) => (

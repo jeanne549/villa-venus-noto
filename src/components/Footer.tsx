@@ -2,11 +2,40 @@
 
 import { useLanguage } from '@/contexts/LanguageContext'
 import { SITE_CONFIG } from '@/lib/siteConfig'
+import type { Lang } from '@/lib/i18n'
+
+const LEGAL_LINKS: Record<Lang, { href: string; label: string }[]> = {
+  fr: [
+    { href: '/mentions-legales', label: 'Mentions légales' },
+    { href: '/confidentialite', label: 'Confidentialité' },
+    { href: '/cookies', label: 'Cookies' },
+    { href: '/conditions-de-reservation', label: 'Conditions' },
+  ],
+  en: [
+    { href: '/legal-notice', label: 'Legal notice' },
+    { href: '/privacy-policy', label: 'Privacy' },
+    { href: '/cookies', label: 'Cookies' },
+    { href: '/booking-conditions', label: 'Booking conditions' },
+  ],
+  it: [
+    { href: '/note-legali', label: 'Note legali' },
+    { href: '/informativa-privacy', label: 'Privacy' },
+    { href: '/cookies', label: 'Cookie' },
+    { href: '/condizioni-di-prenotazione', label: 'Condizioni' },
+  ],
+  de: [
+    { href: '/impressum', label: 'Impressum' },
+    { href: '/datenschutz', label: 'Datenschutz' },
+    { href: '/cookies', label: 'Cookies' },
+    { href: '/buchungsbedingungen', label: 'Buchungsbedingungen' },
+  ],
+}
 
 const hrefLinks = ['#villa', '#galerie', '#equipements', '#disponibilites', '#contact']
 
 export default function Footer() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+  const legalLinks = LEGAL_LINKS[lang] ?? LEGAL_LINKS.fr
   const year = new Date().getFullYear()
 
   return (
@@ -49,12 +78,7 @@ export default function Footer() {
 
         {/* Liens légaux */}
         <div className="flex flex-wrap gap-x-4 gap-y-2 mb-6">
-          {[
-            { href: '/mentions-legales', label: 'Mentions légales' },
-            { href: '/confidentialite', label: 'Confidentialité' },
-            { href: '/cookies', label: 'Cookies' },
-            { href: '/conditions-de-reservation', label: 'Conditions' },
-          ].map(link => (
+          {legalLinks.map(link => (
             <a key={link.href} href={link.href} className="font-sans text-white/40 text-xs hover:text-white/70 transition-colors">
               {link.label}
             </a>

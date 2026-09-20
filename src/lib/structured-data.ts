@@ -112,7 +112,7 @@ export function getWebSiteSchema() {
     '@id': `${BASE}/#website`,
     name: 'Villa Vénus Noto',
     url: BASE,
-    inLanguage: ['fr', 'en', 'it'],
+    inLanguage: ['fr', 'en', 'it', 'de'],
     publisher: { '@id': `${BASE}/#organization` },
   }
 }
@@ -158,6 +158,7 @@ export function getLodgingBusinessSchema(locale: 'fr' | 'en' | 'it' | 'de') {
       { '@type': 'Language', name: 'French' },
       { '@type': 'Language', name: 'Italian' },
       { '@type': 'Language', name: 'English' },
+      { '@type': 'Language', name: 'German' },
     ],
     priceRange: '€€€',
     currenciesAccepted: 'EUR',
