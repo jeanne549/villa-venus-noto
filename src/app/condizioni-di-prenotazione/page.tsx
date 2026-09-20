@@ -28,15 +28,15 @@ export default function CondizioniDiPrenotazione() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">4. Modalità di pagamento</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li><strong>Acconto del 30%</strong> dell'importo totale, dovuto alla conferma della prenotazione (entro 72 ore dall'accordo).</li>
-        <li><strong>Saldo del 70%</strong> da pagare il giorno dell'arrivo, prima della consegna delle chiavi.</li>
+        <li><strong>Acconto del 50%</strong> dell'importo totale, dovuto alla conferma della prenotazione (entro 72 ore dall'accordo).</li>
+        <li><strong>Saldo del 50%</strong> da pagare il giorno dell'arrivo, prima della consegna delle chiavi.</li>
       </ul>
       <p className="mt-3 text-sm text-muted">I metodi di pagamento accettati saranno specificati alla conferma.</p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">5. Politica di cancellazione</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li>Cancellazione <strong>più di 60 giorni</strong> prima dell'arrivo: l'acconto del 30% viene rimborsato meno le spese di gestione.</li>
-        <li>Cancellazione <strong>60 giorni o meno</strong> prima dell'arrivo: l'acconto del 30% è trattenuto e non rimborsabile.</li>
+        <li>Cancellazione <strong>più di 60 giorni</strong> prima dell'arrivo: l'acconto del 50% viene rimborsato meno le spese di gestione.</li>
+        <li>Cancellazione <strong>60 giorni o meno</strong> prima dell'arrivo: l'acconto del 50% è trattenuto e non rimborsabile.</li>
         <li>Cancellazione dopo il versamento del saldo: nessun rimborso.</li>
       </ul>
 

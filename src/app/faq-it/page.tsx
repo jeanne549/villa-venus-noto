@@ -26,11 +26,11 @@ const SCHEMA_FAQS = [
   },
   {
     question: 'Quali sono le modalità di prenotazione e pagamento?',
-    answer: 'Un acconto del 30% dell\'importo totale è dovuto entro 72 ore dalla conferma della prenotazione. Il saldo del 70% viene pagato il giorno dell\'arrivo, prima della consegna delle chiavi. I metodi di pagamento accettati sono specificati alla conferma.',
+    answer: 'Un acconto del 50% dell\'importo totale è dovuto entro 72 ore dalla conferma della prenotazione. Il saldo del 50% viene pagato il giorno dell\'arrivo, prima della consegna delle chiavi. I metodi di pagamento accettati sono specificati alla conferma.',
   },
   {
     question: 'Qual è la politica di cancellazione?',
-    answer: 'Cancellazione più di 60 giorni prima dell\'arrivo: l\'acconto del 30% viene rimborsato meno le spese di gestione. Cancellazione 60 giorni o meno prima dell\'arrivo: l\'acconto viene trattenuto e non è rimborsabile. Cancellazione dopo il pagamento del saldo: nessun rimborso.',
+    answer: 'Cancellazione più di 60 giorni prima dell\'arrivo: l\'acconto del 50% viene rimborsato meno le spese di gestione. Cancellazione 60 giorni o meno prima dell\'arrivo: l\'acconto viene trattenuto e non è rimborsabile. Cancellazione dopo il pagamento del saldo: nessun rimborso.',
   },
   {
     question: 'Quali sono gli orari di check-in e check-out?',
@@ -111,8 +111,8 @@ export default function FaqIt() {
               question="Quali sono le modalità di prenotazione e pagamento?"
               answer={
                 <ul className="space-y-2 list-disc list-inside">
-                  <li><strong>Acconto del 30%</strong> dovuto entro 72 ore dalla conferma della prenotazione.</li>
-                  <li><strong>Saldo del 70%</strong> il giorno dell&apos;arrivo, prima della consegna delle chiavi.</li>
+                  <li><strong>Acconto del 50%</strong> dovuto entro 72 ore dalla conferma della prenotazione.</li>
+                  <li><strong>Saldo del 50%</strong> il giorno dell&apos;arrivo, prima della consegna delle chiavi.</li>
                   <li>I metodi di pagamento accettati vengono specificati alla conferma.</li>
                 </ul>
               }

@@ -26,11 +26,11 @@ const SCHEMA_FAQS = [
   },
   {
     question: 'What are the booking and payment conditions?',
-    answer: 'A deposit of 30% of the total amount is due within 72 hours of booking confirmation. The balance of 70% is paid on the day of arrival, before key handover. Accepted payment methods are specified at confirmation.',
+    answer: 'A deposit of 50% of the total amount is due within 72 hours of booking confirmation. The balance of 50% is paid on the day of arrival, before key handover. Accepted payment methods are specified at confirmation.',
   },
   {
     question: 'What is the cancellation policy?',
-    answer: 'Cancellation more than 60 days before arrival: the 30% deposit is refunded minus admin fees. Cancellation 60 days or less before arrival: the deposit is retained and non-refundable. Cancellation after payment of the balance: no refund.',
+    answer: 'Cancellation more than 60 days before arrival: the 50% deposit is refunded minus admin fees. Cancellation 60 days or less before arrival: the deposit is retained and non-refundable. Cancellation after payment of the balance: no refund.',
   },
   {
     question: 'What are the check-in and check-out times?',
@@ -111,8 +111,8 @@ export default function FaqEn() {
               question="What are the booking and payment conditions?"
               answer={
                 <ul className="space-y-2 list-disc list-inside">
-                  <li><strong>30% deposit</strong> due within 72 hours of booking confirmation.</li>
-                  <li><strong>Balance of 70%</strong> paid on the day of arrival, before key handover.</li>
+                  <li><strong>50% deposit</strong> due within 72 hours of booking confirmation.</li>
+                  <li><strong>Balance of 50%</strong> paid on the day of arrival, before key handover.</li>
                   <li>Accepted payment methods are specified at confirmation.</li>
                 </ul>
               }

@@ -28,15 +28,15 @@ export default function BookingConditions() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">4. Payment terms</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li><strong>30% deposit</strong> of the total amount, due upon booking confirmation (within 72 hours of agreement).</li>
-        <li><strong>70% balance</strong> paid on arrival day, before key handover.</li>
+        <li><strong>50% deposit</strong> of the total amount, due upon booking confirmation (within 72 hours of agreement).</li>
+        <li><strong>50% balance</strong> paid on arrival day, before key handover.</li>
       </ul>
       <p className="mt-3 text-sm text-muted">Accepted payment methods will be specified at confirmation.</p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">5. Cancellation policy</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li>Cancellation <strong>more than 60 days</strong> before arrival: the 30% deposit is refunded minus admin fees.</li>
-        <li>Cancellation <strong>60 days or less</strong> before arrival: the 30% deposit is forfeited and non-refundable.</li>
+        <li>Cancellation <strong>more than 60 days</strong> before arrival: the 50% deposit is refunded minus admin fees.</li>
+        <li>Cancellation <strong>60 days or less</strong> before arrival: the 50% deposit is forfeited and non-refundable.</li>
         <li>Cancellation after the balance has been paid: no refund.</li>
       </ul>
 

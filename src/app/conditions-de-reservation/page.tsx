@@ -28,15 +28,15 @@ export default function ConditionsDeReservation() {
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">4. Modalités de paiement</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li><strong>Acompte de 30 %</strong> du montant total, dû lors de la confirmation de réservation (dans les 72h suivant l'accord).</li>
-        <li><strong>Solde de 70 %</strong> réglé le jour de l'arrivée, avant la remise des clés.</li>
+        <li><strong>Acompte de 50 %</strong> du montant total, dû lors de la confirmation de réservation (dans les 72h suivant l'accord).</li>
+        <li><strong>Solde de 50 %</strong> réglé le jour de l'arrivée, avant la remise des clés.</li>
       </ul>
       <p className="mt-3 text-sm text-muted">Les modes de paiement acceptés seront précisés lors de la confirmation.</p>
 
       <h2 className="font-serif text-xl text-charcoal mt-8 mb-3">5. Politique d'annulation</h2>
       <ul className="list-disc list-inside space-y-2">
-        <li>Annulation <strong>plus de 60 jours</strong> avant l'arrivée : l'acompte de 30 % est remboursé, frais de dossier déduits.</li>
-        <li>Annulation <strong>60 jours ou moins</strong> avant l'arrivée : l'acompte de 30 % est conservé et non remboursable.</li>
+        <li>Annulation <strong>plus de 60 jours</strong> avant l'arrivée : l'acompte de 50 % est remboursé, frais de dossier déduits.</li>
+        <li>Annulation <strong>60 jours ou moins</strong> avant l'arrivée : l'acompte de 50 % est conservé et non remboursable.</li>
         <li>En cas d'annulation après le versement du solde : aucun remboursement.</li>
       </ul>
 

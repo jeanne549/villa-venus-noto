@@ -27,7 +27,7 @@ const SCHEMA_FAQS = [
   },
   {
     question: 'Quelles sont les modalités de réservation et de paiement ?',
-    answer: "Un acompte de 30 % du montant total est dû dans les 72 heures suivant la confirmation de réservation. Le solde de 70 % est réglé le jour de l'arrivée, avant la remise des clés. Les modes de paiement acceptés sont précisés lors de la confirmation.",
+    answer: "Un acompte de 50 % du montant total est dû dans les 72 heures suivant la confirmation de réservation. Le solde de 50 % est réglé le jour de l'arrivée, avant la remise des clés. Les modes de paiement acceptés sont précisés lors de la confirmation.",
   },
   {
     question: "Quelle est la politique d'annulation ?",
@@ -112,8 +112,8 @@ export default function FaqFr() {
               question="Quelles sont les modalités de réservation et de paiement ?"
               answer={
                 <ul className="space-y-2 list-disc list-inside">
-                  <li><strong>Acompte de 30 %</strong> dû dans les 72 h suivant la confirmation de réservation.</li>
-                  <li><strong>Solde de 70 %</strong> réglé le jour de l'arrivée, avant la remise des clés.</li>
+                  <li><strong>Acompte de 50 %</strong> dû dans les 72 h suivant la confirmation de réservation.</li>
+                  <li><strong>Solde de 50 %</strong> réglé le jour de l'arrivée, avant la remise des clés.</li>
                   <li>Les modes de paiement acceptés sont précisés lors de la confirmation.</li>
                 </ul>
               }
