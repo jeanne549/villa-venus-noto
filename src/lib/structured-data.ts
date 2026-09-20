@@ -1,7 +1,7 @@
 const BASE = 'https://www.villavenusnoto.com'
 
-const GEO_LAT = 36.891
-const GEO_LNG = 15.068
+const GEO_LAT = 36.887249
+const GEO_LNG = 15.026392
 
 const PHOTOS = [
   `${BASE}/photos/hero.jpg`,
