@@ -60,7 +60,7 @@ export default function StickyBar() {
 
         {/* CTA button */}
         <a
-          href="#calendrier"
+          href="#disponibilites"
           onClick={() => trackEvent('sticky_bar_cta_click', { lang })}
           className="shrink-0 bg-gold text-navy font-sans text-xs tracking-[0.15em] uppercase px-4 py-3 hover:bg-gold-light transition-colors"
         >

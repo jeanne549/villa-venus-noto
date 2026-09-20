@@ -33,7 +33,7 @@ function formatDateLong(dateStr: string, months: string[]) {
 }
 
 export default function Calendrier() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const tc = t.calendrier
   const today = new Date().toISOString().slice(0, 10)
 
@@ -47,6 +47,18 @@ export default function Calendrier() {
   const [hovered, setHovered]         = useState<string | null>(null)
   const [guests, setGuests]           = useState(2)
   const navigatedRef = useRef(false)
+
+  // ─── Simulation email ──────────────────────────────────────────────────────
+  const [showSim, setShowSim]       = useState(false)
+  const [simEmail, setSimEmail]     = useState('')
+  const [simConsent, setSimConsent] = useState(false)
+  const [simStatus, setSimStatus]   = useState<'idle'|'loading'|'sent'|'error'>('idle')
+
+  // ─── Liste d'attente ──────────────────────────────────────────────────────
+  const [wlEmail, setWlEmail]       = useState('')
+  const [wlPeriod, setWlPeriod]     = useState('')
+  const [wlConsent, setWlConsent]   = useState(false)
+  const [wlStatus, setWlStatus]     = useState<'idle'|'loading'|'sent'|'error'>('idle')
 
   useEffect(() => {
     fetch(`${SUPABASE_URL}/rest/v1/pricing?select=*&order=date`, {
@@ -138,6 +150,39 @@ export default function Calendrier() {
   const days     = getDays(year, month)
   const firstDay = getFirstDay(year, month)
 
+  const handleSimEmail = async () => {
+    if (!simEmail || !simConsent) return
+    setSimStatus('loading')
+    try {
+      const taxNights = Math.min(nights, 6)
+      const taxRate = SITE_CONFIG.touristTaxRate ?? 1
+      const taxAmount = taxRate * guests * taxNights
+      const res = await fetch('/api/simulation-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: simEmail, lang,
+          arrival: startDate, departure: endDate,
+          nights, guests, totalRental: totalPrice, taxAmount,
+        }),
+      })
+      setSimStatus(res.ok ? 'sent' : 'error')
+    } catch { setSimStatus('error') }
+  }
+
+  const handleWaitlist = async () => {
+    if (!wlEmail || !wlPeriod || !wlConsent) return
+    setWlStatus('loading')
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: wlEmail, period: wlPeriod, lang }),
+      })
+      setWlStatus(res.ok ? 'sent' : 'error')
+    } catch { setWlStatus('error') }
+  }
+
   const handleAskDates = () => {
     if (!startDate || !endDate) return
     trackEvent('dates_selected', { nights, total_price: totalPrice, start_date: startDate, end_date: endDate, guests })
@@ -200,9 +245,9 @@ export default function Calendrier() {
 
         {/* Navigation mois */}
         <div className="flex items-center justify-between mb-6">
-          <button onClick={prevMonth} className="w-10 h-10 flex items-center justify-center border border-gray-200 hover:border-gold text-charcoal hover:text-gold transition-all text-xl">‹</button>
+          <button onClick={prevMonth} aria-label={tc.months[(month + 11) % 12]} className="w-11 h-11 flex items-center justify-center border border-gray-200 hover:border-gold text-charcoal hover:text-gold transition-all text-xl">‹</button>
           <h3 className="font-serif text-2xl text-charcoal">{tc.months[month]} {year}</h3>
-          <button onClick={nextMonth} className="w-10 h-10 flex items-center justify-center border border-gray-200 hover:border-gold text-charcoal hover:text-gold transition-all text-xl">›</button>
+          <button onClick={nextMonth} aria-label={tc.months[(month + 1) % 12]} className="w-11 h-11 flex items-center justify-center border border-gray-200 hover:border-gold text-charcoal hover:text-gold transition-all text-xl">›</button>
         </div>
 
         {/* Jours semaine — samedi (index 5) mis en évidence */}
@@ -333,9 +378,9 @@ export default function Calendrier() {
                 <div role="group" aria-labelledby="guests-label" className="flex items-center justify-between bg-linen px-6 py-4 border border-gold/20">
                   <span id="guests-label" className="font-sans text-xs tracking-widests uppercase text-muted">{tc.guests_label}</span>
                   <div className="flex items-center gap-3">
-                    <button onClick={() => setGuests(g => Math.max(1, g - 1))} className="w-8 h-8 border border-gray-300 hover:border-gold text-charcoal hover:text-gold transition-all text-lg leading-none" aria-label="Réduire le nombre de voyageurs">−</button>
+                    <button onClick={() => setGuests(g => Math.max(1, g - 1))} className="w-11 h-11 border border-gray-300 hover:border-gold text-charcoal hover:text-gold transition-all text-lg leading-none" aria-label="Réduire le nombre de voyageurs">−</button>
                     <span className="font-serif text-xl text-charcoal w-6 text-center" aria-live="polite" aria-atomic="true">{guests}</span>
-                    <button onClick={() => setGuests(g => Math.min(9, g + 1))} className="w-8 h-8 border border-gray-300 hover:border-gold text-charcoal hover:text-gold transition-all text-lg leading-none" aria-label="Augmenter le nombre de voyageurs">+</button>
+                    <button onClick={() => setGuests(g => Math.min(9, g + 1))} className="w-11 h-11 border border-gray-300 hover:border-gold text-charcoal hover:text-gold transition-all text-lg leading-none" aria-label="Augmenter le nombre de voyageurs">+</button>
                   </div>
                 </div>
 
@@ -406,6 +451,52 @@ export default function Calendrier() {
                   <button onClick={handleAskDates} className="btn-gold w-full justify-center">
                     {tc.cta}
                   </button>
+
+                  {/* ─── Simulation par email ─────────────────────────────── */}
+                  {simStatus === 'sent' ? (
+                    <p className="font-sans text-xs text-gold text-center pt-3">
+                      {lang === 'en' ? '✓ Simulation sent to your inbox' : lang === 'it' ? '✓ Simulazione inviata alla vostra email' : '✓ Simulation envoyée à votre email'}
+                    </p>
+                  ) : (
+                    <div className="pt-3 border-t border-gold/10">
+                      {!showSim ? (
+                        <button
+                          onClick={() => setShowSim(true)}
+                          className="w-full font-sans text-xs text-muted hover:text-gold transition-colors text-center py-1"
+                        >
+                          {lang === 'en' ? 'Receive this simulation by email →' : lang === 'it' ? 'Ricevere questa simulazione via email →' : 'Recevoir cette simulation par email →'}
+                        </button>
+                      ) : (
+                        <div className="space-y-3">
+                          <input
+                            type="email"
+                            placeholder={lang === 'en' ? 'Your email address' : lang === 'it' ? 'Il vostro indirizzo email' : 'Votre adresse email'}
+                            value={simEmail}
+                            onChange={e => setSimEmail(e.target.value)}
+                            className="input-field text-sm"
+                          />
+                          <label className="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" checked={simConsent} onChange={e => setSimConsent(e.target.checked)} className="mt-1 w-4 h-4 accent-gold shrink-0" />
+                            <span className="font-sans text-xs text-muted leading-relaxed">
+                              {lang === 'en' ? 'I accept to receive this email (1 message, no marketing).' : lang === 'it' ? 'Accetto di ricevere questa email (1 messaggio, nessuna pubblicità).' : 'J\'accepte de recevoir cet email (1 message, pas de publicité).'}
+                            </span>
+                          </label>
+                          <button
+                            onClick={handleSimEmail}
+                            disabled={!simEmail || !simConsent || simStatus === 'loading'}
+                            className="btn-gold w-full justify-center disabled:opacity-40 text-xs py-3"
+                          >
+                            {simStatus === 'loading' ? '…' : lang === 'en' ? 'Send simulation' : lang === 'it' ? 'Invia simulazione' : 'Envoyer la simulation'}
+                          </button>
+                          {simStatus === 'error' && (
+                            <p className="font-sans text-xs text-red-600 text-center">
+                              {lang === 'en' ? 'Error — please try again.' : lang === 'it' ? 'Errore — riprova.' : 'Erreur — réessayez.'}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -418,6 +509,72 @@ export default function Calendrier() {
             <a href="#contact" className="btn-outline">{tc.contact_us}</a>
           </div>
         )}
+
+        {/* ─── Liste d'attente ──────────────────────────────────────────── */}
+        <div className="mt-14 border-t border-gold/20 pt-10">
+          <div className="max-w-lg mx-auto text-center">
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold mb-3">
+              {lang === 'en' ? 'Dates taken?' : lang === 'it' ? 'Date occupate?' : 'Ces dates sont prises ?'}
+            </p>
+            <h3 className="font-serif text-xl text-charcoal mb-3">
+              {lang === 'en' ? 'Get notified when they free up' : lang === 'it' ? 'Ricevete un avviso quando si liberano' : 'Soyez prévenu quand elles se libèrent'}
+            </h3>
+            <p className="font-sans text-sm text-muted mb-6 leading-relaxed">
+              {lang === 'en'
+                ? 'Enter your preferred dates and email address. We will contact you directly if they become available.'
+                : lang === 'it'
+                ? 'Inserite le date desiderate e il vostro indirizzo email. Vi contatteremo direttamente se si liberano.'
+                : 'Indiquez vos dates souhaitées et votre email. Nous vous contacterons directement si elles se libèrent.'}
+            </p>
+
+            {wlStatus === 'sent' ? (
+              <div className="bg-gold/10 border border-gold/30 px-6 py-4">
+                <p className="font-sans text-sm text-gold">
+                  {lang === 'en' ? '✓ Alert registered. We will notify you.' : lang === 'it' ? '✓ Avviso registrato. Vi notificheremo.' : '✓ Alerte enregistrée. Nous vous préviendrons.'}
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3 text-left">
+                <input
+                  type="text"
+                  placeholder={lang === 'en' ? 'Preferred period (e.g. July 12–26)' : lang === 'it' ? 'Periodo desiderato (es. 12–26 luglio)' : 'Période souhaitée (ex. 12–26 juillet)'}
+                  value={wlPeriod}
+                  onChange={e => setWlPeriod(e.target.value)}
+                  className="input-field text-sm"
+                />
+                <input
+                  type="email"
+                  placeholder={lang === 'en' ? 'Your email address' : lang === 'it' ? 'Il vostro indirizzo email' : 'Votre adresse email'}
+                  value={wlEmail}
+                  onChange={e => setWlEmail(e.target.value)}
+                  className="input-field text-sm"
+                />
+                <label className="flex items-start gap-2 cursor-pointer">
+                  <input type="checkbox" checked={wlConsent} onChange={e => setWlConsent(e.target.checked)} className="mt-1 w-4 h-4 accent-gold shrink-0" />
+                  <span className="font-sans text-xs text-muted leading-relaxed">
+                    {lang === 'en'
+                      ? 'I consent to be contacted when these dates become available. No marketing.'
+                      : lang === 'it'
+                      ? 'Acconsento a essere contattato quando queste date saranno disponibili. Nessuna pubblicità.'
+                      : 'J\'accepte d\'être contacté si ces dates se libèrent. Aucune publicité.'}
+                  </span>
+                </label>
+                <button
+                  onClick={handleWaitlist}
+                  disabled={!wlEmail || !wlPeriod || !wlConsent || wlStatus === 'loading'}
+                  className="btn-outline w-full justify-center disabled:opacity-40"
+                >
+                  {wlStatus === 'loading' ? '…' : lang === 'en' ? 'Notify me' : lang === 'it' ? 'Avvisatemi' : 'Me prévenir'}
+                </button>
+                {wlStatus === 'error' && (
+                  <p className="font-sans text-xs text-red-600 text-center">
+                    {lang === 'en' ? 'Error — please try again.' : 'Erreur — réessayez.'}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
 
       </div>
     </section>

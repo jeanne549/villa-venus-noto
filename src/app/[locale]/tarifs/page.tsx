@@ -8,6 +8,8 @@ import JsonLd from '@/components/JsonLd'
 import { getBreadcrumbSchema, getOfferSchema } from '@/lib/structured-data'
 import PricingViewTracker from '@/components/PricingViewTracker'
 import PageTracker from '@/components/PageTracker'
+import DirectSaving from '@/components/DirectSaving'
+import ConfidenceBlock from '@/components/ConfidenceBlock'
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
@@ -269,8 +271,14 @@ export default function TarifsPage({ params }: { params: { locale: string } }) {
         </ul>
       </section>
 
+      {/* Direct saving comparison — breakout full-width */}
+      <div className="-mx-6 mt-8">
+        <DirectSaving lang={locale} />
+        <ConfidenceBlock lang={locale} />
+      </div>
+
       {/* Calendar CTA */}
-      <section className="bg-navy text-white p-8 mb-8">
+      <section className="bg-navy text-white p-8 mb-8 mt-8">
         <p className="font-sans text-white/60 text-sm mb-4">
           {locale === 'fr' ? 'Vérifiez les dates disponibles directement sur notre calendrier interactif.' : locale === 'en' ? 'Check available dates directly on our interactive calendar.' : 'Verificate le date disponibili direttamente sul nostro calendario interattivo.'}
         </p>
