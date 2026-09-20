@@ -158,23 +158,23 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.name}</label>
-                    <input type="text" name="name" required value={form.name} onChange={handleChange} className="input-field" placeholder="Jean Dupont" />
+                    <label htmlFor="contact-name" className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.name}</label>
+                    <input id="contact-name" type="text" name="name" required value={form.name} onChange={handleChange} className="input-field" placeholder="Jean Dupont" />
                   </div>
                   <div>
-                    <label className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.email}</label>
-                    <input type="email" name="email" required value={form.email} onChange={handleChange} className="input-field" placeholder="jean@exemple.com" />
+                    <label htmlFor="contact-email" className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.email}</label>
+                    <input id="contact-email" type="email" name="email" required value={form.email} onChange={handleChange} className="input-field" placeholder="jean@exemple.com" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.phone}</label>
-                    <input type="tel" name="phone" value={form.phone} onChange={handleChange} className="input-field" placeholder="+33 6 00 00 00 00" />
+                    <label htmlFor="contact-phone" className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.phone}</label>
+                    <input id="contact-phone" type="tel" name="phone" value={form.phone} onChange={handleChange} className="input-field" placeholder="+33 6 00 00 00 00" />
                   </div>
                   <div>
-                    <label className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.guests}</label>
-                    <select name="guests" required value={form.guests} onChange={handleChange} className="input-field">
+                    <label htmlFor="contact-guests" className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.guests}</label>
+                    <select id="contact-guests" name="guests" required value={form.guests} onChange={handleChange} className="input-field">
                       {Array.from({ length: 9 }, (_, i) => i + 1).map(n => (
                         <option key={n} value={n}>{t.contact.persons(n)}</option>
                       ))}
@@ -184,18 +184,18 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.arrival}</label>
-                    <input type="date" name="arrival_date" required value={form.arrival_date} onChange={handleChange} className="input-field" />
+                    <label htmlFor="contact-arrival" className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.arrival}</label>
+                    <input id="contact-arrival" type="date" name="arrival_date" required value={form.arrival_date} onChange={handleChange} className="input-field" />
                   </div>
                   <div>
-                    <label className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.departure}</label>
-                    <input type="date" name="departure_date" required value={form.departure_date} onChange={handleChange} className="input-field" />
+                    <label htmlFor="contact-departure" className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.departure}</label>
+                    <input id="contact-departure" type="date" name="departure_date" required value={form.departure_date} onChange={handleChange} className="input-field" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.message}</label>
-                  <textarea name="message" rows={4} value={form.message} onChange={handleChange} className="input-field resize-none" placeholder={t.contact.message_placeholder} />
+                  <label htmlFor="contact-message" className="block font-sans text-xs tracking-widests uppercase text-muted mb-2">{t.contact.message}</label>
+                  <textarea id="contact-message" name="message" rows={4} value={form.message} onChange={handleChange} className="input-field resize-none" placeholder={t.contact.message_placeholder} />
                 </div>
 
                 {/* Erreur de validation */}
@@ -210,8 +210,8 @@ export default function Contact() {
                   <div className="bg-red-50 border border-red-200 px-4 py-4">
                     <p className="font-sans text-red-700 text-sm mb-3">{t.contact.error}</p>
                     <p className="font-sans text-sm text-charcoal font-medium mb-1">{t.contact.error_fallback}</p>
-                    <a href={`mailto:${EMAIL}`} className="font-sans text-sm text-gold hover:underline block">📧 {EMAIL}</a>
-                    <a href="https://wa.me/33624542995" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-gold hover:underline block">📱 WhatsApp {WHATSAPP}</a>
+                    <a href={`mailto:${EMAIL}`} className="font-sans text-sm text-gold underline block">📧 {EMAIL}</a>
+                    <a href="https://wa.me/33624542995" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-gold underline block">📱 WhatsApp {WHATSAPP}</a>
                   </div>
                 )}
 
@@ -228,11 +228,11 @@ export default function Contact() {
                   />
                   <label htmlFor="consent_gdpr" className="font-sans text-xs text-muted leading-relaxed cursor-pointer">
                     {lang === 'en' ? (
-                      <>I have read and accept the <a href="/privacy-policy" target="_blank" className="text-gold hover:underline">privacy policy</a>. My data will be used solely to process this booking request.</>
+                      <>I have read and accept the <a href="/privacy-policy" target="_blank" className="text-gold underline">privacy policy</a>. My data will be used solely to process this booking request.</>
                     ) : lang === 'it' ? (
-                      <>Ho letto e accetto la <a href="/informativa-privacy" target="_blank" className="text-gold hover:underline">informativa sulla privacy</a>. I miei dati saranno utilizzati esclusivamente per elaborare questa richiesta.</>
+                      <>Ho letto e accetto la <a href="/informativa-privacy" target="_blank" className="text-gold underline">informativa sulla privacy</a>. I miei dati saranno utilizzati esclusivamente per elaborare questa richiesta.</>
                     ) : (
-                      <>J&apos;ai lu et j&apos;accepte la <a href="/confidentialite" target="_blank" className="text-gold hover:underline">politique de confidentialité</a>. Mes données seront utilisées uniquement pour traiter cette demande de réservation.</>
+                      <>J&apos;ai lu et j&apos;accepte la <a href="/confidentialite" target="_blank" className="text-gold underline">politique de confidentialité</a>. Mes données seront utilisées uniquement pour traiter cette demande de réservation.</>
                     )}
                   </label>
                 </div>

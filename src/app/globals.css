@@ -33,7 +33,7 @@ body {
   }
 
   .btn-gold {
-    @apply inline-flex items-center gap-2 bg-gold text-white px-8 py-4 font-sans text-sm tracking-widest uppercase hover:bg-amber-600 transition-all duration-300;
+    @apply inline-flex items-center gap-2 bg-gold-btn text-white px-8 py-4 font-sans text-sm tracking-widest uppercase hover:bg-gold transition-all duration-300;
   }
 
   .section-title {
@@ -41,7 +41,7 @@ body {
   }
 
   .section-subtitle {
-    @apply font-display text-xs tracking-[0.3em] uppercase text-gold mb-4;
+    @apply font-display text-xs tracking-[0.3em] uppercase text-gold-dark mb-4;
   }
 
   .input-field {

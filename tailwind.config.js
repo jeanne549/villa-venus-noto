@@ -12,6 +12,8 @@ module.exports = {
         linen: '#F7F1E8',
         gold: '#C8963E',
         'gold-light': '#E8B96A',
+        'gold-dark': '#7A5015',
+        'gold-btn': '#8A5E0A',
         navy: '#1B3A5C',
         'navy-dark': '#0F2440',
         terra: '#B85C38',

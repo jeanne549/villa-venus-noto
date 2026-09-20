@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import type { Metadata } from 'next'
 import type { Lang } from '@/lib/i18n'
 import JsonLd from '@/components/JsonLd'
@@ -7,17 +8,18 @@ import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
 import PointsForts from '@/components/PointsForts'
 import About from '@/components/About'
-import Gallery from '@/components/Gallery'
 import Amenities from '@/components/Amenities'
 import PricingGrid from '@/components/PricingGrid'
 import ContactRibbon from '@/components/ContactRibbon'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import StickyBar from '@/components/StickyBar'
-import Calendrier from '@/components/Calendrier'
-import Testimonials from '@/components/Testimonials'
-import ReviewForm from '@/components/ReviewForm'
-import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+
+const Gallery    = dynamic(() => import('@/components/Gallery'))
+const Calendrier = dynamic(() => import('@/components/Calendrier'), { ssr: false })
+const Testimonials = dynamic(() => import('@/components/Testimonials'))
+const ReviewForm = dynamic(() => import('@/components/ReviewForm'), { ssr: false })
+const Contact    = dynamic(() => import('@/components/Contact'),    { ssr: false })
 
 const BASE = 'https://www.villavenusnoto.com'
 const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']

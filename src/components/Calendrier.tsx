@@ -246,6 +246,8 @@ export default function Calendrier() {
                 onMouseEnter={() => startDate && !endDate && setHovered(dateStr)}
                 onMouseLeave={() => setHovered(null)}
                 disabled={isPast || isUnavailable}
+                aria-label={`${day} ${tc.months[month]} ${year}${isUnavailable ? ' — indisponible' : hasPrice ? ` — ${info?.price}€` : ''}`}
+                aria-pressed={isStart || isEnd || inRange ? true : undefined}
                 className={`relative aspect-square flex flex-col items-center justify-center border text-center transition-all text-[11px] ${cellClass}`}
               >
                 {/* Indicateur samedi */}
@@ -328,12 +330,12 @@ export default function Calendrier() {
             ) : (
               <div className="space-y-4">
                 {/* Sélecteur voyageurs */}
-                <div className="flex items-center justify-between bg-linen px-6 py-4 border border-gold/20">
-                  <label className="font-sans text-xs tracking-widests uppercase text-muted">{tc.guests_label}</label>
+                <div role="group" aria-labelledby="guests-label" className="flex items-center justify-between bg-linen px-6 py-4 border border-gold/20">
+                  <span id="guests-label" className="font-sans text-xs tracking-widests uppercase text-muted">{tc.guests_label}</span>
                   <div className="flex items-center gap-3">
-                    <button onClick={() => setGuests(g => Math.max(1, g - 1))} className="w-8 h-8 border border-gray-300 hover:border-gold text-charcoal hover:text-gold transition-all text-lg leading-none" aria-label="Moins">−</button>
-                    <span className="font-serif text-xl text-charcoal w-6 text-center">{guests}</span>
-                    <button onClick={() => setGuests(g => Math.min(9, g + 1))} className="w-8 h-8 border border-gray-300 hover:border-gold text-charcoal hover:text-gold transition-all text-lg leading-none" aria-label="Plus">+</button>
+                    <button onClick={() => setGuests(g => Math.max(1, g - 1))} className="w-8 h-8 border border-gray-300 hover:border-gold text-charcoal hover:text-gold transition-all text-lg leading-none" aria-label="Réduire le nombre de voyageurs">−</button>
+                    <span className="font-serif text-xl text-charcoal w-6 text-center" aria-live="polite" aria-atomic="true">{guests}</span>
+                    <button onClick={() => setGuests(g => Math.min(9, g + 1))} className="w-8 h-8 border border-gray-300 hover:border-gold text-charcoal hover:text-gold transition-all text-lg leading-none" aria-label="Augmenter le nombre de voyageurs">+</button>
                   </div>
                 </div>
 
