@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import type { Lang } from '@/lib/i18n'
 import { pageUrl } from '@/lib/routes'
 
-const LOCALES: Lang[] = ['fr', 'en', 'it']
+const LOCALES: Lang[] = ['fr', 'en', 'it', 'de']
 const BASE = 'https://www.villavenusnoto.com'
 
 // Pages de contenu publiées — toutes vérifiées sans placeholder, indexables
@@ -30,14 +30,18 @@ const JOURNAL_ARTICLES: ArticleEntry[] = [
   { locale: 'it', slug: 'infiorata-noto-maggio',     modified: '2025-04-01' },
   { locale: 'it', slug: 'spiagge-sud-est-sicilia',   modified: '2025-06-01' },
   { locale: 'it', slug: 'sicilia-settembre',         modified: '2025-08-01' },
+  { locale: 'de', slug: 'infiorata-noto-mai',        modified: '2025-04-01' },
+  { locale: 'de', slug: 'straende-suedost-sizilien', modified: '2025-06-01' },
+  { locale: 'de', slug: 'sizilien-september',        modified: '2025-08-01' },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     // Pages d'accueil — priorité maximale, mise à jour fréquente (calendrier)
-    { url: `${BASE}/fr`, lastModified: '2026-09-18', changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${BASE}/en`, lastModified: '2026-09-18', changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${BASE}/it`, lastModified: '2026-09-18', changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE}/fr`, lastModified: '2026-09-20', changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE}/en`, lastModified: '2026-09-20', changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE}/it`, lastModified: '2026-09-20', changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE}/de`, lastModified: '2026-09-20', changeFrequency: 'weekly', priority: 1.0 },
 
     // Pages de contenu — slugs traduits via la table de routes
     ...CONTENT_PAGES.flatMap(({ key, priority, modified }) =>

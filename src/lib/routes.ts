@@ -16,7 +16,7 @@ export const PAGE_SLUGS: Record<string, Record<Lang, string>> = {
 }
 
 const BASE = 'https://www.villavenusnoto.com'
-const LANGS: Lang[] = ['fr', 'en', 'it']
+const LANGS: Lang[] = ['fr', 'en', 'it', 'de']
 
 /** URL canonique traduite d'une page pour une langue donnée */
 export function pageUrl(page: string, lang: Lang | string): string {

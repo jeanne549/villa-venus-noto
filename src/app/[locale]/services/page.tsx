@@ -25,9 +25,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   const locale = params.locale as Lang
   if (!META[locale]) return {}
   const { title, description } = META[locale]
-  const robots = locale === 'de'
-    ? { index: false, follow: false }
-    : hasPlaceholders(SERVICES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
+  const robots = hasPlaceholders(SERVICES[locale]) ? { index: false, follow: true } : { index: true, follow: true }
   return {
     title, description,
     robots,

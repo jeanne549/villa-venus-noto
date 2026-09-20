@@ -41,6 +41,7 @@ const nextConfig = {
       { source: '/de/preise',         destination: '/de/tarifs' },
       { source: '/de/anreise',        destination: '/de/acces' },
       { source: '/de/veranstaltungen', destination: '/de/evenements' },
+      { source: '/de/leistungen',      destination: '/de/services' },
     ]
   },
 }

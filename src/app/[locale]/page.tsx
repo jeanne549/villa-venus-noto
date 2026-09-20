@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   return {
     title,
     description,
-    robots: locale === 'de' ? { index: false, follow: false } : { index: true, follow: true },
+    robots: { index: true, follow: true },
     alternates: {
       canonical: `${BASE}/${locale}`,
       languages: {
