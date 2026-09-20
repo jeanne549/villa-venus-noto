@@ -16,6 +16,7 @@ const nextConfig = {
   // Elles couvrent les URLs déjà soumises au sitemap Google.
   async redirects() {
     return [
+      { source: '/contact',        destination: '/fr',                permanent: true },
       { source: '/en/tarifs',     destination: '/en/rates',          permanent: true },
       { source: '/en/acces',      destination: '/en/getting-here',   permanent: true },
       { source: '/en/evenements', destination: '/en/events',         permanent: true },

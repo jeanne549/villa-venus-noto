@@ -166,6 +166,7 @@ export default function Calendrier() {
           nights, guests, totalRental: totalPrice, taxAmount,
         }),
       })
+      if (res.ok) trackEvent('simulation_email_sent', { lang, nights, totalRental: totalPrice, guests })
       setSimStatus(res.ok ? 'sent' : 'error')
     } catch { setSimStatus('error') }
   }
@@ -179,6 +180,7 @@ export default function Calendrier() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: wlEmail, period: wlPeriod, lang }),
       })
+      if (res.ok) trackEvent('waitlist_signup', { lang, period: wlPeriod })
       setWlStatus(res.ok ? 'sent' : 'error')
     } catch { setWlStatus('error') }
   }
