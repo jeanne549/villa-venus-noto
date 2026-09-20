@@ -15,6 +15,11 @@ const CONTENT_PAGES: Array<{ key: string; priority: number; modified: string }> 
   { key: 'acces',      priority: 0.7, modified: '2026-09-15' },
   { key: 'services',   priority: 0.7, modified: '2026-09-15' },
   { key: 'journal',    priority: 0.6, modified: '2026-09-15' },
+  { key: 'plages',     priority: 0.7, modified: '2026-09-20' },
+  { key: 'aeroport',   priority: 0.7, modified: '2026-09-20' },
+  { key: 'itineraire', priority: 0.6, modified: '2026-09-20' },
+  { key: 'courses',    priority: 0.5, modified: '2026-09-20' },
+  { key: 'enfants',    priority: 0.5, modified: '2026-09-20' },
 ]
 
 // Articles publiés uniquement — slugs sans placeholder vérifiés

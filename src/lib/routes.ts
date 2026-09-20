@@ -13,6 +13,11 @@ export const PAGE_SLUGS: Record<string, Record<Lang, string>> = {
   faq:        { fr: 'faq',         en: 'faq',              it: 'faq',           de: 'faq' },
   noto:       { fr: 'noto',        en: 'noto',             it: 'noto',          de: 'noto' },
   journal:    { fr: 'journal',     en: 'journal',          it: 'journal',       de: 'journal' },
+  plages:     { fr: 'plages',      en: 'beaches',          it: 'spiagge',       de: 'straende' },
+  aeroport:   { fr: 'aeroport',    en: 'airport',          it: 'aeroporto',     de: 'flughafen' },
+  itineraire: { fr: 'itineraire',  en: 'itinerary',        it: 'itinerario',    de: 'reiseroute' },
+  courses:    { fr: 'courses',     en: 'shopping',         it: 'spesa',         de: 'einkaufen' },
+  enfants:    { fr: 'enfants',     en: 'children',         it: 'bambini',       de: 'kinder' },
 }
 
 const BASE = 'https://www.villavenusnoto.com'

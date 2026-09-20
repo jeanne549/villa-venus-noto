@@ -42,6 +42,22 @@ const nextConfig = {
       { source: '/de/anreise',        destination: '/de/acces' },
       { source: '/de/veranstaltungen', destination: '/de/evenements' },
       { source: '/de/leistungen',      destination: '/de/services' },
+      // Nouvelles pages — slugs traduits
+      { source: '/en/beaches',          destination: '/en/plages' },
+      { source: '/en/airport',          destination: '/en/aeroport' },
+      { source: '/en/itinerary',        destination: '/en/itineraire' },
+      { source: '/en/shopping',         destination: '/en/courses' },
+      { source: '/en/children',         destination: '/en/enfants' },
+      { source: '/it/spiagge',          destination: '/it/plages' },
+      { source: '/it/aeroporto',        destination: '/it/aeroport' },
+      { source: '/it/itinerario',       destination: '/it/itineraire' },
+      { source: '/it/spesa',            destination: '/it/courses' },
+      { source: '/it/bambini',          destination: '/it/enfants' },
+      { source: '/de/straende',         destination: '/de/plages' },
+      { source: '/de/flughafen',        destination: '/de/aeroport' },
+      { source: '/de/reiseroute',       destination: '/de/itineraire' },
+      { source: '/de/einkaufen',        destination: '/de/courses' },
+      { source: '/de/kinder',           destination: '/de/enfants' },
     ]
   },
 }
