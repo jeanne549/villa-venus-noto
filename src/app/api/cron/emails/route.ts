@@ -285,7 +285,7 @@ async function postStayReviews() {
 
   if (!requests?.length) return 0
 
-  const GOOGLE_MAPS_URL = 'https://search.google.com/local/writereview?placeid=ChIJxxxxxxxxx' // ← à remplacer par le vrai place_id GBP
+  const GOOGLE_MAPS_URL = 'https://search.google.com/local/writereview?placeid=ChIJLWhEKoKHERMRvEG9Mqeb-Ow'
 
   for (const r of requests) {
     const safeLang = (['fr', 'en', 'it', 'de'].includes(r.lang) ? r.lang : 'fr') as Lang
