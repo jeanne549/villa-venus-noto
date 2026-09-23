@@ -22,7 +22,7 @@ const BLOCKS: Record<Lang, { icon: string; title: string; body: string }[]> = {
     {
       icon: '↩',
       title: 'Annulation claire et équitable',
-      body: 'Annulation avant 60 jours : remboursement de l'acompte, frais de dossier déduits. À moins de 60 jours de l'arrivée, l'acompte n'est pas remboursable.',
+      body: 'Annulation avant 60 jours : remboursement de l\'acompte, frais de dossier déduits. À moins de 60 jours de l\'arrivée, l\'acompte n\'est pas remboursable.',
     },
     {
       icon: '🏡',
@@ -76,7 +76,7 @@ const BLOCKS: Record<Lang, { icon: string; title: string; body: string }[]> = {
     {
       icon: '↩',
       title: 'Politica di cancellazione equa e chiara',
-      body: 'Cancellazione oltre 60 giorni prima dell'arrivo: acconto rimborsato meno le spese di gestione. Entro 60 giorni dall'arrivo, l'acconto non è rimborsabile.',
+      body: 'Cancellazione oltre 60 giorni prima dell\'arrivo: acconto rimborsato meno le spese di gestione. Entro 60 giorni dall\'arrivo, l\'acconto non è rimborsabile.',
     },
     {
       icon: '🏡',
