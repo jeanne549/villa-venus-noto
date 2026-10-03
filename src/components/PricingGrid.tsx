@@ -331,7 +331,7 @@ export default async function PricingGrid({ locale }: { locale: Lang }) {
         {/* CTA */}
         <div className="text-center">
           <a
-            href="#calendrier"
+            href="#disponibilites"
             data-track="pricing_cta_click"
             className="inline-block bg-gold text-navy font-sans text-xs tracking-[0.2em] uppercase px-10 py-4 hover:bg-gold-light transition-colors"
           >

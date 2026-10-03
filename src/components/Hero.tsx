@@ -34,7 +34,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
+    <section className="relative h-screen min-h-[700px] flex items-center overflow-hidden pb-24 md:pb-20">
       <div ref={parallaxRef} className="absolute inset-0 scale-110">
         <Image src="/photos/hero.jpg" alt={lang === 'en' ? 'Villa Vénus Noto — private pool and gardens in Sicily' : lang === 'it' ? 'Villa Vénus Noto — piscina privata e giardini in Sicilia' : lang === 'de' ? 'Villa Vénus Noto — privater Pool und Gärten in Sizilien' : 'Villa Vénus Noto — piscine et jardins en Sicile'} fill sizes="100vw" className="object-cover object-center" priority />
       </div>
@@ -63,7 +63,7 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#calendrier"
+              href="#disponibilites"
               onClick={() => trackEvent('hero_cta_click', { source: 'primary', lang })}
               className="btn-gold"
             >

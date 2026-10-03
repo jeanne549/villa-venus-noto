@@ -62,7 +62,7 @@ export default function ContactRibbon() {
             {l.whatsapp}
           </a>
           <a
-            href="#calendrier"
+            href="#disponibilites"
             onClick={() => trackEvent('ribbon_cta_click', { lang })}
             className="bg-navy text-white font-sans text-xs tracking-widest uppercase px-4 py-3 hover:bg-charcoal transition-colors"
           >
