@@ -55,8 +55,10 @@ export default function Hero() {
           <div className="w-16 h-px bg-gold my-8" />
           <p className="font-sans text-white/80 text-lg md:text-xl leading-relaxed max-w-xl mb-4">{t.hero.description}</p>
 
-          {/* Prix dès le premier écran */}
-          <p className="font-serif text-gold-light text-base md:text-lg mb-2">{PRICE_FROM[lang]}</p>
+          {/* Prix et durée minimum dès le premier écran */}
+          <p className="font-serif text-gold-light text-base md:text-lg mb-2">
+            {PRICE_FROM[lang]} · {t.calendrier.min_nights}
+          </p>
           <p className="font-sans text-white/50 text-xs tracking-[0.25em] uppercase mb-8">{DIRECT_BADGE[lang]}</p>
 
           <div className="flex flex-col sm:flex-row gap-4">
